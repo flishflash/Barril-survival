@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="96" height="70" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="Prueva..tmx" format="tmx"/>
+ </editorsettings>
  <tileset firstgid="1" source="../../../../../../Downloads/citm_desvj_project_template-L06_Map_Colisions/Output/Assets/Maps/tmw_desert_spacing.tsx"/>
  <layer id="1" name="Tile Layer 1" width="96" height="70">
   <data encoding="csv">
