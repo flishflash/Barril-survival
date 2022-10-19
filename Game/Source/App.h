@@ -18,6 +18,7 @@ class Audio;
 class Scene;
 class EntityManager;
 class Map;
+class ModuleFadeToBlack;
 
 class App
 {
@@ -87,6 +88,7 @@ public:
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
+	ModuleFadeToBlack* fadetoblack;
 
 private:
 

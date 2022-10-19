@@ -8,7 +8,7 @@ class ModuleFadeToBlack : public Module
 {
 public:
 	//Constructor
-	ModuleFadeToBlack(bool startEnabled);
+	ModuleFadeToBlack();
 
 	//Destructor
 	~ModuleFadeToBlack();
@@ -16,11 +16,6 @@ public:
 	// Called when the module is activated
 	// Enables the blending mode for transparency
 	bool Start() override;
-
-	// Called at the middle of the application loop
-	// 
-	// Updates the fade logic
-	bool PreUpdate();
 
 	// Called each loop iteration
 	bool Update(float dt);
