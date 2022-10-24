@@ -25,6 +25,11 @@ public:
 public:
 
 	bool isPicked = false;
+	PhysBody* pbody;
+
+	int width = 64;
+	int height = 64;
+
 
 private:
 
