@@ -32,7 +32,7 @@ bool Item::Start() {
 	
 	// L07 TODO 4: Add a physics to an item - initialize the physics body
 
-	pbody = app->physics->CreateCircle(position.x + width / 4, position.y + height / 4, width / 8, bodyType::STATIC);
+	pbody = app->physics->CreateCircle(position.x + width / 4, position.y + height / 4, width / 8, bodyType::DYNAMIC);
 
 	return true;
 }

@@ -25,6 +25,8 @@ bool Player::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
+	jump = false;
+	jump_count = 0;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
@@ -46,27 +48,50 @@ bool Player::Start() {
 bool Player::Update()
 {
 	// L07 TODO 5: Add physics to the player - updated player position using physics
-	b2Vec2 velocity = b2Vec2(0, GRAVITY_Y);
-
-	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		position.y -= 1;
-
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		position.y += 1;
-
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (jump == false)
 	{
-		velocity = (b2Vec2(-5, GRAVITY_Y));
-	}
+		b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		//L02: DONE 4: modify the position of the player using arrow keys and render the texture
+		
+
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			jump = true; jump_count = position.y;
+		
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			velocity = (b2Vec2(-5, -GRAVITY_Y));
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			velocity = (b2Vec2(5, -GRAVITY_Y));
+		}
+
+		pbody->body->SetLinearVelocity(velocity);
+	}
+	else
 	{
-		velocity = (b2Vec2(5, GRAVITY_Y));
+		printf("%d", position.y);
+		printf("\n%d", jump_count);
+		if (position.y >= jump_count-100)
+		{
+			jump = false;
+		}
+		b2Vec2 velocity = b2Vec2(0, GRAVITY_Y/2);
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			velocity = (b2Vec2(-5, GRAVITY_Y / 2));
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			velocity = (b2Vec2(5, GRAVITY_Y / 2));
+		}
+
+		pbody->body->SetLinearVelocity(velocity);
 	}
-
-	pbody->body->SetLinearVelocity(velocity);
-
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/4;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/4;
 

@@ -3,12 +3,19 @@
  <editorsettings>
   <export target="Prueva..tmx" format="tmx"/>
  </editorsettings>
- <tileset firstgid="1" source="Ground.tsx"/>
- <tileset firstgid="181" source="metal panels.tsx"/>
+ <tileset firstgid="1" name="Ground" tilewidth="32" tileheight="32" tilecount="180" columns="18">
+  <image source="Tileset.png" width="576" height="320"/>
+ </tileset>
+ <tileset firstgid="181" name="metal panels" tilewidth="32" tileheight="32" tilecount="20" columns="10">
+  <image source="metal panels.png" width="320" height="64"/>
+ </tileset>
  <imagelayer id="5" name="Image Layer 1" offsetx="0" offsety="-384">
-  <image source="../../../../../../Pictures/landscape_destroy_pixel_art_by_yoshift_db7csz7-fullview.jpg" width="3080" height="1684"/>
+  <image source="landscape_destroy_pixel_art_by_yoshift_db7csz7-fullview.jpg" width="3080" height="1684"/>
  </imagelayer>
  <layer id="3" name="Tile Layer 1" width="96" height="70">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -6733,6 +6740,9 @@
   </data>
  </layer>
  <layer id="4" name="Tile Layer 2" width="96" height="70">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
