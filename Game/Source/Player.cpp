@@ -74,20 +74,20 @@ bool Player::Update()
 	{
 		printf("%d", position.y);
 		printf("\n%d", jump_count);
-		if (position.y >= jump_count-100)
+		if (position.y <= jump_count-100)
 		{
 			jump = false;
 		}
-		b2Vec2 velocity = b2Vec2(0, GRAVITY_Y/2);
+		b2Vec2 velocity = b2Vec2(0, GRAVITY_Y);
 
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			velocity = (b2Vec2(-5, GRAVITY_Y / 2));
+			velocity = (b2Vec2(-5, GRAVITY_Y));
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			velocity = (b2Vec2(5, GRAVITY_Y / 2));
+			velocity = (b2Vec2(5, GRAVITY_Y));
 		}
 
 		pbody->body->SetLinearVelocity(velocity);
