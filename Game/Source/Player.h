@@ -39,6 +39,9 @@ private:
 
 	// L07 TODO 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
+
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
 };
 
 #endif // __PLAYER_H__

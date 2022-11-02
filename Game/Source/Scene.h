@@ -41,7 +41,6 @@ public:
 
 private:
 	SDL_Texture* img;
-
 };
 
 #endif // __SCENE_H__

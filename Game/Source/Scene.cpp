@@ -37,6 +37,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
+	img = app->tex->Load("Assets/Maps/back.png");
 
 	return ret;
 }
@@ -44,8 +45,8 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->render->DrawTexture(img, 0, 0);
+	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
 	// L03: DONE: Load map
 	app->map->Load();

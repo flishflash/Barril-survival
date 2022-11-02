@@ -28,7 +28,6 @@ bool Map::Awake(pugi::xml_node& config)
 
     mapFileName = config.child("mapfile").attribute("path").as_string();
     mapFolder = config.child("mapfolder").attribute("path").as_string();
-    back = app->tex->Load("Assets/Maps/back.png");
     return ret;
 }
 
@@ -54,8 +53,6 @@ void Map::Draw()
 
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
-
-    app->render->DrawTexture(back, 0, 0);
 
     while (mapLayerItem != NULL) {
 
