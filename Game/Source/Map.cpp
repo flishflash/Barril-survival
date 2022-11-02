@@ -57,6 +57,36 @@ void Map::Draw()
     while (mapLayerItem != NULL) {
 
         //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+        if (mapLayerItem->data->properties.GetProperty("Draw") == NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    // L05: DONE 9: Complete the draw function
+                    int gid = mapLayerItem->data->Get(x, y);
+
+                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                    TileSet* tileset = GetTilesetFromTileId(gid);
+
+                    SDL_Rect r = tileset->GetTileRect(gid);
+                    iPoint pos = MapToWorld(x, y);
+
+                    PhysBody* c [x] = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, STATIC);
+
+                }
+            }
+        }
+
+        mapLayerItem = mapLayerItem->next;
+
+    }
+
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL) {
+
+        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -79,28 +109,7 @@ void Map::Draw()
                 }
             }
         }
-        //else
-        //{
-        //    for (int x = 0; x < mapLayerItem->data->width; x++)
-        //    {
-        //        for (int y = 0; y < mapLayerItem->data->height; y++)
-        //        {
-        //            // L05: DONE 9: Complete the draw function
-        //            int gid = mapLayerItem->data->Get(x, y);
-
-        //            //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
-        //            TileSet* tileset = GetTilesetFromTileId(gid);
-
-        //            SDL_Rect r = tileset->GetTileRect(gid);
-        //            iPoint pos = MapToWorld(x, y);
-
-        //            app->render->DrawTexture(tileset->texture,
-        //                pos.x,
-        //                pos.y,
-        //                &r);
-        //        }
-        //    }
-        //}
+       
         mapLayerItem = mapLayerItem->next;
 
     }
