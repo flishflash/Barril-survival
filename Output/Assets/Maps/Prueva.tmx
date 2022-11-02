@@ -11,7 +11,10 @@
  </tileset>
  <tileset firstgid="201" source="MapMetadata.tsx"/>
  <imagelayer id="5" name="Image Layer 1" offsetx="0" offsety="-384">
-  <image source="landscape_destroy_pixel_art_by_yoshift_db7csz7-fullview.jpg" width="3080" height="1684"/>
+  <image source="back.png" width="3080" height="1684"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <layer id="3" name="Tile Layer 1" width="96" height="70">
   <properties>
