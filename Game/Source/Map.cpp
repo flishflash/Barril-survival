@@ -223,12 +223,43 @@ bool Map::Load()
     
     // L07 TODO 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
-    app->physics->CreateRectangle(0, 800, 1280, 200, bodyType::STATIC);
+    //Suelo
     app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
     app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
     app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
     app->physics->CreateRectangle(1632, 1744, 256, 992, bodyType::STATIC);
     app->physics->CreateRectangle(912, 2176, 1184, 128, bodyType::STATIC);
+    app->physics->CreateRectangle(912, 1312, 608, 128, bodyType::STATIC);
+    app->physics->CreateRectangle(688, 1440, 160, 128, bodyType::STATIC);
+    app->physics->CreateRectangle(1072, 1472, 160, 192, bodyType::STATIC);
+    app->physics->CreateRectangle(688, 1792, 160, 320, bodyType::STATIC);
+    app->physics->CreateRectangle(816, 1824, 96, 256, bodyType::STATIC);
+    app->physics->CreateRectangle(1006, 1872, 288, 160, bodyType::STATIC);
+    app->physics->CreateRectangle(1230, 1744, 544, 96, bodyType::STATIC);
+
+
+    //Plataformas
+    app->physics->CreateRectangle(2160, 1168, 32, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(2368, 1200, 64, 96, bodyType::STATIC);
+    app->physics->CreateRectangle(2672, 1072, 32, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(2672, 1168, 160, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(3008, 1072, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(3056, 1088, 32, 320, bodyType::STATIC);
+    app->physics->CreateRectangle(880, 1232, 32, 32, bodyType::STATIC);
+
+    //Plataformas Bunker
+    app->physics->CreateRectangle(448, 1360, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(576, 1296, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(576, 1456, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(448, 1552, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(1232, 1616, 32, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(1296, 1616, 32, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(464, 1648, 96, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(576, 1744, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(448, 1840, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(576, 1936, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(544, 1968, 64, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(432, 2032, 32, 32, bodyType::STATIC);
 
     if(ret == true)
     {

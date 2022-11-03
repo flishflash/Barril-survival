@@ -9,7 +9,7 @@
 	<entitymanager />
 	<map />
 	<renderer>
-		<camera x="96" y="0" />
+		<camera x="-702" y="-1500" />
 		<player />
 	</renderer>
 </save_state>
