@@ -236,6 +236,10 @@ bool Map::Load()
     app->physics->CreateRectangle(816, 1824, 96, 256, bodyType::STATIC);
     app->physics->CreateRectangle(1006, 1872, 288, 160, bodyType::STATIC);
     app->physics->CreateRectangle(1230, 1744, 544, 96, bodyType::STATIC);
+    app->physics->CreateRectangle(1264, 1616, 32, 160, bodyType::STATIC);
+    app->physics->CreateRectangle(1456, 1536, 96, 320, bodyType::STATIC);
+    app->physics->CreateRectangle(1360, 1344, 288, 64, bodyType::STATIC);
+
 
 
     //Plataformas
@@ -246,6 +250,14 @@ bool Map::Load()
     app->physics->CreateRectangle(3008, 1072, 64, 32, bodyType::STATIC);
     app->physics->CreateRectangle(3056, 1088, 32, 320, bodyType::STATIC);
     app->physics->CreateRectangle(880, 1232, 32, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(976, 1200, 32, 96, bodyType::STATIC);
+    app->physics->CreateRectangle(1360, 1216, 32, 64, bodyType::STATIC);
+    app->physics->CreateRectangle(1360, 1216, 96, 26, bodyType::STATIC);
+    app->physics->CreateRectangle(240, 1200, 32, 96, bodyType::STATIC);
+    app->physics->CreateRectangle(192, 1248, 96, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(208, 1232, 80, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(208, 1216, 48, 32, bodyType::STATIC);
+    app->physics->CreateRectangle(224, 1200, 48, 32, bodyType::STATIC);
 
     //Plataformas Bunker
     app->physics->CreateRectangle(448, 1360, 64, 32, bodyType::STATIC);
