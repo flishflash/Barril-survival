@@ -36,7 +36,7 @@ void Map::Draw()
     if(mapLoaded == false)
         return;
 
-    /*
+   
     // L04: DONE 6: Iterate all tilesets and draw all their 
     // images in 0,0 (you should have only one tileset for now)
 
@@ -47,7 +47,7 @@ void Map::Draw()
         app->render->DrawTexture(tileset->data->texture,0,0);
         tileset = tileset->next;
     }
-    */
+    
 
     // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
 
@@ -72,7 +72,7 @@ void Map::Draw()
                     SDL_Rect r = tileset->GetTileRect(gid);
                     iPoint pos = MapToWorld(x, y);
 
-                    PhysBody* c [x] = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, STATIC);
+                   // PhysBody* c [x] = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, STATIC);
 
                 }
             }
@@ -224,6 +224,11 @@ bool Map::Load()
     // L07 TODO 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
     app->physics->CreateRectangle(0, 800, 1280, 200, bodyType::STATIC);
+    app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
+    app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
+    app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
+    app->physics->CreateRectangle(1632, 1744, 256, 992, bodyType::STATIC);
+    app->physics->CreateRectangle(912, 2176, 1184, 128, bodyType::STATIC);
 
     if(ret == true)
     {

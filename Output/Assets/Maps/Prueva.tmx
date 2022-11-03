@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="96" height="70" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="1">
  <editorsettings>
-  <export target="Prueva..tmx" format="tmx"/>
+  <export target="Prueva.tmx" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="Ground" tilewidth="32" tileheight="32" tilecount="180" columns="18">
   <image source="Tileset.png" width="576" height="320"/>
