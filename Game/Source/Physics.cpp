@@ -22,7 +22,7 @@ Physics::Physics() : Module()
 {
 	// Initialise all the internal class variables, at least to NULL pointer
 	world = NULL;
-	debug = true;
+	debug = false;
 }
 
 // Destructor
@@ -52,6 +52,9 @@ bool Physics::PreUpdate()
 	// Step (update) the World
 	// WARNING: WE ARE STEPPING BY CONSTANT 1/60 SECONDS!
 	world->Step(1.0f / 60.0f, 6, 2);
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		app->physics->debug = !app->physics->debug;
 
 	// Because Box2D does not automatically broadcast collisions/contacts with sensors, 
 	// we have to manually search for collisions and "call" the equivalent to the ModulePhysics::BeginContact() ourselves...
