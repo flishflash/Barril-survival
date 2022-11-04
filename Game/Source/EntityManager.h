@@ -33,6 +33,10 @@ public:
 
 	void AddEntity(Entity* entity);
 
+	bool EntityManager::LoadState(pugi::xml_node& data);
+
+	bool EntityManager::SaveState(pugi::xml_node& data);
+
 public:
 
 	List<Entity*> entities;

@@ -29,6 +29,8 @@ public:
 
 public:
 
+	PhysBody* pbody;
+
 private:
 
 	//L02: DONE 1: Declare player parameters
@@ -39,7 +41,6 @@ private:
 	bool up = false;
 	int jump_count = 0;
 	// L07 DONE 5: Add physics to the player - declare a Physics body
-	PhysBody* pbody;
 
 	int pickCoinFxId;
 
