@@ -9,8 +9,6 @@
 
 // L04: DONE 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
-
-
 struct TileSet
 {
 	SString	name;

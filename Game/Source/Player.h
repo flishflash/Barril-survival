@@ -23,6 +23,10 @@ public:
 
 	bool CleanUp();
 
+	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
+
 public:
 
 private:
@@ -31,17 +35,13 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	int width = 64;
-	int height = 64;
-
 	bool jump = false;
 	int jump_count = 0;
-
-	// L07 TODO 5: Add physics to the player - declare a Physics body
+	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&);
+	int pickCoinFxId;
+
 };
 
 #endif // __PLAYER_H__

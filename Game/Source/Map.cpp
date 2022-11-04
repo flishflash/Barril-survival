@@ -28,6 +28,7 @@ bool Map::Awake(pugi::xml_node& config)
 
     mapFileName = config.child("mapfile").attribute("path").as_string();
     mapFolder = config.child("mapfolder").attribute("path").as_string();
+
     return ret;
 }
 
@@ -36,7 +37,7 @@ void Map::Draw()
     if(mapLoaded == false)
         return;
 
-   
+    /*
     // L04: DONE 6: Iterate all tilesets and draw all their 
     // images in 0,0 (you should have only one tileset for now)
 
@@ -47,7 +48,7 @@ void Map::Draw()
         app->render->DrawTexture(tileset->data->texture,0,0);
         tileset = tileset->next;
     }
-    
+    */
 
     // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
 
@@ -56,7 +57,6 @@ void Map::Draw()
 
     while (mapLayerItem != NULL) {
 
-        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
         if (mapLayerItem->data->properties.GetProperty("Draw") == NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -84,7 +84,7 @@ void Map::Draw()
 
     while (mapLayerItem != NULL) {
 
-        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -107,7 +107,6 @@ void Map::Draw()
                 }
             }
         }
-       
         mapLayerItem = mapLayerItem->next;
 
     }
@@ -219,57 +218,71 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
     
-    // L07 TODO 3: Create colliders
+    // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
+   
     //Suelo
-    app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
-    app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
-    app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
-    app->physics->CreateRectangle(1632, 1744, 256, 992, bodyType::STATIC);
-    app->physics->CreateRectangle(912, 2176, 1184, 128, bodyType::STATIC);
-    app->physics->CreateRectangle(912, 1312, 608, 128, bodyType::STATIC);
-    app->physics->CreateRectangle(688, 1440, 160, 128, bodyType::STATIC);
-    app->physics->CreateRectangle(1072, 1472, 160, 192, bodyType::STATIC);
-    app->physics->CreateRectangle(688, 1792, 160, 320, bodyType::STATIC);
-    app->physics->CreateRectangle(816, 1824, 96, 256, bodyType::STATIC);
-    app->physics->CreateRectangle(1006, 1872, 288, 160, bodyType::STATIC);
-    app->physics->CreateRectangle(1230, 1744, 544, 96, bodyType::STATIC);
-    app->physics->CreateRectangle(1264, 1616, 32, 160, bodyType::STATIC);
-    app->physics->CreateRectangle(1456, 1536, 96, 320, bodyType::STATIC);
-    app->physics->CreateRectangle(1360, 1344, 288, 64, bodyType::STATIC);
+    PhysBody* s[15];
+    s[0] = app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
+    s[1] = app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
+    s[2] = app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
+    s[3] = app->physics->CreateRectangle(1632, 1744, 256, 992, bodyType::STATIC);
+    s[4] = app->physics->CreateRectangle(912, 2176, 1184, 128, bodyType::STATIC);
+    s[5] = app->physics->CreateRectangle(912, 1312, 608, 128, bodyType::STATIC);
+    s[6] = app->physics->CreateRectangle(688, 1440, 160, 128, bodyType::STATIC);
+    s[7] = app->physics->CreateRectangle(1072, 1472, 160, 192, bodyType::STATIC);
+    s[8] = app->physics->CreateRectangle(688, 1792, 160, 320, bodyType::STATIC);
+    s[9] = app->physics->CreateRectangle(816, 1824, 96, 256, bodyType::STATIC);
+    s[10] = app->physics->CreateRectangle(1006, 1872, 288, 160, bodyType::STATIC);
+    s[11] = app->physics->CreateRectangle(1230, 1744, 544, 96, bodyType::STATIC);
+    s[12] = app->physics->CreateRectangle(1264, 1616, 32, 160, bodyType::STATIC);
+    s[13] = app->physics->CreateRectangle(1456, 1536, 96, 320, bodyType::STATIC);
+    s[14] = app->physics->CreateRectangle(1360, 1344, 288, 64, bodyType::STATIC);
 
-
+    for (int i = 0; i < 15; i++) {
+        s[i]->ctype = ColliderType::PLATFORM;
+    }
 
     //Plataformas
-    app->physics->CreateRectangle(2160, 1168, 32, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(2368, 1200, 64, 96, bodyType::STATIC);
-    app->physics->CreateRectangle(2672, 1072, 32, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(2672, 1168, 160, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(3008, 1072, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(3056, 1088, 32, 320, bodyType::STATIC);
-    app->physics->CreateRectangle(880, 1232, 32, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(976, 1200, 32, 96, bodyType::STATIC);
-    app->physics->CreateRectangle(1360, 1216, 32, 64, bodyType::STATIC);
-    app->physics->CreateRectangle(1360, 1216, 96, 26, bodyType::STATIC);
-    app->physics->CreateRectangle(240, 1200, 32, 96, bodyType::STATIC);
-    app->physics->CreateRectangle(192, 1248, 96, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(208, 1232, 80, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(208, 1216, 48, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(224, 1200, 48, 32, bodyType::STATIC);
+    PhysBody* p[15];
+    p[0] = app->physics->CreateRectangle(2160, 1168, 32, 32, bodyType::STATIC);
+    p[1] = app->physics->CreateRectangle(2368, 1200, 64, 96, bodyType::STATIC);
+    p[2] = app->physics->CreateRectangle(2672, 1072, 32, 32, bodyType::STATIC);
+    p[3] = app->physics->CreateRectangle(2672, 1168, 160, 32, bodyType::STATIC);
+    p[4] = app->physics->CreateRectangle(3008, 1072, 64, 32, bodyType::STATIC);
+    p[5] = app->physics->CreateRectangle(3056, 1088, 32, 320, bodyType::STATIC);
+    p[6] = app->physics->CreateRectangle(880, 1232, 32, 32, bodyType::STATIC);
+    p[7] = app->physics->CreateRectangle(976, 1200, 32, 96, bodyType::STATIC);
+    p[8] = app->physics->CreateRectangle(1360, 1216, 32, 64, bodyType::STATIC);
+    p[9] = app->physics->CreateRectangle(1360, 1216, 96, 26, bodyType::STATIC);
+    p[10] = app->physics->CreateRectangle(240, 1200, 32, 96, bodyType::STATIC);
+    p[11] = app->physics->CreateRectangle(192, 1248, 96, 32, bodyType::STATIC);
+    p[12] = app->physics->CreateRectangle(208, 1232, 80, 32, bodyType::STATIC);
+    p[13] = app->physics->CreateRectangle(208, 1216, 48, 32, bodyType::STATIC);
+    p[14] = app->physics->CreateRectangle(224, 1200, 48, 32, bodyType::STATIC);
+
+    for (int i = 0; i < 15; i++) {
+        p[i]->ctype = ColliderType::PLATFORM;
+    }
 
     //Plataformas Bunker
-    app->physics->CreateRectangle(448, 1360, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(576, 1296, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(576, 1456, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(448, 1552, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(1232, 1616, 32, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(1296, 1616, 32, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(464, 1648, 96, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(576, 1744, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(448, 1840, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(576, 1936, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(544, 1968, 64, 32, bodyType::STATIC);
-    app->physics->CreateRectangle(432, 2032, 32, 32, bodyType::STATIC);
+    PhysBody* pb[12];
+    pb[0] = app->physics->CreateRectangle(448, 1360, 64, 32, bodyType::STATIC);
+    pb[1] = app->physics->CreateRectangle(576, 1296, 64, 32, bodyType::STATIC);
+    pb[2] = app->physics->CreateRectangle(576, 1456, 64, 32, bodyType::STATIC);
+    pb[3] = app->physics->CreateRectangle(448, 1552, 64, 32, bodyType::STATIC);
+    pb[4] = app->physics->CreateRectangle(1232, 1616, 32, 32, bodyType::STATIC);
+    pb[5] = app->physics->CreateRectangle(1296, 1616, 32, 32, bodyType::STATIC);
+    pb[6] = app->physics->CreateRectangle(464, 1648, 96, 32, bodyType::STATIC);
+    pb[7] = app->physics->CreateRectangle(576, 1744, 64, 32, bodyType::STATIC);
+    pb[8] = app->physics->CreateRectangle(448, 1840, 64, 32, bodyType::STATIC);
+    pb[9] = app->physics->CreateRectangle(576, 1936, 64, 32, bodyType::STATIC);
+    pb[10] = app->physics->CreateRectangle(544, 1968, 64, 32, bodyType::STATIC);
+    pb[11] = app->physics->CreateRectangle(432, 2032, 32, 32, bodyType::STATIC);
+
+    for (int i = 0; i < 12; i++) {
+        pb[i]->ctype = ColliderType::PLATFORM;
+    }
 
     if(ret == true)
     {
