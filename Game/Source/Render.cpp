@@ -46,7 +46,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.w = app->win->screenSurface->w;
 		camera.h = app->win->screenSurface->h;
 		camera.x = -800;
-		camera.y = -1500;
+		camera.y = -1455;
 	}
 
 	return ret;

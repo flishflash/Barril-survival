@@ -59,6 +59,8 @@ bool Player::Update()
 	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
 	else  velocity = b2Vec2(0, -GRAVITY_Y);
 
+	LOG("%d, %d", position.y, app->render->camera.y);
+
 		if (position.x + app->render->camera.x > 800)
 		{
 			app->render->camera.x -= 5;
@@ -67,7 +69,7 @@ bool Player::Update()
 		{
 			app->render->camera.x += 5;
 		}
-		if (position.y + app->render->camera.y > 580)
+		if (position.y + app->render->camera.y > 625)
 		{
 			app->render->camera.y -= 5;
 		}
@@ -117,8 +119,6 @@ bool Player::CleanUp()
 // L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	// L07 DONE 7: Detect the type of collision
-
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
@@ -135,6 +135,4 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 	}
 	
-
-
 }
