@@ -72,8 +72,6 @@ void Map::Draw()
                     SDL_Rect r = tileset->GetTileRect(gid);
                     iPoint pos = MapToWorld(x, y);
 
-                   // PhysBody* c [x] = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, STATIC);
-
                 }
             }
         }

@@ -160,7 +160,6 @@ private:
     SString mapFileName;
 	SString mapFolder;
     bool mapLoaded;
-	PhysBody* c[1000];
 };
 
 #endif // __MAP_H__
