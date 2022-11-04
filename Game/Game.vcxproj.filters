@@ -62,7 +62,6 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
-    <ClInclude Include="..\..\..\..\Downloads\Physics II - Box2D - Handout 04\p2Point.h" />
     <ClInclude Include="Source\Physics.h" />
   </ItemGroup>
   <ItemGroup>

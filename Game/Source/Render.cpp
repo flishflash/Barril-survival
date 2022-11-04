@@ -10,7 +10,7 @@
 Render::Render() : Module()
 {
 	name.Create("renderer");
-	background.r = 100;
+	background.r = 0;
 	background.g = 0;
 	background.b = 0;
 	background.a = 0;
@@ -212,8 +212,8 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x + radius * cos(i * factor));
-		points[i].y = (int)(y + radius * sin(i * factor));
+		points[i].x = (int)(camera.x + x + radius * cos(i * factor));
+		points[i].y = (int)(camera.y + y + radius * sin(i * factor));
 	}
 
 	result = SDL_RenderDrawPoints(renderer, points, 360);
@@ -242,7 +242,6 @@ bool Render::LoadState(pugi::xml_node& data)
 bool Render::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node cam = data.append_child("camera");
-	pugi::xml_node pla = data.append_child("player");
 
 	cam.append_attribute("x") = camera.x;
 	cam.append_attribute("y") = camera.y;

@@ -108,7 +108,6 @@
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="..\..\..\..\Downloads\Physics II - Box2D - Handout 04\p2Point.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Item.h" />

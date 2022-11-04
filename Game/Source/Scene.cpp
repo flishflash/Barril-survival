@@ -44,9 +44,9 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	img = app->tex->Load("Assets/Maps/back.png");
-
+	//img = app->tex->Load("Assets/Textures/test.png");
+	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -80,17 +80,18 @@ bool Scene::Update(float dt)
 		app->LoadGameRequest();
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 2;
+		app->render->camera.y += 1;
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 2;
+		app->render->camera.y -= 1;
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 2;
+		app->render->camera.x += 1;
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 2;
+		app->render->camera.x -= 1;
 
+	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
 	// Draw map
 	app->map->Draw();
