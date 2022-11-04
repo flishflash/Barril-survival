@@ -59,23 +59,24 @@ bool Player::Update()
 	if (jump == false) velocity = b2Vec2(0, -GRAVITY_Y);
 	else  velocity = b2Vec2(0, GRAVITY_Y);
 
-	LOG("%d, %d", position.y, app->render->camera.y);
-		/*if (position.x - app->render->camera.x < 0)
+	LOG("%d, %d", position.x, app->render->camera.x);
+
+		if (position.x + app->render->camera.x > 800)
 		{
-			app->render->camera.x -= 2;
+			app->render->camera.x -= 5;
 		}
-		if (position.x - app->render->camera.x > 1000)
+		if (position.x + app->render->camera.x < 200)
 		{
-			app->render->camera.x += 2;
+			app->render->camera.x += 5;
 		}
-		if (position.y - app->render->camera.y < 0)
+		if (position.y + app->render->camera.y > 580)
 		{
-			app->render->camera.y -= 2;
-		}*/
-		/*if (position.y - app->render->camera.y > 1000)
+			app->render->camera.y -= 5;
+		}
+		if (position.y + app->render->camera.y < 400)
 		{
-			app->render->camera.y += 2;
-		}*/
+			app->render->camera.y += 5;
+		}
 	
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump==false)
 		{
