@@ -56,8 +56,8 @@ bool Player::Update()
 {
 
 	b2Vec2 velocity;
-	if (jump == false) velocity = b2Vec2(0, -GRAVITY_Y);
-	else  velocity = b2Vec2(0, GRAVITY_Y);
+	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
+	else  velocity = b2Vec2(0, -GRAVITY_Y);
 
 		if (position.x + app->render->camera.x > 800)
 		{
@@ -75,16 +75,11 @@ bool Player::Update()
 		{
 			app->render->camera.y += 5;
 		}
-	
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump==false)
-	{
-			jump = true; 
-			jump_count = position.y;
-	}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 	{
 		jump = true;
+		up = true;
 		jump_count = position.y;
 	}
 
@@ -98,9 +93,9 @@ bool Player::Update()
 		velocity.x = 5;
 	}
 
-	if (position.y <= jump_count - 100 && jump == true)
+	if (position.y <= (jump_count - 150) && jump==true)
 	{
-		jump = false;
+		up = false;
 	}
 
 	pbody->body->SetLinearVelocity(velocity);
@@ -132,6 +127,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
+			if (up == true) up == false; jump_count += position.y + 2000;
+			if (up==false) jump=false;
 			break;
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");

@@ -36,6 +36,7 @@ private:
 	const char* texturePath;
 
 	bool jump = false;
+	bool up = false;
 	int jump_count = 0;
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
