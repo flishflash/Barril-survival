@@ -283,6 +283,16 @@ bool Map::Load()
     for (int i = 0; i < 12; i++) {
         pb[i]->ctype = ColliderType::PLATFORM;
     }
+    //Water
+    PhysBody* w[3];
+    w[0] = app->physics->CreateRectangle(912, 1768, 96, 48, bodyType::STATIC);
+    w[1] = app->physics->CreateRectangle(1360, 1288, 288, 48, bodyType::STATIC);
+    w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
+    
+
+    for (int i = 0; i < 3; i++) {
+        w[i]->ctype = ColliderType::WATER;
+    }
 
     if(ret == true)
     {
