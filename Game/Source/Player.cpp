@@ -63,19 +63,19 @@ bool Player::Update()
 
 		if (position.x + app->render->camera.x > 800)
 		{
-			app->render->camera.x -= 5;
+			app->render->camera.x -= 4;
 		}
 		if (position.x + app->render->camera.x < 200)
 		{
-			app->render->camera.x += 5;
+			app->render->camera.x += 4;
 		}
 		if (position.y + app->render->camera.y > 625)
 		{
-			app->render->camera.y -= 5;
+			app->render->camera.y -= 4;
 		}
 		if (position.y + app->render->camera.y < 400)
 		{
-			app->render->camera.y += 5;
+			app->render->camera.y += 4;
 		}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
@@ -88,11 +88,13 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		velocity.x = -5;
+		flip = true;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		velocity.x = 5;
+		flip = false;
 	}
 
 	if (position.y <= (jump_count - 150) && jump==true)

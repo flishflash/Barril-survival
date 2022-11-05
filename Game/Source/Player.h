@@ -29,6 +29,8 @@ public:
 
 public:
 
+	bool flip = true;
+
 	PhysBody* pbody;
 
 private:
