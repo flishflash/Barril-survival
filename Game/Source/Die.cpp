@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
+#include "FadeToBlack.h"
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
@@ -66,6 +67,7 @@ bool Die::Update(float dt)
 
 	// Placeholder not needed any more
 	app->render->DrawTexture(img, 0, 0);
+	if (app->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN) app->fade->FadeToblack(this, (Module*)app->scene, 50);
 
 	return true;
 }

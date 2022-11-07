@@ -49,7 +49,6 @@ bool Scene::Start()
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
-
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -95,7 +94,13 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_UP) app->fade->FadeToblack(this, (Module*)app->die, 50); printf("IN");
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		app->fade->FadeToblack(this, (Module*)app->die, 50); 
+		app->render->camera.x=0;
+		app->render->camera.y=0;
+		delete player;
+	}
 
 	app->render->DrawTexture(img, 0, 0);
 	// Draw map
