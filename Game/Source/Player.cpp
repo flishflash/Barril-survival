@@ -59,8 +59,6 @@ bool Player::Update()
 	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
 	else  velocity = b2Vec2(0, -GRAVITY_Y);
 
-	LOG("%d, %d", position.y, app->render->camera.y);
-
 		if (position.x + app->render->camera.x > 800)
 		{
 			app->render->camera.x -= 4;
