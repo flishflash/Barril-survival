@@ -29,7 +29,7 @@ public:
 
 public:
 
-	bool flip = true;
+	SDL_RendererFlip flip;
 
 	PhysBody* pbody;
 

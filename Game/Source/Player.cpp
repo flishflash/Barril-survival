@@ -88,13 +88,13 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		velocity.x = -5;
-		flip = true;
+		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		velocity.x = 5;
-		flip = false;
+		flip = SDL_RendererFlip::SDL_FLIP_NONE;
 	}
 
 	if (position.y <= (jump_count - 150) && jump==true)
@@ -108,7 +108,7 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 48;
 
-	app->render->DrawTexture(texture, position.x , position.y);
+	app->render->DrawTexture(texture, position.x , position.y, NULL, 1.0f, NULL, NULL, NULL, flip);
 
 	return true;
 }

@@ -44,9 +44,11 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
+	img = app->tex->Load("Assets/Maps/back.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	
+	app->render->DrawTexture(img, 0, 0);
+
+
 	// L03: DONE: Load map
 	app->map->Load();
 
@@ -59,6 +61,7 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
+
 
 	return true;
 }
@@ -91,7 +94,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
+	// Placeholder not needed any more
 
 	// Draw map
 	app->map->Draw();

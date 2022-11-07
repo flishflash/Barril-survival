@@ -131,14 +131,6 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
 
-	if (app->scene->player->flip)
-	{
-		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-	}
-	else
-	{
-		flip = SDL_RendererFlip::SDL_FLIP_NONE;
-	}
 
 	if(pivotX != INT_MAX && pivotY != INT_MAX)
 	{
