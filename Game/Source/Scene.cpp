@@ -97,6 +97,7 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_UP) app->fade->FadeToblack(this, (Module*)app->die, 50); printf("IN");
 
+	app->render->DrawTexture(img, 0, 0);
 	// Draw map
 	app->map->Draw();
 
