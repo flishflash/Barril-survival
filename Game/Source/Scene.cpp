@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
+#include "FadeToBlack.h"
 #include "EntityManager.h"
 #include "Map.h"
 
@@ -94,7 +95,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	// Placeholder not needed any more
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_UP) app->fade->FadeToblack(this, (Module*)app->die, 50); printf("IN");
 
 	// Draw map
 	app->map->Draw();
