@@ -140,6 +140,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::WATER:
 			LOG("Collision WATER");
 			app->audio->PlayFx(dieFx);
+			app->physics->active = false;
 
 			break;
 	}
