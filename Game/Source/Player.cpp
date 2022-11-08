@@ -147,6 +147,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 			app->entityManager->active = false;
+			app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 			break;
 	}
