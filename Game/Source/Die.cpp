@@ -32,7 +32,7 @@ bool Die::Awake()
 bool Die::Start()
 {
 	img = app->tex->Load("Assets/Maps/Game_Over_Barril_Survival.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 	return true;
 }

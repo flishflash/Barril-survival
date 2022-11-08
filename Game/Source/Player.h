@@ -45,6 +45,8 @@ private:
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 
 	int pickCoinFxId;
+	int jumpFx;
+	int dieFx;
 
 };
 
