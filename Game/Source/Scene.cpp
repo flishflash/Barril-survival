@@ -46,7 +46,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	img = app->tex->Load("Assets/Maps/back.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
 

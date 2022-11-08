@@ -48,6 +48,8 @@ bool Player::Start() {
 
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/Jump.ogg");
+	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
 
 	return true;
 }
@@ -81,6 +83,8 @@ bool Player::Update()
 		jump = true;
 		up = true;
 		jump_count = position.y;
+		app->audio->PlayFx(jumpFx);
+
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -132,6 +136,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
+			break;
+		case ColliderType::WATER:
+			LOG("Collision WATER");
+			app->audio->PlayFx(dieFx);
+
 			break;
 	}
 	
