@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
+#include "EntityManager.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -145,7 +146,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
-
+			app->entityManager->active = false;
 
 			break;
 	}
