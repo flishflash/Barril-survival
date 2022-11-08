@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "FadeToBlack.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -140,6 +141,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::WATER:
 			LOG("Collision WATER");
 			app->audio->PlayFx(dieFx);
+			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
+				
 
 			break;
 	}
