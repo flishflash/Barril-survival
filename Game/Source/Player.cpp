@@ -40,7 +40,7 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateCircle(position.x, position.y, 16, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 64, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this; 
@@ -52,6 +52,8 @@ bool Player::Start() {
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/Jump.ogg");
 	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
+	pbody->body->SetFixedRotation(true);
+
 
 	return true;
 }
@@ -101,7 +103,7 @@ bool Player::Update()
 		flip = SDL_RendererFlip::SDL_FLIP_NONE;
 	}
 
-	if (position.y <= (jump_count - 150) && jump==true)
+	if (position.y <= (jump_count - 120) && jump==true)
 	{
 		up = false;
 	}
@@ -110,8 +112,8 @@ bool Player::Update()
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 48;
-
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 32;
+	
 	app->render->DrawTexture(texture, position.x , position.y, NULL, 1.0f, NULL, NULL, NULL, flip);
 
 	return true;
@@ -142,11 +144,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::WATER:
 			LOG("Collision WATER");
 			app->audio->PlayFx(dieFx);
-			app->physics->active = false;
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
+			app->physics->active = false;
+			app->entityManager->active = false;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
-			app->entityManager->active = false;
 			app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 			break;
