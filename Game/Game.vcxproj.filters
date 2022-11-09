@@ -71,6 +71,7 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Die.h" />
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
