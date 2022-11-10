@@ -274,7 +274,7 @@ bool Map::Load()
     pb[4] = app->physics->CreateRectangle(1232, 1616, 32, 32, bodyType::STATIC);
     pb[5] = app->physics->CreateRectangle(1296, 1616, 32, 32, bodyType::STATIC);
     pb[6] = app->physics->CreateRectangle(464, 1648, 96, 32, bodyType::STATIC);
-    pb[7] = app->physics->CreateRectangle(576, 1744, 64, 32, bodyType::STATIC);
+    pb[7] = app->physics->CreateRectangle(592, 1744, 32, 32, bodyType::STATIC);
     pb[8] = app->physics->CreateRectangle(448, 1840, 64, 32, bodyType::STATIC);
     pb[9] = app->physics->CreateRectangle(576, 1936, 64, 32, bodyType::STATIC);
     pb[10] = app->physics->CreateRectangle(544, 1968, 64, 32, bodyType::STATIC);
@@ -284,13 +284,14 @@ bool Map::Load()
         pb[i]->ctype = ColliderType::PLATFORM;
     }
     //Water
-    PhysBody* w[3];
+    PhysBody* w[4];
     w[0] = app->physics->CreateRectangle(912, 1768, 96, 48, bodyType::STATIC);
     w[1] = app->physics->CreateRectangle(1360, 1288, 288, 48, bodyType::STATIC);
     w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
+    w[3] = app->physics->CreateRectangle(2047, 3000, 160, 144, bodyType::STATIC);
     
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         w[i]->ctype = ColliderType::WATER;
     }
 
