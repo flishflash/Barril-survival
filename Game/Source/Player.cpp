@@ -22,14 +22,27 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
-
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+
+	//animation load
+	idleAnim.PushBack({ 3, 15, 30, 68 });
+	idleAnim.PushBack({ 52, 16, 29, 67 });
+	idleAnim.PushBack({ 100, 16, 31, 69 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.1f;
+
+	//Run
+	runAnim.PushBack({ 6, 115, 36, 68 });
+	runAnim.PushBack({ 61, 118, 34, 66 });
+	runAnim.PushBack({ 112, 117, 35, 67 });
+	runAnim.PushBack({ 169, 118, 36, 65 });
+	runAnim.PushBack({ 228, 118, 34, 65 });
+	runAnim.PushBack({ 284, 118, 36, 65 });
+	runAnim.loop = true;
+	runAnim.speed = 0.1f;
 
 	return true;
 }
@@ -60,6 +73,8 @@ bool Player::Start() {
 
 bool Player::Update()
 {
+
+	currentAnimation = &idleAnim;
 
 	b2Vec2 velocity;
 	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
@@ -94,12 +109,14 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		velocity.x = -5;
+		currentAnimation = &runAnim;
 		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		velocity.x = 5;
+		currentAnimation = &runAnim;
 		flip = SDL_RendererFlip::SDL_FLIP_NONE;
 	}
 
@@ -112,9 +129,9 @@ bool Player::Update()
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 32;
-	
-	app->render->DrawTexture(texture, position.x , position.y, NULL, 1.0f, NULL, NULL, NULL, flip);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
+
+	app->render->DrawTexture(texture, position.x , position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
 	return true;
 }

@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Animation.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -47,6 +48,15 @@ private:
 	int pickCoinFxId;
 	int jumpFx;
 	int dieFx;
+
+	//Animation 
+	Animation* currentAnimation = nullptr;
+
+	// A set of animations
+	Animation idleAnim;
+	Animation jumpAnim;
+	Animation runAnim;
+	Animation dieAnim;
 
 };
 
