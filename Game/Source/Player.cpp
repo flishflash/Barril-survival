@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Scene.h"
 #include "Log.h"
+#include "Die.h"
 #include "Point.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
@@ -65,7 +66,8 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	//Load cositas
-	app->LoadGameRequest();
+	//app->LoadGameRequest();
+	app->die->active = false;
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);

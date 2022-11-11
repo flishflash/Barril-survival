@@ -7,12 +7,13 @@
 	<:anonymous />
 	<scene />
 	<scene />
+	<scene />
 	<:anonymous />
 	<entitymanager>
-		<player x="468" y="2045" />
+		<player x="451" y="2045" />
 	</entitymanager>
 	<map />
 	<renderer>
-		<camera x="-216" y="-1455" />
+		<camera x="-216" y="-1451" />
 	</renderer>
 </save_state>

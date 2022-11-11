@@ -111,8 +111,8 @@ bool Scene::Update(float dt)
 		delete player;
 	}
 
-
 	app->render->DrawTexture(img, 0, 0);
+
 	// Draw map
 	app->map->Draw();
 
