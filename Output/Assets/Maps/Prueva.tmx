@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="96" height="70" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="96" height="70" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="1">
  <editorsettings>
   <export target="Prueva.tmx" format="tmx"/>
  </editorsettings>
@@ -5222,7 +5222,7 @@
    <tile gid="92"/>
    <tile gid="92"/>
    <tile gid="92"/>
-   <tile gid="182"/>
+   <tile gid="92"/>
    <tile gid="182"/>
    <tile gid="196"/>
    <tile gid="20"/>
@@ -18676,7 +18676,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="201"/>
+   <tile/>
    <tile gid="201"/>
    <tile gid="201"/>
    <tile gid="201"/>
