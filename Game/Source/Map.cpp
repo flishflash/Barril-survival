@@ -222,7 +222,7 @@ bool Map::Load()
     // Later you can create a function here to load and create the colliders from the map
    
     //Suelo
-    PhysBody* s[15];
+    PhysBody* s[16];
     s[0] = app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
     s[1] = app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
     s[2] = app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
@@ -238,8 +238,9 @@ bool Map::Load()
     s[12] = app->physics->CreateRectangle(1264, 1616, 32, 160, bodyType::STATIC);
     s[13] = app->physics->CreateRectangle(1456, 1536, 96, 320, bodyType::STATIC);
     s[14] = app->physics->CreateRectangle(1360, 1344, 288, 64, bodyType::STATIC);
+    s[15] = app->physics->CreateRectangle(240, 1064, 32, 192, bodyType::STATIC);
 
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 16; i++) {
         s[i]->ctype = ColliderType::PLATFORM;
     }
 
@@ -288,12 +289,16 @@ bool Map::Load()
     w[0] = app->physics->CreateRectangle(912, 1768, 96, 48, bodyType::STATIC);
     w[1] = app->physics->CreateRectangle(1360, 1288, 288, 48, bodyType::STATIC);
     w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
-    w[3] = app->physics->CreateRectangle(2047, 3000, 160, 144, bodyType::STATIC);
+    w[3] = app->physics->CreateRectangle(1855, 2176, 160, 144, bodyType::STATIC);
     
 
     for (int i = 0; i < 4; i++) {
         w[i]->ctype = ColliderType::WATER;
     }
+    //WIN
+    PhysBody* win;
+    win = app->physics->CreateRectangle(3024, 1168, 16, 160, bodyType::STATIC);
+    win->ctype = ColliderType::WIN;
 
     if(ret == true)
     {

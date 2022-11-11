@@ -169,6 +169,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 			break;
+		case ColliderType::WIN:
+			LOG("Collision WIN");
+			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
+			app->physics->active = false;
+			app->entityManager->active = false;
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
+			app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");
+			break;
 	}
 	
 }
