@@ -196,7 +196,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");
-			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
+			app->fade->FadeToblack((Module*)app->scene, (Module*)app->winw, 50);
 			app->physics->active = false;
 			app->entityManager->active = false;
 			app->render->camera.x = 0;

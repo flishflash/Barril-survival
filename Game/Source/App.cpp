@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Die.h"
+#include "Win.h"
 #include "FadeToBlack.h"
 #include "EntityManager.h"
 #include "Map.h"
@@ -29,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	physics = new Physics();
 	die = new Die();
+	winw = new Win();
 	scene = new Scene();
 	fade = new FadeToBlack();
 	entityManager = new EntityManager();
@@ -42,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(die);
+	AddModule(winw);
 	AddModule(scene);
 	AddModule(fade);
 	AddModule(entityManager);

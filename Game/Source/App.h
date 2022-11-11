@@ -16,6 +16,7 @@ class Render;
 class Textures;
 class Audio;
 class Die;
+class Win;
 class Scene;
 class FadeToBlack;
 class EntityManager;
@@ -90,6 +91,7 @@ public:
 	Audio* audio;
 	Scene* scene;
 	Die* die;
+	Win* winw;
 	FadeToBlack* fade;
 	EntityManager* entityManager;
 	Map* map;

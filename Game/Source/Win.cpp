@@ -1,3 +1,4 @@
+#include "Win.h"
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
@@ -5,22 +6,21 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "Die.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-Die::Die() : Module()
+Win::Win() : Module()
 {
 	name.Create("scene");
 }
 
 // Destructor
-Die::~Die()
+Win::~Win()
 {}
 
 // Called before render is available
-bool Die::Awake()
+bool Win::Awake()
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -28,22 +28,22 @@ bool Die::Awake()
 }
 
 // Called before the first frame
-bool Die::Start()
+bool Win::Start()
 {
-	img = app->tex->Load("Assets/Maps/Game_Over_Barril_Survival.png");
-	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
+	img = app->tex->Load("Assets/Maps/Victory_BS.png");
+	app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");
 
 	return true;
 }
 
 // Called each loop iteration
-bool Die::PreUpdate()
+bool Win::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Die::Update(float dt)
+bool Win::Update(float dt)
 {
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -70,11 +70,12 @@ bool Die::Update(float dt)
 		app->fade->FadeToblack(this, (Module*)app->scene, 50);
 		app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	}
+
 	return true;
 }
 
 // Called each loop iteration
-bool Die::PostUpdate()
+bool Win::PostUpdate()
 {
 	bool ret = true;
 
@@ -85,7 +86,7 @@ bool Die::PostUpdate()
 }
 
 // Called before quitting
-bool Die::CleanUp()
+bool Win::CleanUp()
 {
 	LOG("Freeing scene");
 
