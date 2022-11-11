@@ -8,6 +8,8 @@
 #include "FadeToBlack.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Physics.h"
+#include "Die.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -26,6 +28,8 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+	
+	app->die->active = false;
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -45,12 +49,17 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	
 	img = app->tex->Load("Assets/Maps/back.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
 	// L03: DONE: Load map
 	app->map->Load();
+
+	//ativate
+	app->entityManager->active = true;
+	app->physics->active = true;
 
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",

@@ -9,10 +9,10 @@
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<player x="1848" y="2247" />
+		<player x="468" y="2045" />
 	</entitymanager>
 	<map />
 	<renderer>
-		<camera x="-1120" y="-1151" />
+		<camera x="-216" y="-1455" />
 	</renderer>
 </save_state>

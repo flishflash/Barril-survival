@@ -27,10 +27,6 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 
-	//Ativate modules
-	app->physics->active = true;
-	app->entityManager->active = true;
-
 	//animation load
 	idleAnim.PushBack({ 3, 15, 30, 68 });
 	idleAnim.PushBack({ 52, 16, 29, 67 });
@@ -68,6 +64,9 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	//Load cositas
+	app->LoadGameRequest();
+
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
 
@@ -90,7 +89,6 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-
 	if (jump != true && die != true)currentAnimation = &idleAnim;
 
 	b2Vec2 velocity;

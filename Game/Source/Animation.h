@@ -35,7 +35,7 @@ public:
 	void FullReset() {
 		this->currentFrame = 0;
 		this->totalFrames = 0;
-		//this->loopCount = 0;
+		this->loopCount = 0;
 		this->pingpongDirection = 1;
 	}
 
@@ -55,11 +55,11 @@ public:
 	bool HasFinished()
 	{
 		bool ret = false;
-		printf("%d", loopCount);
+
 		if (!loop && !pingpong && loopCount > 0)
 		{
 			ret = true;
-			printf("%d", ret);
+		
 		}
 		return ret;
 	}
