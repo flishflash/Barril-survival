@@ -32,9 +32,11 @@ public:
 		currentFrame = 0;
 	}
 
-	bool HasFinished()
-	{
-		return !loop && !pingpong && loopCount > 0;
+	void FullReset() {
+		this->currentFrame = 0;
+		this->totalFrames = 0;
+		//this->loopCount = 0;
+		this->pingpongDirection = 1;
 	}
 
 	void Update()
@@ -50,6 +52,18 @@ public:
 		}
 	}
 
+	bool HasFinished()
+	{
+		bool ret = false;
+		printf("%d", loopCount);
+		if (!loop && !pingpong && loopCount > 0)
+		{
+			ret = true;
+			printf("%d", ret);
+		}
+		return ret;
+	}
+
 	const SDL_Rect& GetCurrentFrame() const
 	{
 		int actualFrame = currentFrame;
@@ -57,6 +71,10 @@ public:
 			actualFrame = totalFrames - currentFrame;
 
 		return frames[actualFrame];
+	}
+
+	int GetCurrentFrameNum() {
+		return (int)currentFrame;
 	}
 };
 

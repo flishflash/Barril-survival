@@ -48,6 +48,7 @@ private:
 	int pickCoinFxId;
 	int jumpFx;
 	int dieFx;
+	bool die;
 
 	//Animation 
 	Animation* currentAnimation = nullptr;

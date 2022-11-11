@@ -27,13 +27,17 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 
+	//Ativate modules
+	app->physics->active = true;
+	app->entityManager->active = true;
+
 	//animation load
 	idleAnim.PushBack({ 3, 15, 30, 68 });
 	idleAnim.PushBack({ 52, 16, 29, 67 });
 	idleAnim.PushBack({ 100, 16, 31, 69 });
 	idleAnim.loop = true;
-	idleAnim.speed = 0.1f;
-
+	idleAnim.speed = 0.01f;
+	currentAnimation = &idleAnim;
 	//Run
 	runAnim.PushBack({ 6, 115, 36, 68 });
 	runAnim.PushBack({ 61, 118, 34, 66 });
@@ -42,7 +46,19 @@ bool Player::Awake() {
 	runAnim.PushBack({ 228, 118, 34, 65 });
 	runAnim.PushBack({ 284, 118, 36, 65 });
 	runAnim.loop = true;
-	runAnim.speed = 0.1f;
+	runAnim.speed = 0.15f;
+	//Jump
+	jumpAnim.PushBack({ 10, 233, 30, 73 });
+	jumpAnim.PushBack({ 56, 233, 27, 67 });
+	jumpAnim.PushBack({ 100, 232, 27, 73 });
+	jumpAnim.loop = true;
+	jumpAnim.speed = 0.1f;
+	//Die
+	dieAnim.PushBack({ 8, 354, 39, 68 });
+	dieAnim.PushBack({ 57, 351, 54, 67 });
+	dieAnim.PushBack({ 112, 355, 76, 72 });
+	dieAnim.loop = false;
+	dieAnim.speed = 0.02f;
 
 	return true;
 }
@@ -53,19 +69,20 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 64, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this; 
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
-
+	
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/Jump.ogg");
 	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
 	pbody->body->SetFixedRotation(true);
+	die = false;
 
 
 	return true;
@@ -74,7 +91,7 @@ bool Player::Start() {
 bool Player::Update()
 {
 
-	currentAnimation = &idleAnim;
+	if (jump != true && die != true)currentAnimation = &idleAnim;
 
 	b2Vec2 velocity;
 	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
@@ -103,21 +120,22 @@ bool Player::Update()
 		up = true;
 		jump_count = position.y;
 		app->audio->PlayFx(jumpFx);
+		currentAnimation = &jumpAnim;
 
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		velocity.x = -5;
-		currentAnimation = &runAnim;
 		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+		if (jump != true && die != true)currentAnimation = &runAnim;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		velocity.x = 5;
-		currentAnimation = &runAnim;
 		flip = SDL_RendererFlip::SDL_FLIP_NONE;
+		if(jump != true && die != true)currentAnimation = &runAnim;
 	}
 
 	if (position.y <= (jump_count - 120) && jump==true)
@@ -131,7 +149,18 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
 
+	currentAnimation->Update();
+
 	app->render->DrawTexture(texture, position.x , position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
+
+	if (die == true && currentAnimation->HasFinished() == true)
+	{
+		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 90);
+		app->physics->active = false;
+		app->entityManager->active = false;
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+	}
 
 	return true;
 }
@@ -148,6 +177,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
+			currentAnimation = &dieAnim;
 			app->audio->PlayFx(pickCoinFxId);
 			break;
 		case ColliderType::PLATFORM:
@@ -160,13 +190,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WATER:
 			LOG("Collision WATER");
+
+			die = true;
+			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
-			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
-			app->physics->active = false;
-			app->entityManager->active = false;
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
-			app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 			break;
 	}
