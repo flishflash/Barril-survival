@@ -11,9 +11,9 @@ Disclaimer: This is a university project, all the rights of the music and the as
  - You only can do one jump, but if you jump and touch a wall, you can do another jump.
  
 ## Controls
- Space = Jump
- A = Left
- D = Right
+ - Space = Jump
+ - A = Left
+ - D = Right
 
 ## Developers
  - Jose Antonio Tur
