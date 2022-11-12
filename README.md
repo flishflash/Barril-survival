@@ -6,20 +6,16 @@ In this platform game, you are the last survivor of an apocalypsis, or thats wha
 Disclaimer: This is a university project, all the rights of the music and the assets of the scenario (except the player) belongs to their crators.
 
 ## Key Features
-
- There is no loop, when you die or win press esc.
- Water kills you.
- You only can do one jump, but if you jump and touch a wall, you can do another jump.
- - {Feature04}
+ - There is no loop, when you die or win press esc.
+ - Water kills you.
+ - You only can do one jump, but if you jump and touch a wall, you can do another jump.
  
 ## Controls
-
  Space = Jump
  A = Left
  D = Right
 
 ## Developers
-
  - Jose Antonio Tur
  - Andreu Miró
 
@@ -27,4 +23,3 @@ Disclaimer: This is a university project, all the rights of the music and the as
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
-{AdditionalLicenses}
