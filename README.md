@@ -14,6 +14,9 @@ Disclaimer: This is a university project, all the rights of the music and the as
  - Space = Jump
  - A = Left
  - D = Right
+ - F5 = Save position
+ - F6 = Load Position
+ - F1 = View Colisions
 
 ## Developers
  - Jose Antonio Tur
