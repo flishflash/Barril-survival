@@ -11,19 +11,43 @@ class PhysBody;
 class Module
 {
 public:
+	App* app;
 
-	Module() : active(false)
+	Module(App* parent, bool start_enabled = true) : app(parent), enabled(start_enabled)
 	{}
-
-	void Init()
+	bool IsEnabled()const
 	{
-		active = true;
+		return enabled;
+	}
+
+	void Enable()
+	{
+		if (enabled == false)
+		{
+			enabled = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		if (enabled == true)
+		{
+			enabled = false;
+			CleanUp();
+		}
+	}
+
+	virtual bool Init()
+	{
+		return enabled;
 	}
 
 	// Called before render is available
 	virtual bool Awake(pugi::xml_node&)
 	{
-		return true;
+		enabled = true;
+		return enabled;
 	}
 
 	// Called before the first frame
@@ -75,8 +99,7 @@ public:
 public:
 
 	SString name;
-	bool active;
-
+	bool enabled;
 };
 
 #endif // __MODULE_H__

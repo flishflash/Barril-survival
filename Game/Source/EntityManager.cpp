@@ -9,7 +9,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-EntityManager::EntityManager() : Module()
+EntityManager::EntityManager(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("entitymanager");
 }
@@ -87,7 +87,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 
 	case EntityType::PLAYER:
-		entity = new Player();
+		entity = new Player(app, false);
 		break;
 
 	case EntityType::ITEM:

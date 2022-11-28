@@ -10,7 +10,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-Die::Die() : Module()
+Die::Die(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.Create("scene");
 }

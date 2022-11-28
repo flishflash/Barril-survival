@@ -7,7 +7,7 @@
 
 #include "SDL/include/SDL_render.h"
 
-FadeToBlack::FadeToBlack() : Module()
+FadeToBlack::FadeToBlack(App* app, bool start_enabled) : Module(app, start_enabled)
 {
 	screenRect = { 0, 0,  1024, 768};
 }
@@ -36,8 +36,8 @@ bool FadeToBlack::Update(float dt)
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
-			moduleToDisable->active = false;
-			moduleToEnable->active = true;
+			moduleToDisable->Disable();
+			moduleToEnable->Enable();
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}

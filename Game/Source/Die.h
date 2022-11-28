@@ -9,7 +9,7 @@ class Die : public Module
 {
 public:
 
-	Die();
+	Die(App* app, bool start_enabled = false);
 
 	// Destructor
 	virtual ~Die();

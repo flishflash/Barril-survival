@@ -8,7 +8,7 @@ class Win : public Module
 {
 public:
 
-	Win();
+	Win(App* app, bool start_enabled = true);
 
 	// Destructor
 	virtual ~Win();

@@ -23,18 +23,18 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
-	input = new Input();
-	win = new Window();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	physics = new Physics();
-	die = new Die();
-	winw = new Win();
-	scene = new Scene();
-	fade = new FadeToBlack();
-	entityManager = new EntityManager();
-	map = new Map();
+	input = new Input(this);
+	win = new Window(this);
+	render = new Render(this);
+	tex = new Textures(this);
+	audio = new Audio(this);
+	physics = new Physics(this);
+	scene = new Scene(this);
+	fade = new FadeToBlack(this);
+	entityManager = new EntityManager(this);
+	map = new Map(this);
+	die = new Die(this);
+	winw = new Win(this);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -43,12 +43,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(die);
-	AddModule(winw);
 	AddModule(scene);
 	AddModule(fade);
 	AddModule(entityManager);
 	AddModule(map);
+	AddModule(die);
+	AddModule(winw);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -188,7 +188,7 @@ bool App::PreUpdate()
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if (pModule->enabled == false) {
 			continue;
 		}
 
@@ -210,7 +210,7 @@ bool App::DoUpdate()
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if (pModule->enabled == false) {
 			continue;
 		}
 
@@ -231,7 +231,7 @@ bool App::PostUpdate()
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if (pModule->enabled == false) {
 			continue;
 		}
 

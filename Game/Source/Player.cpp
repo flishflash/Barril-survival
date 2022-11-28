@@ -12,7 +12,7 @@
 #include "FadeToBlack.h"
 #include "EntityManager.h"
 
-Player::Player() : Entity(EntityType::PLAYER)
+Player::Player(App* app, bool start_enabled) : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
 }
@@ -67,7 +67,7 @@ bool Player::Start() {
 
 	//Load cositas
 	//app->LoadGameRequest();
-	app->die->active = false;
+	app->die->enabled = false;
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
@@ -156,10 +156,9 @@ bool Player::Update()
 	if (die == true && currentAnimation->HasFinished() == true)
 	{
 		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 90);
-		app->physics->active = false;
-		app->entityManager->active = false;
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
+		app->entityManager->Disable();
 	}
 
 	return true;
@@ -190,7 +189,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WATER:
 			LOG("Collision WATER");
-
 			die = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
@@ -199,8 +197,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::WIN:
 			LOG("Collision WIN");
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->winw, 50);
-			app->physics->active = false;
-			app->entityManager->active = false;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
 			app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");

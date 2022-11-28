@@ -12,7 +12,7 @@ class Player : public Entity
 {
 public:
 
-	Player();
+	Player(App* app, bool start_enabled = false);
 	
 	virtual ~Player();
 
