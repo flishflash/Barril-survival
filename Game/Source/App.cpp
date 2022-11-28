@@ -29,12 +29,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	physics = new Physics();
-	die = new Die();
-	winw = new Win();
 	scene = new Scene();
 	fade = new FadeToBlack();
 	entityManager = new EntityManager();
 	map = new Map();
+	die = new Die();
+	winw = new Win();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -43,12 +43,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(die);
-	AddModule(winw);
 	AddModule(scene);
 	AddModule(fade);
 	AddModule(entityManager);
 	AddModule(map);
+	AddModule(die);
+	AddModule(winw);
 
 	// Render last to swap buffer
 	AddModule(render);

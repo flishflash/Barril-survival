@@ -20,6 +20,7 @@ public:
 		active = true;
 	}
 
+
 	// Called before render is available
 	virtual bool Awake(pugi::xml_node&)
 	{
@@ -76,7 +77,6 @@ public:
 
 	SString name;
 	bool active;
-
 };
 
 #endif // __MODULE_H__

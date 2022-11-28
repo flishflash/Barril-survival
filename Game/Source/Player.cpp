@@ -156,10 +156,11 @@ bool Player::Update()
 	if (die == true && currentAnimation->HasFinished() == true)
 	{
 		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 90);
-		app->physics->active = false;
-		app->entityManager->active = false;
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
+		app->entityManager->active = false;
+		position.x = -800;
+		position.y = -1455;
 	}
 
 	return true;
@@ -190,7 +191,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WATER:
 			LOG("Collision WATER");
-
 			die = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
@@ -199,10 +199,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::WIN:
 			LOG("Collision WIN");
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->winw, 50);
-			app->physics->active = false;
-			app->entityManager->active = false;
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
+			position.x = -800;
+			position.y = -1455;
 			app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");
 			break;
 	}

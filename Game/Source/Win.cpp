@@ -23,6 +23,7 @@ Win::~Win()
 bool Win::Awake()
 {
 	LOG("Loading Scene");
+	active = true;
 	bool ret = true;
 	return ret;
 }

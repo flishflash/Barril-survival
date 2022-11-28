@@ -28,8 +28,7 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	
-	app->die->active = false;
+	active = false;
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -39,9 +38,9 @@ bool Scene::Awake(pugi::xml_node& config)
 		item->parameters = itemNode;
 	}
 
-	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
+	player->Disable();
 
 	return ret;
 }
@@ -56,6 +55,10 @@ bool Scene::Start()
 
 	// L03: DONE: Load map
 	app->map->Load();
+	app->entityManager->active = true;
+	app->physics->active = true;
+	player->Enable();
+
 
 	//ativate
 	app->entityManager->active = true;
