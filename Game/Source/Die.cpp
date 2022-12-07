@@ -24,7 +24,6 @@ bool Die::Awake()
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	active = false;
 	return ret;
 }
 

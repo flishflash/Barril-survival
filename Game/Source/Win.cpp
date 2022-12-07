@@ -23,7 +23,6 @@ Win::~Win()
 bool Win::Awake()
 {
 	LOG("Loading Scene");
-	active = true;
 	bool ret = true;
 	return ret;
 }
@@ -67,10 +66,12 @@ bool Win::Update(float dt)
 
 	// Placeholder not needed any more
 	app->render->DrawTexture(img, 0, 0);
+	/*
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		app->fade->FadeToblack(this, (Module*)app->scene, 50);
 		app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	}
+	*/
 
 	return true;
 }
