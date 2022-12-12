@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Enemy.h"
+#include "FlyEnemy.h"
 
 struct SDL_Texture;
 
@@ -42,7 +44,6 @@ public:
 
 private:
 	SDL_Texture* img;
-
 
 };
 

@@ -26,6 +26,8 @@
     <ClCompile Include="Source\Die.cpp" />
     <ClCompile Include="Source\Win.cpp" />
     <ClCompile Include="Source\Init.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\FlyEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -76,6 +78,8 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Win.h" />
     <ClInclude Include="Source\Init.h" />
+    <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\FlyEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

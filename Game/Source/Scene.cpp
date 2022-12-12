@@ -31,12 +31,17 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	/*
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	
+	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
 	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}*/
+		Enemy* enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+		enemy->parameters = itemNode;
+	}	
+	for (pugi::xml_node itemNode = config.child("fly_enemy"); itemNode; itemNode = itemNode.next_sibling("fly_enemy"))
+	{
+		FlyEnemy* fly_enemy = (FlyEnemy*)app->entityManager->CreateEntity(EntityType::FLY_ENEMY);
+		fly_enemy->parameters = itemNode;
+	}
 
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
