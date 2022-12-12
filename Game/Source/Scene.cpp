@@ -119,6 +119,7 @@ bool Scene::Update(float dt)
 		app->render->camera.y = 0;
 		player->die = true;
 		player->CleanUp();
+		
 	}
 
 	app->render->DrawTexture(img, 0, 0);

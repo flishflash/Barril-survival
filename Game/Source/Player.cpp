@@ -177,7 +177,7 @@ bool Player::CleanUp()
 	pbody = NULL;
 	app->physics->active = false;
 	this->active = false;
-	dieAnim.FullReset();
+	dieAnim.Reset();
 
 	return true;
 }

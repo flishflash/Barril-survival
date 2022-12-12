@@ -19,7 +19,7 @@
 
   <audio>
     <music volume="128"/>
-    <fx volume="128"/>
+    <fx volume="128"/> 
   </audio>
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
