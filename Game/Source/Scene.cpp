@@ -79,7 +79,6 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
-	player->position = player_initPos;
 	app->render->camera.x = -800;
 	app->render->camera.y = -1455;
 

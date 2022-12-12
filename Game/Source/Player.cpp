@@ -69,6 +69,8 @@ bool Player::Start() {
 	//Load cositas
 	app->die->active = false;
 	app->winw->active = false;
+	this->position.x = 1312;
+	this->position.y = 2000;
 
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
 
@@ -160,10 +162,9 @@ bool Player::Update()
 
 	if (die == true && currentAnimation->HasFinished() == true)
 	{
-		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 90);
+		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
-
 		CleanUp();
 	}
 

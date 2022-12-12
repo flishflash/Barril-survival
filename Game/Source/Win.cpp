@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "FadeToBlack.h"
 #include "Audio.h"
+#include "Scene.h"
 #include "Render.h"
 #include "Window.h"
 
@@ -48,7 +49,7 @@ bool Win::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		app->fade->FadeToblack(this, (Module*)app->scene, 50);
-		app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
+		app->scene->Start();
 	}
 	
 
