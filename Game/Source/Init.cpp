@@ -65,7 +65,7 @@ bool Init::Update(float dt)
 	app->render->DrawTexture(img, 0, 0);
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		app->fade->FadeToblack(this, (Module*)app->scene, 50);
+		app->fade->FadeToblack(this, (Module*)app->scene, 20);
 		app->scene->Start();
 	}
 
