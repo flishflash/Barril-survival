@@ -36,20 +36,21 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	die = new Die();
 	winw = new Win();
 
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
+
+	AddModule(physics);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(physics);
 	AddModule(scene);
 	AddModule(fade);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(die);
 	AddModule(winw);
-
 	// Render last to swap buffer
 	AddModule(render);
 }

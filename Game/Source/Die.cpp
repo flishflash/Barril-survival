@@ -4,6 +4,7 @@
 #include "FadeToBlack.h"
 #include "Audio.h"
 #include "Render.h"
+#include "Scene.h"
 #include "Window.h"
 #include "Die.h"
 
@@ -12,7 +13,7 @@
 
 Die::Die() : Module()
 {
-	name.Create("scene");
+	name.Create("Die");
 }
 
 // Destructor
@@ -22,7 +23,7 @@ Die::~Die()
 // Called before render is available
 bool Die::Awake()
 {
-	LOG("Loading Scene");
+	LOG("Loading Die");
 	bool ret = true;
 	return ret;
 }
@@ -30,6 +31,7 @@ bool Die::Awake()
 // Called before the first frame
 bool Die::Start()
 {
+
 	img = app->tex->Load("Assets/Maps/Game_Over_Barril_Survival.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
@@ -45,31 +47,26 @@ bool Die::PreUpdate()
 // Called each loop iteration
 bool Die::Update(float dt)
 {
-
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
-
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 1;
+		app->render->camera.y += 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 1;
+		app->render->camera.y -= 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x += 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 1;
+		app->render->camera.x -= 5;
 
 	// Placeholder not needed any more
 	app->render->DrawTexture(img, 0, 0);
+
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		app->fade->FadeToblack(this, (Module*)app->scene, 50);
-		app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
+		app->scene->Start();
 	}
+
 	return true;
 }
 

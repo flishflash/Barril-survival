@@ -40,29 +40,28 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
-	player->active =true;
 
+	player_initPos.x = config.child("player").attribute("x").as_int();
+	player_initPos.y = config.child("player").attribute("y").as_int();
 	return ret;
 }
 
 // Called before the first frame
 bool Scene::Start()
 {
-	
+	LOG("Loading Scene");
 	img = app->tex->Load("Assets/Maps/back.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
+	if (player->die==true)
+	{
+		player->Start();
+	}
+
 	// L03: DONE: Load map
 	app->map->Load();
 	app->entityManager->active = true;
-	app->physics->active = true;
-	player->active = true;
-
-
-	//ativate
-	app->entityManager->active = true;
-	app->physics->active = true;
 
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -74,6 +73,9 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
+	player->position = player_initPos;
+	app->render->camera.x = -800;
+	app->render->camera.y = -1455;
 
 	return true;
 }
@@ -87,7 +89,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
 
@@ -109,9 +110,10 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		app->fade->FadeToblack(this, (Module*)app->die, 50); 
-		app->render->camera.x=0;
-		app->render->camera.y=0;
-		delete player;
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+		player->die = true;
+		player->CleanUp();
 	}
 
 	app->render->DrawTexture(img, 0, 0);
@@ -137,6 +139,9 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	img = NULL;
+	app->scene->active = false;
+	player->position = player_initPos;
 
 	return true;
 }
