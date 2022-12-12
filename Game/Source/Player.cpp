@@ -69,7 +69,6 @@ bool Player::Start() {
 	//Load cositas
 	app->die->active = false;
 	app->winw->active = false;
-	app->physics->active = true;
 
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
 
@@ -176,6 +175,7 @@ bool Player::CleanUp()
 	delete pbody;
 	pbody = NULL;
 	app->physics->active = false;
+	this->active = false;
 
 	return true;
 }

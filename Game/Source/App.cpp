@@ -29,8 +29,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	physics = new Physics();
-	scene = new Scene();
 	fade = new FadeToBlack();
+	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
 	die = new Die();
@@ -45,8 +45,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(scene);
 	AddModule(fade);
+	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(die);

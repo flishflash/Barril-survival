@@ -54,6 +54,12 @@ bool Scene::Start()
 	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
+	app->physics->active = true;
+	app->physics->Start();
+	player->active = true;
+	player->Start();
+	
+
 	if (player->die==true)
 	{
 		player->Start();
