@@ -17,6 +17,7 @@ class Textures;
 class Audio;
 class Die;
 class Win;
+class Init;
 class Scene;
 class FadeToBlack;
 class EntityManager;
@@ -92,6 +93,7 @@ public:
 	Scene* scene;
 	Die* die;
 	Win* winw;
+	Init* inicio;
 	FadeToBlack* fade;
 	EntityManager* entityManager;
 	Map* map;

@@ -89,6 +89,14 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::PLAYER:
 		entity = new Player();
 		break;
+	
+	case EntityType::ENEMY:
+		entity = new Player();
+		break;
+	
+	case EntityType::FLY_ENEMY:
+		entity = new Player();
+		break;
 
 	case EntityType::ITEM:
 		entity = new Item();

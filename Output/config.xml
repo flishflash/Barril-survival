@@ -19,13 +19,14 @@
 
   <audio>
     <music volume="128"/>
-    <fx volume="128"/>
+    <fx volume="128"/> 
   </audio>
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
     <player x="1312" y="2000" texturepath="Assets/Textures/player_sprite_sheet.png"/>
-    
+    <enemy texturepath="Assets/Textures/player_sprite_sheet.png"/>
+    <fly_enemy texturepath="Assets/Textures/player_sprite_sheet.png"/>
   </scene>
 
   <map>

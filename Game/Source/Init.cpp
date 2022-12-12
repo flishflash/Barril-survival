@@ -6,46 +6,48 @@
 #include "Render.h"
 #include "Scene.h"
 #include "Window.h"
-#include "Die.h"
+#include "Init.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-Die::Die() : Module()
+Init::Init() : Module()
 {
-	name.Create("Die");
+	name.Create("Init");
 }
 
 // Destructor
-Die::~Die()
+Init::~Init()
 {}
 
 // Called before render is available
-bool Die::Awake()
+bool Init::Awake()
 {
-	LOG("Loading Die");
+	LOG("Loading Init");
 	bool ret = true;
 	return ret;
 }
 
 // Called before the first frame
-bool Die::Start()
+bool Init::Start()
 {
-
-	img = app->tex->Load("Assets/Maps/Game_Over_Barril_Survival.png");
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+	app->scene->player->die = true;
+	img = app->tex->Load("Assets/Maps/Titulo_BS.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 	return true;
 }
 
 // Called each loop iteration
-bool Die::PreUpdate()
+bool Init::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool Die::Update(float dt)
+bool Init::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y += 5;
@@ -71,7 +73,7 @@ bool Die::Update(float dt)
 }
 
 // Called each loop iteration
-bool Die::PostUpdate()
+bool Init::PostUpdate()
 {
 	bool ret = true;
 
@@ -82,7 +84,7 @@ bool Die::PostUpdate()
 }
 
 // Called before quitting
-bool Die::CleanUp()
+bool Init::CleanUp()
 {
 	LOG("Freeing scene");
 
