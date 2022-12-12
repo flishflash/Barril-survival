@@ -25,6 +25,7 @@
     </ClCompile>
     <ClCompile Include="Source\Die.cpp" />
     <ClCompile Include="Source\Win.cpp" />
+    <ClCompile Include="Source\Init.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Source\Die.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Win.h" />
+    <ClInclude Include="Source\Init.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
+#include "Init.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -35,6 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	die = new Die();
 	winw = new Win();
+	inicio = new Init();
 
 
 	// Ordered for awake / Start / Update
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(die);
 	AddModule(winw);
+	AddModule(inicio);
 	// Render last to swap buffer
 	AddModule(render);
 }
