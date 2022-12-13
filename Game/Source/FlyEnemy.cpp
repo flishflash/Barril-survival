@@ -51,6 +51,8 @@ bool FlyEnemy::Awake() {
 
 bool FlyEnemy::Start() {
 
+	LOG("Loading FlyEnemy");
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	
@@ -58,7 +60,8 @@ bool FlyEnemy::Start() {
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 8, bodyType::DYNAMIC);
 
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ITEM;
+	pbody->ctype = ColliderType::ENEMY;
+	pbody->listener;
 
 	return true;
 }

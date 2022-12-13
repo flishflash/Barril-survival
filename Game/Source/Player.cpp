@@ -188,6 +188,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
+			LOG("Collision ITEM");
+			break;		
+		case ColliderType::ENEMY:
 			LOG("Collision ENEMY");
 			die = true;
 			currentAnimation = &dieAnim;

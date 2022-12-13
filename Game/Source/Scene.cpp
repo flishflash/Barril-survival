@@ -34,12 +34,12 @@ bool Scene::Awake(pugi::xml_node& config)
 	
 	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
 	{
-		Enemy* enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+		enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
 		enemy->parameters = itemNode;
 	}	
 	for (pugi::xml_node itemNode = config.child("fly_enemy"); itemNode; itemNode = itemNode.next_sibling("fly_enemy"))
 	{
-		FlyEnemy* fly_enemy = (FlyEnemy*)app->entityManager->CreateEntity(EntityType::FLY_ENEMY);
+		fly_enemy = (FlyEnemy*)app->entityManager->CreateEntity(EntityType::FLY_ENEMY);
 		fly_enemy->parameters = itemNode;
 	}
 
@@ -69,6 +69,8 @@ bool Scene::Start()
 	{
 		player->Start();
 	}
+	enemy->Start();
+	fly_enemy->Start();
 
 	// L03: DONE: Load map
 	app->map->Load();
