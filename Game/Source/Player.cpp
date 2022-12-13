@@ -188,9 +188,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
-			LOG("Collision ITEM");
+			LOG("Collision ENEMY");
+			die = true;
 			currentAnimation = &dieAnim;
-			app->audio->PlayFx(pickCoinFxId);
+			app->audio->PlayFx(dieFx);
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
