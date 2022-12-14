@@ -43,6 +43,7 @@ public:
 		return enabled;
 	}
 
+
 	// Called before render is available
 	virtual bool Awake(pugi::xml_node&)
 	{
@@ -99,7 +100,7 @@ public:
 public:
 
 	SString name;
-	bool enabled;
+	bool active;
 };
 
 #endif // __MODULE_H__

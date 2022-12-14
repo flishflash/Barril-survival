@@ -1,25 +1,21 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __INIT_H__
+#define __INIT_H__
 
 #include "Module.h"
-#include "Player.h"
-#include "Item.h"
-#include "Enemy.h"
-#include "FlyEnemy.h"
 
 struct SDL_Texture;
 
-class Scene : public Module
+class Init : public Module
 {
 public:
 
-	Scene(App* app, bool start_enabled = false);
+	Init();
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~Init();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node& config);
+	bool Awake();
 
 	// Called before the first frame
 	bool Start();
@@ -38,15 +34,9 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
-	Player* player;
-	Enemy* enemy;
-	FlyEnemy* fly_enemy;
-	iPoint player_initPos;
-
 private:
 	SDL_Texture* img;
 
 };
 
-#endif // __SCENE_H__
+#endif // __INIT_H__
