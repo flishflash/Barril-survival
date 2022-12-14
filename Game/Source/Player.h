@@ -34,8 +34,6 @@ public:
 
 	PhysBody* pbody;
 
-	bool die;
-
 private:
 
 	//L02: DONE 1: Declare player parameters
@@ -45,12 +43,12 @@ private:
 	bool jump = false;
 	bool up = false;
 	int jump_count = 0;
-
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 
 	int pickCoinFxId;
 	int jumpFx;
 	int dieFx;
+	bool die;
 
 	//Animation 
 	Animation* currentAnimation = nullptr;

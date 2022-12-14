@@ -9,10 +9,8 @@
 #include "Win.h"
 #include "FadeToBlack.h"
 #include "EntityManager.h"
-#include "PathFinding.h"
 #include "Map.h"
 #include "Physics.h"
-#include "Init.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -25,38 +23,33 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
-	input = new Input();
-	win = new Window();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	physics = new Physics();
-	fade = new FadeToBlack();
-	pathfinding = new PathFinding();
-	scene = new Scene();
-	entityManager = new EntityManager();
-	map = new Map();
-	die = new Die();
-	winw = new Win();
-	inicio = new Init();
-
+	input = new Input(this);
+	win = new Window(this);
+	render = new Render(this);
+	tex = new Textures(this);
+	audio = new Audio(this);
+	physics = new Physics(this);
+	scene = new Scene(this);
+	fade = new FadeToBlack(this);
+	entityManager = new EntityManager(this);
+	map = new Map(this);
+	die = new Die(this);
+	winw = new Win(this);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
-
-	AddModule(physics);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(fade);
+	AddModule(physics);
 	AddModule(scene);
+	AddModule(fade);
 	AddModule(entityManager);
-	AddModule(pathfinding);
 	AddModule(map);
 	AddModule(die);
 	AddModule(winw);
-	AddModule(inicio);
+
 	// Render last to swap buffer
 	AddModule(render);
 }

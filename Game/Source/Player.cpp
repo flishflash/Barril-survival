@@ -7,7 +7,6 @@
 #include "Scene.h"
 #include "Log.h"
 #include "Die.h"
-#include "Win.h"
 #include "Point.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
@@ -67,11 +66,10 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	//Load cositas
-	app->die->active = false;
-	app->winw->active = false;
-	this->position.x = 1312;
-	this->position.y = 2000;
+	//app->LoadGameRequest();
+	app->die->enabled = false;
 
+	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateRectangle(position.x, position.y, 32, 60, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -85,159 +83,89 @@ bool Player::Start() {
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/Jump.ogg");
 	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
 	pbody->body->SetFixedRotation(true);
-
 	die = false;
+
 
 	return true;
 }
 
 bool Player::Update()
 {
-	if (!app->physics->debug)
-	{
-		if (die == false)
+	if (jump != true && die != true)currentAnimation = &idleAnim;
+
+	b2Vec2 velocity;
+	if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
+	else  velocity = b2Vec2(0, -GRAVITY_Y);
+
+		if (position.x + app->render->camera.x > 800)
 		{
-			if (jump != true && die != true)currentAnimation = &idleAnim;
-
-			b2Vec2 velocity;
-			if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
-			else  velocity = b2Vec2(0, -GRAVITY_Y);
-
-
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
-			{
-				jump = true;
-				up = true;
-				jump_count = position.y;
-				app->audio->PlayFx(jumpFx);
-				currentAnimation = &jumpAnim;
-
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			{
-				velocity.x = -5;
-				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				if (jump != true && die != true)currentAnimation = &runAnim;
-				if (position.x + app->render->camera.x < 200)
-				{
-					app->render->camera.x += 5;
-				}
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			{
-				velocity.x = 5;
-				flip = SDL_RendererFlip::SDL_FLIP_NONE;
-				if (jump != true && die != true)currentAnimation = &runAnim;
-				if (position.x + app->render->camera.x > 800)
-				{
-					app->render->camera.x -= 5;
-				}
-			}
-
-			if (position.y <= (jump_count - 120) && jump == true)
-			{
-				up = false;
-			}
-
-			pbody->body->SetLinearVelocity(velocity);
-
-			//Update player position in pixels
-			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
-
-			if (position.y + app->render->camera.y > 625)
-			{
-				app->render->camera.y -= 5;
-			}
-			if (position.y + app->render->camera.y < 400)
-			{
-				app->render->camera.y += 5;
-			}
-
+			app->render->camera.x -= 4;
 		}
-
-		currentAnimation->Update();
-
-		app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
-
-		if (die == true && currentAnimation->HasFinished() == true)
+		if (position.x + app->render->camera.x < 200)
 		{
-			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
-			app->render->camera.x = 0;
-			app->render->camera.y = 0;
-			CleanUp();
+			app->render->camera.x += 4;
 		}
-	}
-	else
-	{
-		b2Vec2 velocity(0,0);
-
-		currentAnimation = &idleAnim;
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			velocity.x = -5;
-			flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-			if (position.x + app->render->camera.x < 200)
-			{
-				app->render->camera.x += 5;
-			}
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			velocity.x = 5;
-			flip = SDL_RendererFlip::SDL_FLIP_NONE;
-			if (position.x + app->render->camera.x > 800)
-			{
-				app->render->camera.x -= 5;
-			}
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		{
-			velocity.y = -5;
-			flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		{
-			velocity.y = 5;
-			flip = SDL_RendererFlip::SDL_FLIP_NONE;
-		}
-
-		pbody->body->SetLinearVelocity(velocity);
-
-		//Update player position in pixels
-		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
-
 		if (position.y + app->render->camera.y > 625)
 		{
-			app->render->camera.y -= 5;
+			app->render->camera.y -= 4;
 		}
 		if (position.y + app->render->camera.y < 400)
 		{
-			app->render->camera.y += 5;
+			app->render->camera.y += 4;
 		}
 
-		currentAnimation->Update();
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
+	{
+		jump = true;
+		up = true;
+		jump_count = position.y;
+		app->audio->PlayFx(jumpFx);
+		currentAnimation = &jumpAnim;
 
-		app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 	}
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		velocity.x = -5;
+		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+		if (jump != true && die != true)currentAnimation = &runAnim;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		velocity.x = 5;
+		flip = SDL_RendererFlip::SDL_FLIP_NONE;
+		if(jump != true && die != true)currentAnimation = &runAnim;
+	}
+
+	if (position.y <= (jump_count - 120) && jump==true)
+	{
+		up = false;
+	}
+
+	pbody->body->SetLinearVelocity(velocity);
+
+	//Update player position in pixels
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
+
+	currentAnimation->Update();
+
+	app->render->DrawTexture(texture, position.x , position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
+
+	if (die == true && currentAnimation->HasFinished() == true)
+	{
+		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 90);
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+		app->entityManager->Disable();
+	}
+
 	return true;
 }
 
 bool Player::CleanUp()
 {
-	delete pbody;
-	pbody = NULL;
-	app->physics->active = false;
-	this->active = false;
-	dieAnim.FullReset();
-
 	return true;
 }
 
@@ -248,12 +176,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
-			break;		
-		case ColliderType::ENEMY:
-			LOG("Collision ENEMY");
-			die = true;
 			currentAnimation = &dieAnim;
-			app->audio->PlayFx(dieFx);
+			app->audio->PlayFx(pickCoinFxId);
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
@@ -268,13 +192,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			die = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
+
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->winw, 50);
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
-
 			app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");
 			break;
 	}
