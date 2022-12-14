@@ -1,0 +1,37 @@
+<config>
+  <app>
+    <title>Game Development Testbed</title>
+    <organization>UPC</organization>
+  </app>
+
+  <renderer>
+    <vsync value="true"/>
+	<position x="-800" y="-1455"/>
+  </renderer>
+
+  <window>
+    <resolution width="1024" height="768" scale="1"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <audio>
+    <music volume="128"/>
+    <fx volume="128"/> 
+  </audio>
+
+  <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
+  <scene>
+    <player x="1312" y="2000" texturepath="Assets/Textures/player_sprite_sheet.png"/>
+    <enemy x="2672" y="1104" texturepath="Assets/Textures/slime-Sheet.png"/>
+    <fly_enemy x="990" y="1050" texturepath="Assets/Textures/Dragon_sprite_sheet_noback.png"/>
+  </scene>
+
+  <map>
+    <mapfolder path="Assets/Maps/"/>
+    <mapfile path="Assets/Maps/Prueva.tmx"/>
+  </map>
+  
+</config>
