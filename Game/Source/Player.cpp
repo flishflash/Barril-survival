@@ -268,7 +268,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			die = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
-
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");

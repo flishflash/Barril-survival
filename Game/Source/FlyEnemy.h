@@ -32,6 +32,7 @@ private:
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
+	PhysBody* vision;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleAnim;

@@ -55,13 +55,16 @@ bool FlyEnemy::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	
+
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 8, bodyType::DYNAMIC);
+	vision = app->physics->CreateCircleSensor(position.x + 150, position.y + 200, 100, bodyType::DYNAMIC);
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::ENEMY;
+	vision->ctype = ColliderType::UNKNOWN;
 	pbody->listener;
+	vision->listener;
 
 	return true;
 }
