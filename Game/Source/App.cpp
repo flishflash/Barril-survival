@@ -9,6 +9,7 @@
 #include "Win.h"
 #include "FadeToBlack.h"
 #include "EntityManager.h"
+#include "PathFinding.h"
 #include "Map.h"
 #include "Physics.h"
 #include "Init.h"
@@ -31,6 +32,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	physics = new Physics();
 	fade = new FadeToBlack();
+	pathfinding = new PathFinding();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
@@ -50,6 +52,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(scene);
 	AddModule(entityManager);
+	AddModule(pathfinding);
 	AddModule(map);
 	AddModule(die);
 	AddModule(winw);
