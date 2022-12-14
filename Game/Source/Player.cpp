@@ -93,30 +93,93 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	if (die == false)
+	if (!app->physics->debug)
 	{
-		if (jump != true && die != true)currentAnimation = &idleAnim;
-
-		b2Vec2 velocity;
-		if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
-		else  velocity = b2Vec2(0, -GRAVITY_Y);
-
-
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
+		if (die == false)
 		{
-			jump = true;
-			up = true;
-			jump_count = position.y;
-			app->audio->PlayFx(jumpFx);
-			currentAnimation = &jumpAnim;
+			if (jump != true && die != true)currentAnimation = &idleAnim;
+
+			b2Vec2 velocity;
+			if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
+			else  velocity = b2Vec2(0, -GRAVITY_Y);
+
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
+			{
+				jump = true;
+				up = true;
+				jump_count = position.y;
+				app->audio->PlayFx(jumpFx);
+				currentAnimation = &jumpAnim;
+
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				velocity.x = -5;
+				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+				if (jump != true && die != true)currentAnimation = &runAnim;
+				if (position.x + app->render->camera.x < 200)
+				{
+					app->render->camera.x += 5;
+				}
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				velocity.x = 5;
+				flip = SDL_RendererFlip::SDL_FLIP_NONE;
+				if (jump != true && die != true)currentAnimation = &runAnim;
+				if (position.x + app->render->camera.x > 800)
+				{
+					app->render->camera.x -= 5;
+				}
+			}
+
+			if (position.y <= (jump_count - 120) && jump == true)
+			{
+				up = false;
+			}
+
+			pbody->body->SetLinearVelocity(velocity);
+
+			//Update player position in pixels
+			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 36;
+
+			if (position.y + app->render->camera.y > 625)
+			{
+				app->render->camera.y -= 5;
+			}
+			if (position.y + app->render->camera.y < 400)
+			{
+				app->render->camera.y += 5;
+			}
 
 		}
+
+		currentAnimation->Update();
+
+		app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
+
+		if (die == true && currentAnimation->HasFinished() == true)
+		{
+			app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
+			app->render->camera.x = 0;
+			app->render->camera.y = 0;
+			CleanUp();
+		}
+	}
+	else
+	{
+		b2Vec2 velocity(0,0);
+
+		currentAnimation = &idleAnim;
 
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			velocity.x = -5;
 			flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-			if (jump != true && die != true)currentAnimation = &runAnim;
 			if (position.x + app->render->camera.x < 200)
 			{
 				app->render->camera.x += 5;
@@ -127,16 +190,20 @@ bool Player::Update()
 		{
 			velocity.x = 5;
 			flip = SDL_RendererFlip::SDL_FLIP_NONE;
-			if (jump != true && die != true)currentAnimation = &runAnim;
 			if (position.x + app->render->camera.x > 800)
 			{
 				app->render->camera.x -= 5;
 			}
 		}
 
-		if (position.y <= (jump_count - 120) && jump == true)
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			up = false;
+			velocity.y = -5;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			velocity.y = 5;
 		}
 
 		pbody->body->SetLinearVelocity(velocity);
@@ -154,18 +221,10 @@ bool Player::Update()
 			app->render->camera.y += 5;
 		}
 
-	}
+		currentAnimation->Update();
 
-	currentAnimation->Update();
+		app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
-	app->render->DrawTexture(texture, position.x , position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
-
-	if (die == true && currentAnimation->HasFinished() == true)
-	{
-		app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
-		app->render->camera.x = 0;
-		app->render->camera.y = 0;
-		CleanUp();
 	}
 
 	return true;
