@@ -25,10 +25,6 @@
     </ClCompile>
     <ClCompile Include="Source\Die.cpp" />
     <ClCompile Include="Source\Win.cpp" />
-    <ClCompile Include="Source\Init.cpp" />
-    <ClCompile Include="Source\Enemy.cpp" />
-    <ClCompile Include="Source\FlyEnemy.cpp" />
-    <ClCompile Include="Source\Pathfinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -78,10 +74,6 @@
     <ClInclude Include="Source\Die.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Win.h" />
-    <ClInclude Include="Source\Init.h" />
-    <ClInclude Include="Source\Enemy.h" />
-    <ClInclude Include="Source\FlyEnemy.h" />
-    <ClInclude Include="Source\Pathfinding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
