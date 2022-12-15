@@ -91,8 +91,6 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	if (app->scene->active=true)
-	{
 		if (!app->physics->debug)
 		{
 			if (die == false)
@@ -225,7 +223,6 @@ bool Player::Update()
 			app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
 		}
-	}
 
 	return true;
 }
