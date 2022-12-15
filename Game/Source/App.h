@@ -21,6 +21,7 @@ class Init;
 class Scene;
 class FadeToBlack;
 class EntityManager;
+class PathFinding;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
@@ -96,6 +97,7 @@ public:
 	Init* inicio;
 	FadeToBlack* fade;
 	EntityManager* entityManager;
+	PathFinding* pathfinding;
 	Map* map;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
