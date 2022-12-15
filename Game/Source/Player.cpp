@@ -280,8 +280,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->fade->FadeToblack((Module*)app->scene, (Module*)app->winw, 50);
 			app->render->camera.x = 0;
 			app->render->camera.y = 0;
-
-			app->audio->PlayMusic("Assets/Audio/Music/Victory.ogg");
+			app->scene->CleanUp();
+			app->scene->enemy->CleanUp();
+			app->scene->fly_enemy->CleanUp();
+			CleanUp();
 			break;
 	}
 	
