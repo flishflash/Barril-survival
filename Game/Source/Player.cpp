@@ -24,8 +24,11 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	keepPos = position;
+	//Unload cositas
 	this->active = false;
+	app->die->active = false;
+	app->winw->active = false;
+
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -68,7 +71,7 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	//Load cositas
+	//Unload cositas
 	app->die->active = false;
 	app->winw->active = false;
 
@@ -86,7 +89,7 @@ bool Player::Start() {
 	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
 	pbody->body->SetFixedRotation(true);
 
-	die = false;
+	dies = false;
 
 	return true;
 }
@@ -95,9 +98,9 @@ bool Player::Update()
 {
 		if (!app->physics->debug)
 		{
-			if (die == false)
+			if (dies == false)
 			{
-				if (jump != true && die != true)currentAnimation = &idleAnim;
+				if (jump != true && dies != true)currentAnimation = &idleAnim;
 
 				if (up == true) velocity = b2Vec2(0, GRAVITY_Y);
 				else  velocity = b2Vec2(0, -GRAVITY_Y);
@@ -121,7 +124,7 @@ bool Player::Update()
 					{
 						app->render->camera.x += PIXEL_TO_METERS(150);
 					}
-					if (jump != true && die != true)currentAnimation = &runAnim;
+					if (jump != true && dies != true)currentAnimation = &runAnim;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -132,7 +135,7 @@ bool Player::Update()
 					{
 						app->render->camera.x -= PIXEL_TO_METERS(150);
 					}
-					if (jump != true && die != true)currentAnimation = &runAnim;
+					if (jump != true && dies != true)currentAnimation = &runAnim;
 				}
 
 				if (position.y <= (jump_count - 120) && jump == true)
@@ -161,11 +164,14 @@ bool Player::Update()
 
 			app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
-			if (die == true && currentAnimation->HasFinished() == true)
+			if (dies == true && currentAnimation->HasFinished() == true)
 			{
 				app->fade->FadeToblack((Module*)app->scene, (Module*)app->die, 50);
 				app->render->camera.x = 0;
 				app->render->camera.y = 0;
+				app->scene->CleanUp();
+				app->scene->enemy->CleanUp();
+				app->scene->fly_enemy->CleanUp();
 				CleanUp();
 			}
 		}
@@ -259,13 +265,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WATER:
 			LOG("Collision WATER");
-			die = true;
+			dies = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
 			break;		
 		case ColliderType::ENEMY:
 			LOG("Collision WATER");
-			die = true;
+			dies = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
 			break;

@@ -35,20 +35,7 @@ public:
 
 	PhysBody* pbody;
 
-	bool die;
-
-	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);;
-
-	//Animation 
-	Animation* currentAnimation = nullptr;
-
-	// A set of animations
-	Animation idleAnim;
-	Animation jumpAnim;
-	Animation runAnim;
-	Animation dieAnim;
-
-	bool jump = false;
+	bool dies;
 
 private:
 
@@ -66,7 +53,19 @@ private:
 	int jumpFx;
 	int dieFx;
 
-	iPoint keepPos;
+	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);;
+
+	//Animation 
+	Animation* currentAnimation = nullptr;
+
+	// A set of animations
+	Animation idleAnim;
+	Animation jumpAnim;
+	Animation runAnim;
+	Animation dieAnim;
+
+	bool jump = false;
+
 };
 
 #endif // __PLAYER_H__

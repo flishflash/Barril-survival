@@ -33,7 +33,6 @@ bool Init::Start()
 {
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
-	app->scene->player->die = true;
 	img = app->tex->Load("Assets/Maps/Titulo_BS.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 

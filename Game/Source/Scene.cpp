@@ -60,18 +60,28 @@ bool Scene::Start()
 	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
+	//Active physics
 	app->physics->active = true;
 	app->physics->Start();
-	player->active = true;
+
+	//Active entities
+	app->entityManager->active = true;
+
+	//Active enemies
 	enemy->active = true;
 	fly_enemy->active = true;
+	enemy->Start();
+	fly_enemy->Start();
+
+	//Restart player
+	player->active = true;
 	player->Start();
+	player->position = player_initPos;
 
 	// L03: DONE: Load map
 	app->map->Load();
-	app->entityManager->active = true;
-	enemy->Start();
-	fly_enemy->Start();
+
+
 
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -121,7 +131,17 @@ bool Scene::Update(float dt)
 		app->fade->FadeToblack(this, (Module*)app->die, 50); 
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
-		player->die = true;
+		player->dies = true;
+		player->CleanUp();
+		enemy->CleanUp();
+		fly_enemy->CleanUp();
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		app->fade->FadeToblack(this, (Module*)app->winw, 50);
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+		player->dies = true;
 		player->CleanUp();
 		enemy->CleanUp();
 		fly_enemy->CleanUp();

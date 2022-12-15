@@ -31,7 +31,8 @@ bool Die::Awake()
 // Called before the first frame
 bool Die::Start()
 {
-
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 	img = app->tex->Load("Assets/Maps/Game_Over_Barril_Survival.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
