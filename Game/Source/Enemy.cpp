@@ -57,7 +57,7 @@ bool Enemy::Start() {
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 8, bodyType::DYNAMIC);
 
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ITEM;
+	pbody->ctype = ColliderType::ENEMY;
 
 	return true;
 }
@@ -76,5 +76,6 @@ bool Enemy::Update()
 
 bool Enemy::CleanUp()
 {
+	this->active = false;
 	return true;
 }

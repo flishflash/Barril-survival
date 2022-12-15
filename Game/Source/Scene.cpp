@@ -48,6 +48,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	player_initPos.x = config.child("player").attribute("x").as_int();
 	player_initPos.y = config.child("player").attribute("y").as_int();
+
 	return ret;
 }
 
@@ -62,6 +63,8 @@ bool Scene::Start()
 	app->physics->active = true;
 	app->physics->Start();
 	player->active = true;
+	enemy->active = true;
+	fly_enemy->active = true;
 	player->Start();
 
 	// L03: DONE: Load map
@@ -102,16 +105,16 @@ bool Scene::Update(float dt)
 		app->LoadGameRequest();
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 1;
+		app->render->camera.y += 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 1;
+		app->render->camera.y -= 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x += 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 1;
+		app->render->camera.x -= 5;
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
@@ -120,7 +123,8 @@ bool Scene::Update(float dt)
 		app->render->camera.y = 0;
 		player->die = true;
 		player->CleanUp();
-		
+		enemy->CleanUp();
+		fly_enemy->CleanUp();
 	}
 
 	app->render->DrawTexture(img, 0, 0);
@@ -148,6 +152,7 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	img = NULL;
 	app->scene->active = false;
+	app->entityManager->active = false;
 	player->position = player_initPos;
 
 	return true;

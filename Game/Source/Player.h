@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Physics.h"
 #include "Animation.h"
 #include "SDL/include/SDL.h"
 
@@ -36,21 +37,7 @@ public:
 
 	bool die;
 
-private:
-
-	//L02: DONE 1: Declare player parameters
-	SDL_Texture* texture;
-	const char* texturePath;
-
-	bool jump = false;
-	bool up = false;
-	int jump_count = 0;
-
-	// L07 DONE 5: Add physics to the player - declare a Physics body
-
-	int pickCoinFxId;
-	int jumpFx;
-	int dieFx;
+	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);;
 
 	//Animation 
 	Animation* currentAnimation = nullptr;
@@ -60,6 +47,24 @@ private:
 	Animation jumpAnim;
 	Animation runAnim;
 	Animation dieAnim;
+
+	bool jump = false;
+
+private:
+
+	//L02: DONE 1: Declare player parameters
+	SDL_Texture* texture;
+	const char* texturePath;
+
+
+	bool up = false;
+	int jump_count = 0;
+
+	// L07 DONE 5: Add physics to the player - declare a Physics body
+
+	int pickCoinFxId;
+	int jumpFx;
+	int dieFx;
 
 };
 

@@ -83,6 +83,7 @@ void App::AddModule(Module* module)
 bool App::Awake()
 {
 	bool ret = false;
+	app->scene->active = false;
 
 	// L01: DONE 3: Load config from XML
 	ret = LoadConfig();
@@ -115,6 +116,7 @@ bool App::Start()
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
+
 
 	while (item != NULL && ret == true)
 	{
