@@ -66,6 +66,7 @@ private:
 	int jumpFx;
 	int dieFx;
 
+	iPoint keepPos;
 };
 
 #endif // __PLAYER_H__

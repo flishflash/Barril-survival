@@ -24,6 +24,8 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	keepPos = position;
+	this->active = false;
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -115,7 +117,7 @@ bool Player::Update()
 				{
 					velocity.x = -5;
 					flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-					if (position.x + app->render->camera.x < 800 && position.x + app->render->camera.x > 150)
+					if (position.x + app->render->camera.x < 600 && position.x + app->render->camera.x > 350)
 					{
 						app->render->camera.x += PIXEL_TO_METERS(150);
 					}
@@ -126,7 +128,7 @@ bool Player::Update()
 				{
 					velocity.x = 5;
 					flip = SDL_RendererFlip::SDL_FLIP_NONE;
-					if (position.x + app->render->camera.x < 850 && position.x + app->render->camera.x > 200)
+					if (position.x + app->render->camera.x < 650 && position.x + app->render->camera.x > 400)
 					{
 						app->render->camera.x -= PIXEL_TO_METERS(150);
 					}
