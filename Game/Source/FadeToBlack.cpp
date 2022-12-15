@@ -38,6 +38,7 @@ bool FadeToBlack::Update(float dt)
 		{
 			moduleToDisable->active = false;
 			moduleToEnable->active = true;
+			moduleToEnable->Start();
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}
