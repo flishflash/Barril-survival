@@ -24,6 +24,7 @@ public:
 	bool CleanUp();
 
 public:
+	bool chasing = false;
 
 private:
 
@@ -32,6 +33,7 @@ private:
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
+	PhysBody* view;
 
 	Animation* currentAnimation = nullptr;
 	Animation idleAnim;

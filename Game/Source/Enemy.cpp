@@ -62,7 +62,8 @@ bool Enemy::Start() {
 	pbody->ctype = ColliderType::ENEMY;
 
 	//joint
-	view = app->physics->CreateCircleSensor(position.x + 100, position.y + 100, 200, bodyType::DYNAMIC);
+	view = app->physics->CreateCircleSensor(position.x + 100, position.y + 100, 150, bodyType::DYNAMIC);
+	view->ctype = ColliderType::ENEMY_VIEW;
 
 	b2RevoluteJointDef view_joint;
 	view_joint.bodyA = pbody->body;

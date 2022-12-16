@@ -270,10 +270,18 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->audio->PlayFx(dieFx);
 			break;		
 		case ColliderType::ENEMY:
-			LOG("Collision WATER");
+			LOG("Collision ENEMY");
 			dies = true;
 			currentAnimation = &dieAnim;
 			app->audio->PlayFx(dieFx);
+			break;
+		case ColliderType::ENEMY_VIEW:
+			LOG("Collision ENEMY_VIEW");
+			app->scene->enemy->chasing = !app->scene->enemy->chasing;
+			break;
+		case ColliderType::ENEMY_VIEW_FLY:
+			LOG("Collision ENEMY_VIEW_FLY");
+			app->scene->fly_enemy->chasing = !app->scene->fly_enemy->chasing;
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");
