@@ -43,12 +43,14 @@ public:
 	iPoint player_initPos;
 	FlyEnemy* fly_enemy;
 	Enemy* enemy;
+	SDL_Texture* originTex = nullptr;
 
 private:
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
-	SDL_Texture* originTex = nullptr;
 
+	bool originSelected;
+	iPoint origin;
 };
 
 #endif // __SCENE_H__

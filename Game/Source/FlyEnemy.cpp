@@ -78,7 +78,7 @@ bool FlyEnemy::Start() {
 	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
 
 	// Texture to show path origin 
-	originTex = app->tex->Load("Assets/Maps/x_square.png");
+	originTex = app->tex->Load("Assets/Maps/path_square.png");
 
 	return true;
 }
@@ -88,25 +88,32 @@ bool FlyEnemy::Update()
 	currentAnimation->Update();
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
 
-	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()));
-
 	if (chasing == true) {
-		app->pathfinding->CreatePath(position, app->scene->player->position);
+		iPoint pos_or = app->map->MapToWorld(position.x, position.y);
+		iPoint pos_des = app->map->MapToWorld(app->scene->player->position.x, app->scene->player->position.y);
+
+		app->pathfinding->CreatePath(pos_or, pos_des);
 		currentAnimation = &flyAnim;
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 		for (uint i = 0; i < path->Count(); ++i)
 		{
+			LOG("%d %d", path->At(i)->x, path->At(i)->y);
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
 		}
 		// L12: Debug pathfinding
 		iPoint originScreen = app->map->MapToWorld(position.x, position.y);
 		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+		LOG("%d %d", originScreen.x, originScreen.y);
+		
 	}
 	else {
 		currentAnimation = &idleAnim;
 		view->body->SetLinearVelocity(b2Vec2(0, 0));
 	}
+
+	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()));
+
 	position.x = METERS_TO_PIXELS(view->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(view->body->GetTransform().p.y) - 16;
 	return true;

@@ -48,7 +48,7 @@ bool PathFinding::CheckBoundaries(const iPoint& pos) const
 bool PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	return t != INVALID_WALK_CODE;
 }
 
 // Utility: return the walkability value of a tile
@@ -175,12 +175,14 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+
 	int ret = -1;
 	int iterations = 0;
 
 	// L12: TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) && IsWalkable(destination))
 	{
+		LOG("asdfasdf");
 		// L12: TODO 2: Create two lists: open, close
 		PathList open;
 		PathList closed;
