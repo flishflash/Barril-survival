@@ -37,7 +37,7 @@ bool FlyEnemy::Awake() {
 	idleAnim.PushBack({ 64, 4, 50, 55 });
 	idleAnim.PushBack({ 1, 2, 51, 57 });
 	idleAnim.loop = true;
-	idleAnim.speed = 0.1f;
+	idleAnim.speed = 0.2f;
 	currentAnimation = &idleAnim;
 
 	//Flying
@@ -46,8 +46,8 @@ bool FlyEnemy::Awake() {
 	flyAnim.PushBack({ 687, 18, 51, 23 });
 	flyAnim.PushBack({ 623, 22, 52, 20 });
 	flyAnim.PushBack({ 562, 7, 51, 43 });
-	flyAnim.loop = false;
-	flyAnim.speed = 0.02f;
+	flyAnim.loop = true;
+	flyAnim.speed = 0.1f;
 
 	return true;
 }
@@ -81,16 +81,26 @@ bool FlyEnemy::Update()
 {
 	currentAnimation->Update();
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()));
 
 	if (chasing == true) {
 		app->pathfinding->CreatePath(position, app->scene->player->position);
 		currentAnimation = &flyAnim;
+		if (position.x > app->scene->player->position.x) {
+			position.x += 10;
+		}
+		else {
+			position.x -= 10;
+		}
+		view->body->SetLinearVelocity(b2Vec2(0, -2));
 	}
-
+	else {
+		currentAnimation = &flyAnim;
+		view->body->SetLinearVelocity(b2Vec2(0, 0));
+	}
+	position.x = METERS_TO_PIXELS(view->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(view->body->GetTransform().p.y) - 16;
 	return true;
 }
 

@@ -46,6 +46,8 @@ public:
 
 private:
 	SDL_Texture* img;
+	SDL_Texture* mouseTileTex = nullptr;
+	SDL_Texture* originTex = nullptr;
 
 };
 

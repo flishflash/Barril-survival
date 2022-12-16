@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "Die.h"
+#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -79,7 +80,7 @@ bool Scene::Start()
 	player->position = player_initPos;
 
 	// L03: DONE: Load map
-	app->map->Load();
+	bool retLoad = app->map->Load();
 
 
 
@@ -95,6 +96,40 @@ bool Scene::Start()
 
 	app->render->camera.x = -800;
 	app->render->camera.y = -1455;
+
+	// L12 Create walkability map
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
+
+	//Sets the camera to be centered in isometric map
+	if (app->map->mapData.type == MapTypes::MAPTYPE_ISOMETRIC) {
+		uint width, height;
+		app->win->GetWindowSize(width, height);
+		app->render->camera.x = width / 2;
+
+		// Texture to highligh mouse position 
+		mouseTileTex = app->tex->Load("Assets/Maps/path.png");
+
+		// Texture to show path origin 
+		originTex = app->tex->Load("Assets/Maps/x.png");
+	}
+
+	if (app->map->mapData.type == MapTypes::MAPTYPE_ORTHOGONAL) {
+
+		// Texture to highligh mouse position 
+		mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
+
+		// Texture to show path origin 
+		originTex = app->tex->Load("Assets/Maps/x_square.png");
+	}
 
 	return true;
 }
