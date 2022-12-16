@@ -20198,6 +20198,10 @@
   </data>
  </layer>
  <layer id="10" name="Navigation" width="96" height="70">
+  <properties>
+   <property name="Draw" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="true"/>
+  </properties>
   <data>
    <tile gid="202"/>
    <tile gid="202"/>

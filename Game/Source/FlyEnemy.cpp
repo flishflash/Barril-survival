@@ -96,7 +96,7 @@ bool FlyEnemy::Update()
 		view->body->SetLinearVelocity(b2Vec2(0, -2));
 	}
 	else {
-		currentAnimation = &flyAnim;
+		currentAnimation = &idleAnim;
 		view->body->SetLinearVelocity(b2Vec2(0, 0));
 	}
 	position.x = METERS_TO_PIXELS(view->body->GetTransform().p.x) - 16;
