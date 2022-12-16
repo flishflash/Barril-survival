@@ -38,6 +38,9 @@ private:
 	Animation* currentAnimation = nullptr;
 	Animation idleAnim;
 	Animation flyAnim;
+
+	SDL_Texture* mouseTileTex = nullptr;
+	SDL_Texture* originTex = nullptr;
 };
 
 #endif // __FLYENEMY_H__

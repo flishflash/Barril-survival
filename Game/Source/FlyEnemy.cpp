@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Pathfinding.h"
+#include "Map.h"
 
 FlyEnemy::FlyEnemy() : Entity(EntityType::FLY_ENEMY)
 {
@@ -74,6 +75,11 @@ bool FlyEnemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
+	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
+
+	// Texture to show path origin 
+	originTex = app->tex->Load("Assets/Maps/x_square.png");
+
 	return true;
 }
 
@@ -87,13 +93,15 @@ bool FlyEnemy::Update()
 	if (chasing == true) {
 		app->pathfinding->CreatePath(position, app->scene->player->position);
 		currentAnimation = &flyAnim;
-		if (position.x > app->scene->player->position.x) {
-			position.x += 10;
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
 		}
-		else {
-			position.x -= 10;
-		}
-		view->body->SetLinearVelocity(b2Vec2(0, -2));
+		// L12: Debug pathfinding
+		iPoint originScreen = app->map->MapToWorld(position.x, position.y);
+		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 	}
 	else {
 		currentAnimation = &idleAnim;
