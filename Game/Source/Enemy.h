@@ -36,6 +36,8 @@ private:
 	Animation walkAnim;
 	Animation dieAnim;
 
+	PhysBody* view;
+
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
 };
