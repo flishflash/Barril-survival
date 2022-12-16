@@ -40,6 +40,7 @@ void PathFinding::SetMap(uint width, uint height, uchar* data)
 // Utility: return true if pos is inside the map boundaries
 bool PathFinding::CheckBoundaries(const iPoint& pos) const
 {
+	LOG("positions %d, %d", pos.x, pos.y);
 	return (pos.x >= 0 && pos.x <= (int)width &&
 			pos.y >= 0 && pos.y <= (int)height);
 }
@@ -48,7 +49,7 @@ bool PathFinding::CheckBoundaries(const iPoint& pos) const
 bool PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE;
+	return t != INVALID_WALK_CODE && t > 0;
 }
 
 // Utility: return the walkability value of a tile

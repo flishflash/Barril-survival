@@ -59,10 +59,10 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
                 if (tileset != NULL)
                 {
-                   //According to the mapType use the ID of the tile to set the walkability value
-                   if (tileId == 201) map[i] = 1;
-                   else map[i] = 0;
-                   LOG("%d", map[i]);
+                    //According to the mapType use the ID of the tile to set the walkability value
+                    if (mapData.type == MapTypes::MAPTYPE_ISOMETRIC && tileId == 25) map[i] = 1;
+                    else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId == 202) map[i] = 1;
+                    else map[i] = 0;
                 }
                 else {
                     LOG("CreateWalkabilityMap: Invalid tileset found");
