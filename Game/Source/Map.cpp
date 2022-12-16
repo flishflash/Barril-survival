@@ -1,4 +1,3 @@
-
 #include "App.h"
 #include "Render.h"
 #include "Textures.h"
@@ -29,17 +28,10 @@ bool Map::Awake(pugi::xml_node& config)
     mapFileName = config.child("mapfile").attribute("path").as_string();
     mapFolder = config.child("mapfolder").attribute("path").as_string();
 
-    //Initialize the path
-    frontier.Push(iPoint(19, 4), 0);
-    visited.Add(iPoint(19, 4));
-    breadcrumbs.Add(iPoint(19, 4));
-
-    // L09 DONE 4: Initialize destination point
-    destination = iPoint(0, 20);
-
     return ret;
 }
 
+// L12: Create walkability map for pathfinding
 bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
     bool ret = false;
@@ -69,7 +61,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 {
                     //According to the mapType use the ID of the tile to set the walkability value
                     if (mapData.type == MapTypes::MAPTYPE_ISOMETRIC && tileId == 25) map[i] = 1;
-                    else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId != 8) map[i] = 1;
+                    else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId == 50) map[i] = 1;
                     else map[i] = 0;
                 }
                 else {
@@ -90,31 +82,13 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
     return ret;
 }
 
-
-void Map::ResetPath()
-{
-    frontier.Clear();
-    visited.Clear();
-    breadcrumbs.Clear();
-
-    frontier.Push(iPoint(19, 4), 0);
-    visited.Add(iPoint(19, 4));
-    breadcrumbs.Add(iPoint(19, 4));
-
-    //initailize the cost matrix
-    memset(costSoFar, 0, sizeof(uint) * COST_MAP_SIZE * COST_MAP_SIZE);
-
-}
-
-
-
 void Map::Draw()
 {
-    if(mapLoaded == false)
+    if (mapLoaded == false)
         return;
 
     /*
-    // L04: DONE 6: Iterate all tilesets and draw all their 
+    // L04: DONE 6: Iterate all tilesets and draw all their
     // images in 0,0 (you should have only one tileset for now)
 
     ListItem<TileSet*>* tileset;
@@ -133,34 +107,7 @@ void Map::Draw()
 
     while (mapLayerItem != NULL) {
 
-        if (mapLayerItem->data->properties.GetProperty("Draw") == NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
-
-            for (int x = 0; x < mapLayerItem->data->width; x++)
-            {
-                for (int y = 0; y < mapLayerItem->data->height; y++)
-                {
-                    // L05: DONE 9: Complete the draw function
-                    int gid = mapLayerItem->data->Get(x, y);
-
-                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
-                    TileSet* tileset = GetTilesetFromTileId(gid);
-
-                    SDL_Rect r = tileset->GetTileRect(gid);
-                    iPoint pos = MapToWorld(x, y);
-
-                }
-            }
-        }
-
-        mapLayerItem = mapLayerItem->next;
-
-    }
-
-    mapLayerItem = mapData.maplayers.start;
-
-    while (mapLayerItem != NULL) {
-
-
+        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -184,8 +131,10 @@ void Map::Draw()
             }
         }
         mapLayerItem = mapLayerItem->next;
-
     }
+
+    //Draw the visited tiles
+    //DrawPath();
 }
 
 // L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -193,12 +142,22 @@ iPoint Map::MapToWorld(int x, int y) const
 {
     iPoint ret;
 
-    ret.x = x * mapData.tileWidth;
-    ret.y = y * mapData.tileHeight;
+    // L08: DONE 1: Add isometric map to world coordinates
+    if (mapData.type == MAPTYPE_ORTHOGONAL)
+    {
+        ret.x = x * mapData.tileWidth;
+        ret.y = y * mapData.tileHeight;
+    }
+    else if (mapData.type == MAPTYPE_ISOMETRIC)
+    {
+        ret.x = (x - y) * (mapData.tileWidth / 2);
+        ret.y = (x + y) * (mapData.tileHeight / 2);
+    }
 
     return ret;
 }
 
+// L08: DONE 3: Add method WorldToMap to obtain  map coordinates from screen coordinates
 iPoint Map::WorldToMap(int x, int y)
 {
     iPoint ret(0, 0);
@@ -265,15 +224,15 @@ bool Map::CleanUp()
     LOG("Unloading map");
 
     // L04: DONE 2: Make sure you clean up any memory allocated from tilesets/map
-	ListItem<TileSet*>* item;
-	item = mapData.tilesets.start;
+    ListItem<TileSet*>* item;
+    item = mapData.tilesets.start;
 
-	while (item != NULL)
-	{
-		RELEASE(item->data);
-		item = item->next;
-	}
-	mapData.tilesets.Clear();
+    while (item != NULL)
+    {
+        RELEASE(item->data);
+        item = item->next;
+    }
+    mapData.tilesets.Clear();
 
     // L05: DONE 2: clean up all layer data
     // Remove all layers
@@ -289,7 +248,6 @@ bool Map::CleanUp()
     return true;
 }
 
-// Load new map
 bool Map::Load()
 {
     bool ret = true;
@@ -297,13 +255,13 @@ bool Map::Load()
     pugi::xml_document mapFileXML;
     pugi::xml_parse_result result = mapFileXML.load_file(mapFileName.GetString());
 
-    if(result == NULL)
+    if (result == NULL)
     {
         LOG("Could not load map xml file %s. pugi error: %s", mapFileName, result.description());
         ret = false;
     }
 
-    if(ret == true)
+    if (ret == true)
     {
         ret = LoadMap(mapFileXML);
     }
@@ -318,10 +276,10 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
-    
+
     // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
-   
+
     //Suelo
     PhysBody* s[16];
     s[0] = app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
@@ -391,7 +349,7 @@ bool Map::Load()
     w[1] = app->physics->CreateRectangle(1360, 1288, 288, 48, bodyType::STATIC);
     w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
     w[3] = app->physics->CreateRectangle(1855, 2176, 160, 144, bodyType::STATIC);
-    
+
 
     for (int i = 0; i < 4; i++) {
         w[i]->ctype = ColliderType::WATER;
@@ -401,21 +359,21 @@ bool Map::Load()
     win = app->physics->CreateRectangle(3024, 1168, 16, 160, bodyType::STATIC);
     win->ctype = ColliderType::WIN;
 
-    if(ret == true)
+    if (ret == true)
     {
         // L04: DONE 5: LOG all the data loaded iterate all tilesets and LOG everything
-       
+
         LOG("Successfully parsed map XML file :%s", mapFileName.GetString());
-        LOG("width : %d height : %d",mapData.width,mapData.height);
-        LOG("tile_width : %d tile_height : %d",mapData.tileWidth, mapData.tileHeight);
-        
+        LOG("width : %d height : %d", mapData.width, mapData.height);
+        LOG("tile_width : %d tile_height : %d", mapData.tileWidth, mapData.tileHeight);
+
         LOG("Tilesets----");
 
         ListItem<TileSet*>* tileset;
         tileset = mapData.tilesets.start;
 
         while (tileset != NULL) {
-            LOG("name : %s firstgid : %d",tileset->data->name.GetString(), tileset->data->firstgid);
+            LOG("name : %s firstgid : %d", tileset->data->name.GetString(), tileset->data->firstgid);
             LOG("tile width : %d tile height : %d", tileset->data->tileWidth, tileset->data->tileHeight);
             LOG("spacing : %d margin : %d", tileset->data->spacing, tileset->data->margin);
             tileset = tileset->next;
@@ -432,7 +390,7 @@ bool Map::Load()
         }
     }
 
-    if(mapFileXML) mapFileXML.reset();
+    if (mapFileXML) mapFileXML.reset();
 
     mapLoaded = ret;
 
@@ -457,15 +415,27 @@ bool Map::LoadMap(pugi::xml_node mapFile)
         mapData.width = map.attribute("width").as_int();
         mapData.tileHeight = map.attribute("tileheight").as_int();
         mapData.tileWidth = map.attribute("tilewidth").as_int();
+        mapData.type = MAPTYPE_UNKNOWN;
+
+        // L08: DONE 2: Read the prientation of the map
+        mapData.type = MAPTYPE_UNKNOWN;
+        if (strcmp(map.attribute("orientation").as_string(), "isometric") == 0)
+        {
+            mapData.type = MAPTYPE_ISOMETRIC;
+        }
+        if (strcmp(map.attribute("orientation").as_string(), "orthogonal") == 0)
+        {
+            mapData.type = MAPTYPE_ORTHOGONAL;
+        }
     }
 
     return ret;
 }
 
 // L04: DONE 4: Implement the LoadTileSet function to load the tileset properties
-bool Map::LoadTileSet(pugi::xml_node mapFile){
+bool Map::LoadTileSet(pugi::xml_node mapFile) {
 
-    bool ret = true; 
+    bool ret = true;
 
     pugi::xml_node tileset;
     for (tileset = mapFile.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
