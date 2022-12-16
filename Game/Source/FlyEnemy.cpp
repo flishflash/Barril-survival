@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Pathfinding.h"
 
 FlyEnemy::FlyEnemy() : Entity(EntityType::FLY_ENEMY)
 {
@@ -84,6 +85,10 @@ bool FlyEnemy::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()));
+
+	if (chasing == true) {
+		app->pathfinding->CreatePath(position, app->scene->player->position);
+	}
 
 	return true;
 }
