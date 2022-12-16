@@ -88,6 +88,7 @@ bool FlyEnemy::Update()
 
 	if (chasing == true) {
 		app->pathfinding->CreatePath(position, app->scene->player->position);
+		currentAnimation = &flyAnim;
 	}
 
 	return true;
