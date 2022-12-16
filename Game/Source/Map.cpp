@@ -40,7 +40,6 @@ bool Map::Awake(pugi::xml_node& config)
     return ret;
 }
 
-// L12: Create walkability map for pathfinding
 bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
     bool ret = false;
@@ -70,11 +69,11 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 {
                     //According to the mapType use the ID of the tile to set the walkability value
                     if (mapData.type == MapTypes::MAPTYPE_ISOMETRIC && tileId == 25) map[i] = 1;
-                    else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId == 50) map[i] = 1;
+                    else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId != 8) map[i] = 1;
                     else map[i] = 0;
                 }
                 else {
-                    LOG("CreateWalkabilityMap: Invalid tileset found");
+                    //LOG("CreateWalkabilityMap: Invalid tileset found");
                     map[i] = 0;
                 }
             }
@@ -90,6 +89,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
     return ret;
 }
+
 
 void Map::ResetPath()
 {

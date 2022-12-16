@@ -13470,7 +13470,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="8" name="Collisions" width="96" height="70">
+ <layer firstgid="8" name="Collisions" width="96" height="70">
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
