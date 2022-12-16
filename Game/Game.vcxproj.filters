@@ -82,6 +82,9 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\FlyEnemy.h" />
     <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\PQueue.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
