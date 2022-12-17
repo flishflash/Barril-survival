@@ -73,12 +73,12 @@ bool Enemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
-	view2 = app->physics->CreateRectangleSensor(position.x + 97, position.y + 95, 10, 5, bodyType::STATIC);
+	view2 = app->physics->CreateRectangleSensor(position.x + 97, position.y + 95, 10, 5, bodyType::DYNAMIC);
 	view2->ctype = ColliderType::DIE_ENEMY;
 
 	b2RevoluteJointDef view_joint2;
 	view_joint2.bodyA = pbody->body;
-	view_joint2.bodyB = view->body;
+	view_joint2.bodyB = view2->body;
 	view_joint2.localAnchorA.Set(0, 0);
 	view_joint2.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_2 = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint2);
