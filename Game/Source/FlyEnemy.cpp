@@ -102,7 +102,17 @@ bool FlyEnemy::Update()
 		iPoint pos_or = app->map->MapToWorld(position.x, position.y);
 		iPoint pos_des = app->map->MapToWorld(app->scene->player->position.x, app->scene->player->position.y);
 
-		app->pathfinding->CreatePath(pos_or, pos_des);
+		if (originSelected == true)
+		{
+			app->pathfinding->CreatePath(origin, pos_des);
+			originSelected = false;
+		}
+		else
+		{
+			origin = pos_or;
+			originSelected = true;
+			app->pathfinding->ClearLastPath();
+		}
 		currentAnimation = &flyAnim;
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 		for (uint i = 0; i < path->Count(); ++i)

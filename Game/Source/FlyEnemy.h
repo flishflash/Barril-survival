@@ -25,6 +25,7 @@ public:
 
 public:
 	bool chasing = false;
+	bool originSelected;
 
 private:
 
@@ -42,6 +43,8 @@ private:
 
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;
+
+	iPoint origin;
 };
 
 #endif // __FLYENEMY_H__
