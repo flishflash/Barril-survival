@@ -26,11 +26,14 @@ public:
 public:
 
 	bool chasing = false;
+	bool originSelected;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
+	SDL_Texture* mouseTileTex;
+	SDL_Texture* originTex;
 
 	Animation* currentAnimation = nullptr;
 	Animation walkAnim;
@@ -41,6 +44,8 @@ private:
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
 	PhysBody* view2;
+
+	iPoint origin;
 };
 
 #endif // __ENEMY_H__

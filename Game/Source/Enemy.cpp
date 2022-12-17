@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Pathfinding.h"
+#include "Map.h"
 
 Enemy::Enemy() : Entity(EntityType::ENEMY)
 {
@@ -83,6 +84,11 @@ bool Enemy::Start() {
 	view_joint2.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_2 = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint2);
 
+	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
+
+	// Texture to show path origin 
+	originTex = app->tex->Load("Assets/Maps/path_square.png");
+
 	return true;
 }
 
@@ -96,13 +102,36 @@ bool Enemy::Update()
 	app->render->DrawTexture(texture, position.x+8, position.y+8, &(currentAnimation->GetCurrentFrame()));
 
 	if (chasing == true) {
-		app->pathfinding->CreatePath(position, app->scene->player->position);
-		if (position.x > app->scene->player->position.x) {
-			position.x += 2;
+		iPoint pos_or = app->map->WorldToMap(position.x, position.y);
+		iPoint pos_des = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+
+		if (originSelected == true)
+		{
+			app->pathfinding->CreatePath(origin, pos_des);
+			originSelected = false;
 		}
-		else {
-			position.x -= 2;
+		else
+		{
+			origin = pos_or;
+			originSelected = true;
+			app->pathfinding->ClearLastPath();
 		}
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			LOG("%d %d", path->At(i)->x, path->At(i)->y);
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
+		}
+		// L12: Debug pathfinding
+		iPoint originScreen = app->map->MapToWorld(position.x, position.y);
+		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+		LOG("%d %d", originScreen.x, originScreen.y);
+
+	}
+	else {
+		view->body->SetLinearVelocity(b2Vec2(0, 0));
+		app->pathfinding->ClearLastPath();
 	}
 
 	return true;
