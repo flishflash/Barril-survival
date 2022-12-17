@@ -109,6 +109,12 @@ bool Enemy::Update()
 		{
 			app->pathfinding->CreatePath(origin, pos_des);
 			originSelected = false;
+			if (origin.x < pos_des.x) {
+				view->body->SetLinearVelocity(b2Vec2(1, 0));
+			}
+			if (origin.x > pos_des.x) {
+				view->body->SetLinearVelocity(b2Vec2(-1, 0));
+			}
 		}
 		else
 		{
