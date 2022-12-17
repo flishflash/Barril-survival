@@ -279,9 +279,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ENEMY_VIEW");
 			app->scene->enemy->chasing = !app->scene->enemy->chasing;
 			break;
+		case ColliderType::DIE_ENEMY:
+			LOG("Collision ENEMY_VIEW_FLY");
+			app->scene->enemy->CleanUp();
+			break;
 		case ColliderType::ENEMY_VIEW_FLY:
 			LOG("Collision ENEMY_VIEW_FLY");
 			app->scene->fly_enemy->chasing = !app->scene->fly_enemy->chasing;
+			break;
+		case ColliderType::DIE_FLY_ENEMY:
+			LOG("Collision ENEMY_VIEW_FLY");
+			app->scene->fly_enemy->CleanUp();
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");

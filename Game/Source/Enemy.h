@@ -40,6 +40,7 @@ private:
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
+	PhysBody* view2;
 };
 
 #endif // __ENEMY_H__

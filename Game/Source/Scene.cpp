@@ -147,6 +147,23 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 5;
 
+	//Start from lv1
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		app->render->camera.x = -800;
+		app->render->camera.y = -1455;
+		player->position.x = 1312;
+		player->position.y = 2000;
+	}
+	//Start from current level
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		app->render->camera.x = -800;
+		app->render->camera.y = -1455;
+		player->position.x = 1312;
+		player->position.y = 2000;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		app->fade->FadeToblack(this, (Module*)app->die, 50); 
