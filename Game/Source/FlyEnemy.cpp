@@ -99,8 +99,8 @@ bool FlyEnemy::Update()
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
 
 	if (chasing == true) {
-		iPoint pos_or = app->map->MapToWorld(position.x, position.y);
-		iPoint pos_des = app->map->MapToWorld(app->scene->player->position.x, app->scene->player->position.y);
+		iPoint pos_or = app->map->WorldToMap(position.x, position.y);
+		iPoint pos_des = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 
 		if (originSelected == true)
 		{
@@ -130,6 +130,7 @@ bool FlyEnemy::Update()
 	else {
 		currentAnimation = &idleAnim;
 		view->body->SetLinearVelocity(b2Vec2(0, 0));
+		app->pathfinding->ClearLastPath();
 	}
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()));
