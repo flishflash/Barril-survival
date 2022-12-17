@@ -75,7 +75,7 @@ bool FlyEnemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
-	view2 = app->physics->CreateRectangleSensor(position.x + 97, position.y +90, 10, 5, bodyType::DYNAMIC);
+	view2 = app->physics->CreateRectangleSensor(position.x + 100, position.y + 90, 6, 20, bodyType::DYNAMIC);
 	view2->ctype = ColliderType::DIE_FLY_ENEMY;
 
 	b2RevoluteJointDef view_joint2;
@@ -141,7 +141,7 @@ bool FlyEnemy::Update()
 	}
 	else {
 		currentAnimation = &idleAnim;
-		view->body->SetLinearVelocity(b2Vec2(0, 0));
+		view->body->SetLinearVelocity(b2Vec2(0, -0.3));
 		app->pathfinding->ClearLastPath();
 	}
 
