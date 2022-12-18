@@ -155,16 +155,14 @@ bool Scene::Update(float dt)
 	{
 		app->render->camera.x = -800;
 		app->render->camera.y = -1455;
-		player->position.x = 1312;
-		player->position.y = 2000;
+		player->pbody->body->SetTransform({ PIXEL_TO_METERS(1312), PIXEL_TO_METERS(2000) },0);
 	}
 	//Start from current level
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		app->render->camera.x = -800;
 		app->render->camera.y = -1455;
-		player->position.x = 1312;
-		player->position.y = 2000;
+		player->pbody->body->SetTransform({ PIXEL_TO_METERS(1312), PIXEL_TO_METERS(2000) }, 0);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
