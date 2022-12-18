@@ -109,18 +109,18 @@ bool FlyEnemy::Update()
 			app->pathfinding->CreatePath(origin, pos_des);
 			originSelected = false;
 			if (origin.x < pos_des.x) {
-				view->body->SetLinearVelocity(b2Vec2(1, 0));
+				view->body->SetLinearVelocity(b2Vec2(1.5, 0));
 				flip = SDL_RendererFlip::SDL_FLIP_NONE;
 			}
 			if (origin.x > pos_des.x) {
-				view->body->SetLinearVelocity(b2Vec2(-1, 0));
+				view->body->SetLinearVelocity(b2Vec2(-1.5, 0));
 				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			}
 			if (origin.y < pos_des.y) {
-				view->body->SetLinearVelocity(b2Vec2(0, 1));
+				view->body->SetLinearVelocity(b2Vec2(0, 1.5));
 			}
 			if (origin.y > pos_des.y) {
-				view->body->SetLinearVelocity(b2Vec2(0, -1));
+				view->body->SetLinearVelocity(b2Vec2(0, -1.5));
 			}
 		}
 		else
