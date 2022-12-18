@@ -55,6 +55,7 @@ bool Enemy::Awake() {
 bool Enemy::Start() {
 
 	dies = false;
+	currentAnimation = &walkAnim;
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -160,6 +161,7 @@ bool Enemy::Update()
 		currentAnimation = &dieAnim;
 		if (currentAnimation->HasFinished() == true)
 		{
+			chasing = false;
 			this->CleanUp();
 		}
 	}

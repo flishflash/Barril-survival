@@ -161,6 +161,7 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
+	chasing = false;
 	delete view2;
 	view2 = nullptr;
 	delete view;

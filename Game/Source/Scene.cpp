@@ -78,6 +78,7 @@ bool Scene::Start()
 	fly_enemy->active = true;
 	enemy->Start();
 	fly_enemy->Start();
+	app->pathfinding->ClearLastPath();
 
 	//Restart player
 	player->active = true;

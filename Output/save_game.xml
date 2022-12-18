@@ -9,8 +9,8 @@
 	<scene />
 	<entitymanager>
 		<player x="1280" y="2045" />
-		<enemy x="55.802063" y="24.4147186" />
-		<fly_enemy x="23.4573193" y="24.4758606" />
+		<enemy x="56.174984" y="24.5672474" />
+		<fly_enemy x="23.4573154" y="24.2805386" />
 	</entitymanager>
 	<pathfinding />
 	<map />
