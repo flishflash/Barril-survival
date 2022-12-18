@@ -27,6 +27,8 @@ public:
 	bool chasing = false;
 	bool originSelected;
 
+	int ID;
+
 private:
 
 	SDL_Texture* texture;
@@ -40,6 +42,8 @@ private:
 	Animation* currentAnimation = nullptr;
 	Animation idleAnim;
 	Animation flyAnim;
+
+	SDL_RendererFlip flip;
 
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;

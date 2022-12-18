@@ -23,6 +23,8 @@ public:
 
 	bool CleanUp();
 
+	int ID;
+
 public:
 
 	bool chasing = false;
@@ -40,6 +42,8 @@ private:
 	Animation dieAnim;
 
 	PhysBody* view;
+
+	SDL_RendererFlip flip;
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;

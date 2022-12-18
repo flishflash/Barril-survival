@@ -94,13 +94,6 @@ bool Enemy::Start() {
 
 bool Enemy::Update()
 {
-	currentAnimation->Update();
-	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
-
-	app->render->DrawTexture(texture, position.x+8, position.y+8, &(currentAnimation->GetCurrentFrame()));
-
 	if (chasing == true) {
 		iPoint pos_or = app->map->WorldToMap(position.x, position.y);
 		iPoint pos_des = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
@@ -111,9 +104,12 @@ bool Enemy::Update()
 			originSelected = false;
 			if (origin.x < pos_des.x) {
 				view->body->SetLinearVelocity(b2Vec2(1, 0));
+				flip = SDL_RendererFlip::SDL_FLIP_NONE;
 			}
 			if (origin.x > pos_des.x) {
 				view->body->SetLinearVelocity(b2Vec2(-1, 0));
+				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+
 			}
 		}
 		else
@@ -122,29 +118,46 @@ bool Enemy::Update()
 			originSelected = true;
 			app->pathfinding->ClearLastPath();
 		}
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			LOG("%d %d", path->At(i)->x, path->At(i)->y);
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
-		}
-		// L12: Debug pathfinding
-		iPoint originScreen = app->map->MapToWorld(position.x, position.y);
-		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
-		LOG("%d %d", originScreen.x, originScreen.y);
 
+		if (app->physics->debug)
+		{
+			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				LOG("%d %d", path->At(i)->x, path->At(i)->y);
+				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
+			}
+			// L12: Debug pathfinding
+			iPoint originScreen = app->map->MapToWorld(position.x, position.y);
+			app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+			LOG("%d %d", originScreen.x, originScreen.y);
+		}
 	}
 	else {
-		view->body->SetLinearVelocity(b2Vec2(0, 0));
+		//view->body->SetLinearVelocity(b2Vec2(0, 0));
 		app->pathfinding->ClearLastPath();
 	}
+
+	currentAnimation->Update();
+	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+
+	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
+
 
 	return true;
 }
 
 bool Enemy::CleanUp()
 {
+	delete pbody;
+	pbody = NULL;	
+	delete view;
+	view = NULL;	
+	delete view2;
+	view2 = NULL;
 	this->active = false;
 	return true;
 }
