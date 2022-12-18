@@ -84,7 +84,7 @@ bool FlyEnemy::Start() {
 	view_joint2.bodyA = pbody->body;
 	view_joint2.bodyB = view2->body;
 	view_joint2.localAnchorA.Set(0,0);
-	view_joint2.localAnchorB.Set(0, PIXEL_TO_METERS(10));
+	view_joint2.localAnchorB.Set(0, PIXEL_TO_METERS(5));
 	b2RevoluteJoint* view_2 = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint2);
 
 	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
@@ -161,13 +161,20 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
+<<<<<<< Updated upstream
 	app->pathfinding->ClearLastPath();
 	delete pbody;
 	pbody = NULL;
 	delete view;
 	view = NULL;
+=======
+>>>>>>> Stashed changes
 	delete view2;
-	view2 = NULL;
+	view2 = nullptr;
+	delete view;
+	view = nullptr;
+	delete pbody;
+	pbody = nullptr;
 	this->active = false;
 	return true;
 }

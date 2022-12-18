@@ -63,15 +63,13 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                     if (mapData.type == MapTypes::MAPTYPE_ISOMETRIC && tileId == 25) map[i] = 1;
                     else if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL && tileId == 202) {
                         map[i] = 1;
-                        LOG("map 1");
                     }
                     else {
                         map[i] = 0;
-                        LOG("map 0");
                     }
                 }
                 else {
-                    LOG("CreateWalkabilityMap: Invalid tileset found");
+                    //LOG("CreateWalkabilityMap: Invalid tileset found");
                     map[i] = 0;
                 }
             }

@@ -84,7 +84,7 @@ bool Enemy::Start() {
 	view_joint2.bodyA = pbody->body;
 	view_joint2.bodyB = view2->body;
 	view_joint2.localAnchorA.Set(0, 0);
-	view_joint2.localAnchorB.Set(0, PIXEL_TO_METERS(10));
+	view_joint2.localAnchorB.Set(0, PIXEL_TO_METERS(5));
 	b2RevoluteJoint* view_2 = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint2);
 
 	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
@@ -155,6 +155,7 @@ bool Enemy::Update()
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
+<<<<<<< Updated upstream
 	if (dies == true)
 	{
 		currentAnimation = &dieAnim;
@@ -164,18 +165,27 @@ bool Enemy::Update()
 		}
 	}
 
+=======
+>>>>>>> Stashed changes
 	return true;
 }
 
 bool Enemy::CleanUp()
 {
+<<<<<<< Updated upstream
 	app->pathfinding->ClearLastPath();
 	delete pbody;
 	pbody = NULL;	
 	delete view;
 	view = NULL;	
+=======
+>>>>>>> Stashed changes
 	delete view2;
 	view2 = NULL;
+	delete view;
+	view = NULL;
+	delete pbody;
+	pbody = NULL;	
 	this->active = false;
 	return true;
 }

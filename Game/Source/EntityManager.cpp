@@ -147,6 +147,9 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::LoadState(pugi::xml_node& data)
 {
+	app->scene->enemy->active = true;
+	app->scene->fly_enemy->active = true;
+
 	float x = data.child("player").attribute("x").as_int();
 	float y = data.child("player").attribute("y").as_int();
 
