@@ -8,7 +8,7 @@ Disclaimer: This is a university project, all the rights of the music and the as
 ## Key Features
  - Water and enemies kills you.
  - You only can do one jump, but if you jump and touch a wall, you can do another jump.
- - You cant kill the enemies.
+ - You can kill the enemies jumping on them.
  
 ## Controls
  - Space = Jump
