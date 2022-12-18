@@ -161,14 +161,6 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
-<<<<<<< Updated upstream
-	app->pathfinding->ClearLastPath();
-	delete pbody;
-	pbody = NULL;
-	delete view;
-	view = NULL;
-=======
->>>>>>> Stashed changes
 	delete view2;
 	view2 = nullptr;
 	delete view;

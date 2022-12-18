@@ -155,7 +155,6 @@ bool Enemy::Update()
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
-<<<<<<< Updated upstream
 	if (dies == true)
 	{
 		currentAnimation = &dieAnim;
@@ -165,21 +164,11 @@ bool Enemy::Update()
 		}
 	}
 
-=======
->>>>>>> Stashed changes
 	return true;
 }
 
 bool Enemy::CleanUp()
 {
-<<<<<<< Updated upstream
-	app->pathfinding->ClearLastPath();
-	delete pbody;
-	pbody = NULL;	
-	delete view;
-	view = NULL;	
-=======
->>>>>>> Stashed changes
 	delete view2;
 	view2 = NULL;
 	delete view;
