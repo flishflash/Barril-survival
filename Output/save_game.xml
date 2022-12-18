@@ -1,19 +1,23 @@
 <?xml version="1.0"?>
 <save_state>
+	<:anonymous />
 	<input />
 	<window />
 	<textures />
 	<audio />
 	<:anonymous />
 	<scene />
-	<scene />
-	<scene />
-	<:anonymous />
 	<entitymanager>
-		<player x="876" y="1677" />
+		<player x="1280" y="2045" />
+		<enemy x="56.2599106" y="24.4477406" />
+		<fly_enemy x="23.4573193" y="24.2566319" />
 	</entitymanager>
+	<pathfinding />
 	<map />
+	<Die />
+	<Win />
+	<Init />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-800" y="-1455" />
 	</renderer>
 </save_state>

@@ -29,6 +29,8 @@ public:
 
 	bool chasing = false;
 	bool originSelected;
+	PhysBody* pbody;
+	PhysBody* view;
 
 private:
 
@@ -41,12 +43,9 @@ private:
 	Animation walkAnim;
 	Animation dieAnim;
 
-	PhysBody* view;
-
 	SDL_RendererFlip flip;
 
 	//DONE 4: Add a physics to an item
-	PhysBody* pbody;
 	PhysBody* view2;
 
 	iPoint origin;

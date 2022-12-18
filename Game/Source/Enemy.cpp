@@ -74,14 +74,15 @@ bool Enemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
-	view2 = app->physics->CreateRectangleSensor(position.x + 100, position.y + 100, 6, 20, bodyType::DYNAMIC);
+	view2 = app->physics->CreateRectangleSensor(position.x + 100, position.y + 100, 20, 6, bodyType::DYNAMIC);
 	view2->ctype = ColliderType::DIE_ENEMY;
+	view2->body->SetFixedRotation(true);
 
 	b2RevoluteJointDef view_joint2;
 	view_joint2.bodyA = pbody->body;
 	view_joint2.bodyB = view2->body;
 	view_joint2.localAnchorA.Set(0, 0);
-	view_joint2.localAnchorB.Set(0, 0);
+	view_joint2.localAnchorB.Set(0, PIXEL_TO_METERS(10));
 	b2RevoluteJoint* view_2 = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint2);
 
 	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");

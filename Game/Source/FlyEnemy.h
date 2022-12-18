@@ -28,6 +28,8 @@ public:
 	bool originSelected;
 
 	int ID;
+	PhysBody* pbody;
+	PhysBody* view;
 
 private:
 
@@ -35,8 +37,6 @@ private:
 	const char* texturePath;
 
 	//DONE 4: Add a physics to an item
-	PhysBody* pbody;
-	PhysBody* view;
 	PhysBody* view2;
 
 	Animation* currentAnimation = nullptr;

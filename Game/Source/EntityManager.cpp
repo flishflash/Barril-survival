@@ -150,7 +150,15 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	float x = data.child("player").attribute("x").as_int();
 	float y = data.child("player").attribute("y").as_int();
 
+	float x_enemy = data.child("enemy").attribute("x").as_int();
+	float y_enemy = data.child("enemy").attribute("y").as_int();
+
+	float x_fly_enemy = data.child("fly_enemy").attribute("x").as_int();
+	float y_fly_enemy = data.child("fly_enemy").attribute("y").as_int();
+
 	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
+	app->scene->enemy->view->body->SetTransform({ x_enemy, y_enemy }, 0);
+	app->scene->fly_enemy->view->body->SetTransform({ x_fly_enemy, y_fly_enemy }, 0);
 
 	return true;
 }
@@ -160,9 +168,17 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 bool EntityManager::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node player = data.append_child("player");
+	pugi::xml_node enemy = data.append_child("enemy");
+	pugi::xml_node fly_enemy = data.append_child("fly_enemy");
 
 	player.append_attribute("x") = app->scene->player->position.x;
-	player.append_attribute("y") = app->scene->player->position.y;
+	player.append_attribute("y") = app->scene->player->position.y;	
+
+	enemy.append_attribute("x") = app->scene->enemy->view->body->GetPosition().x;
+	enemy.append_attribute("y") = app->scene->enemy->view->body->GetPosition().y;
+
+	fly_enemy.append_attribute("x") = app->scene->fly_enemy->view->body->GetPosition().x;
+	fly_enemy.append_attribute("y") = app->scene->fly_enemy->view->body->GetPosition().y;
 
 	return true;
 }
