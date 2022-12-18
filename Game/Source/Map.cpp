@@ -242,14 +242,33 @@ bool Map::CleanUp()
 
     // L05: DONE 2: clean up all layer data
     // Remove all layers
-    ListItem<MapLayer*>* layerItem;
-    layerItem = mapData.maplayers.start;
+    //ListItem<MapLayer*>* layerItem;
+    //layerItem = mapData.maplayers.start;
 
-    while (layerItem != NULL)
-    {
-        RELEASE(layerItem->data);
-        layerItem = layerItem->next;
+    //while (layerItem != NULL)
+    //{
+    //    RELEASE(layerItem->data);
+    //    layerItem = layerItem->next;
+    //}
+
+    for (int i = 0; i < 16; i++) {
+        delete s[i];
+        s[i] = nullptr;
     }
+    for (int i = 0; i < 15; i++) {
+        delete p[i];
+        p[i] = nullptr;
+    }
+    for (int i = 0; i < 12; i++) {
+        delete pb[i];
+        pb[i] = nullptr;
+    }
+    for (int i = 0; i < 4; i++) {
+        delete w[i];
+        w[i] = nullptr;
+    }
+    delete win;
+    win = nullptr;
 
     return true;
 }
@@ -287,7 +306,6 @@ bool Map::Load()
     // Later you can create a function here to load and create the colliders from the map
 
     //Suelo
-    PhysBody* s[16];
     s[0] = app->physics->CreateRectangle(208, 1744, 416, 992, bodyType::STATIC);
     s[1] = app->physics->CreateRectangle(2704, 1744, 736, 992, bodyType::STATIC);
     s[2] = app->physics->CreateRectangle(2064, 1744, 224, 992, bodyType::STATIC);
@@ -310,7 +328,6 @@ bool Map::Load()
     }
 
     //Plataformas
-    PhysBody* p[15];
     p[0] = app->physics->CreateRectangle(2160, 1168, 32, 32, bodyType::STATIC);
     p[1] = app->physics->CreateRectangle(2368, 1200, 64, 96, bodyType::STATIC);
     p[2] = app->physics->CreateRectangle(2672, 1072, 32, 32, bodyType::STATIC);
@@ -332,7 +349,6 @@ bool Map::Load()
     }
 
     //Plataformas Bunker
-    PhysBody* pb[12];
     pb[0] = app->physics->CreateRectangle(448, 1360, 64, 32, bodyType::STATIC);
     pb[1] = app->physics->CreateRectangle(576, 1296, 64, 32, bodyType::STATIC);
     pb[2] = app->physics->CreateRectangle(576, 1456, 64, 32, bodyType::STATIC);
@@ -350,7 +366,6 @@ bool Map::Load()
         pb[i]->ctype = ColliderType::PLATFORM;
     }
     //Water
-    PhysBody* w[4];
     w[0] = app->physics->CreateRectangle(912, 1768, 96, 48, bodyType::STATIC);
     w[1] = app->physics->CreateRectangle(1360, 1288, 288, 48, bodyType::STATIC);
     w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
@@ -361,7 +376,6 @@ bool Map::Load()
         w[i]->ctype = ColliderType::WATER;
     }
     //WIN
-    PhysBody* win;
     win = app->physics->CreateRectangle(3024, 1168, 16, 160, bodyType::STATIC);
     win->ctype = ColliderType::WIN;
 

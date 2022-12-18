@@ -75,7 +75,7 @@ bool FlyEnemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
-	view2 = app->physics->CreateRectangle(position.x + 100, position.y + 100, 20, 6, bodyType::DYNAMIC);
+	view2 = app->physics->CreateRectangle(position.x + 100, position.y + 100, 10, 6, bodyType::DYNAMIC);
 	view2->ctype = ColliderType::DIE_FLY_ENEMY;
 
 	view2->body->SetFixedRotation(true);
@@ -161,6 +161,7 @@ bool FlyEnemy::Update()
 
 bool FlyEnemy::CleanUp()
 {
+	app->pathfinding->ClearLastPath();
 	delete pbody;
 	pbody = NULL;
 	delete view;

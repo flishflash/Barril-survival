@@ -31,6 +31,7 @@ public:
 	bool originSelected;
 	PhysBody* pbody;
 	PhysBody* view;
+	bool dies = false;
 
 private:
 
@@ -39,11 +40,11 @@ private:
 	SDL_Texture* mouseTileTex;
 	SDL_Texture* originTex;
 
+	SDL_RendererFlip flip;
+
 	Animation* currentAnimation = nullptr;
 	Animation walkAnim;
 	Animation dieAnim;
-
-	SDL_RendererFlip flip;
 
 	//DONE 4: Add a physics to an item
 	PhysBody* view2;

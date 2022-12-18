@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Die.h"
 #include "Win.h"
+#include "Map.h"
 #include "Point.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
@@ -280,15 +281,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->scene->enemy->chasing = !app->scene->enemy->chasing;
 			break;
 		case ColliderType::DIE_ENEMY:
-			LOG("Collision ENEMY_VIEW_FLY");
-			app->scene->enemy->CleanUp();
+			LOG("Collision ENEMY_DIE");
+			app->scene->enemy->dies = true;
 			break;
 		case ColliderType::ENEMY_VIEW_FLY:
 			LOG("Collision ENEMY_VIEW_FLY");
 			app->scene->fly_enemy->chasing = !app->scene->fly_enemy->chasing;
 			break;
 		case ColliderType::DIE_FLY_ENEMY:
-			LOG("Collision ENEMY_VIEW_FLY");
+			LOG("Collision ENEMY_DIE_FLY");
 			app->scene->fly_enemy->CleanUp();
 			break;
 		case ColliderType::WIN:

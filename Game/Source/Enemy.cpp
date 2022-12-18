@@ -54,6 +54,8 @@ bool Enemy::Awake() {
 
 bool Enemy::Start() {
 
+	dies = false;
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	
@@ -74,7 +76,7 @@ bool Enemy::Start() {
 	view_joint.localAnchorB.Set(0, 0);
 	b2RevoluteJoint* view_ = (b2RevoluteJoint*)app->physics->world->CreateJoint(&view_joint);
 
-	view2 = app->physics->CreateRectangleSensor(position.x + 100, position.y + 100, 20, 6, bodyType::DYNAMIC);
+	view2 = app->physics->CreateRectangleSensor(position.x + 100, position.y + 100, 10, 6, bodyType::DYNAMIC);
 	view2->ctype = ColliderType::DIE_ENEMY;
 	view2->body->SetFixedRotation(true);
 
@@ -95,64 +97,79 @@ bool Enemy::Start() {
 
 bool Enemy::Update()
 {
-	if (chasing == true) {
-		iPoint pos_or = app->map->WorldToMap(position.x, position.y);
-		iPoint pos_des = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 
-		if (originSelected == true)
-		{
-			app->pathfinding->CreatePath(origin, pos_des);
-			originSelected = false;
-			if (origin.x < pos_des.x) {
-				view->body->SetLinearVelocity(b2Vec2(1, 0));
-				flip = SDL_RendererFlip::SDL_FLIP_NONE;
+		if (chasing == true) {
+			iPoint pos_or = app->map->WorldToMap(position.x, position.y);
+			iPoint pos_des = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+
+			if (originSelected == true)
+			{
+				app->pathfinding->CreatePath(origin, pos_des);
+				originSelected = false;
+				if (origin.x < pos_des.x) {
+					view->body->SetLinearVelocity(b2Vec2(1, 0));
+					flip = SDL_RendererFlip::SDL_FLIP_NONE;
+				}
+				if (origin.x > pos_des.x) {
+					view->body->SetLinearVelocity(b2Vec2(-1, 0));
+					flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+
+				}
 			}
-			if (origin.x > pos_des.x) {
-				view->body->SetLinearVelocity(b2Vec2(-1, 0));
-				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+			else
+			{
+				origin = pos_or;
+				originSelected = true;
+				app->pathfinding->ClearLastPath();
+			}
 
+			if (app->physics->debug)
+			{
+				const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+				for (uint i = 0; i < path->Count(); ++i)
+				{
+					LOG("%d %d", path->At(i)->x, path->At(i)->y);
+					iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+					app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
+				}
+				// L12: Debug pathfinding
+				iPoint originScreen = app->map->MapToWorld(position.x, position.y);
+				app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+				LOG("%d %d", originScreen.x, originScreen.y);
 			}
 		}
-		else
-		{
-			origin = pos_or;
-			originSelected = true;
+		else {
+			//view->body->SetLinearVelocity(b2Vec2(0, 0));
 			app->pathfinding->ClearLastPath();
 		}
-
-		if (app->physics->debug)
+		if (dies)
 		{
-			const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-			for (uint i = 0; i < path->Count(); ++i)
-			{
-				LOG("%d %d", path->At(i)->x, path->At(i)->y);
-				iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				app->render->DrawTexture(mouseTileTex, pos.x, pos.y);
-			}
-			// L12: Debug pathfinding
-			iPoint originScreen = app->map->MapToWorld(position.x, position.y);
-			app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
-			LOG("%d %d", originScreen.x, originScreen.y);
+			view->body->SetLinearVelocity(b2Vec2(0, 0));
 		}
-	}
-	else {
-		//view->body->SetLinearVelocity(b2Vec2(0, 0));
-		app->pathfinding->ClearLastPath();
-	}
 
+		// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	
 	currentAnimation->Update();
-	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	app->render->DrawTexture(texture, position.x + 8, position.y + 8, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
 
+	if (dies == true)
+	{
+		currentAnimation = &dieAnim;
+		if (currentAnimation->HasFinished() == true)
+		{
+			this->CleanUp();
+		}
+	}
 
 	return true;
 }
 
 bool Enemy::CleanUp()
 {
+	app->pathfinding->ClearLastPath();
 	delete pbody;
 	pbody = NULL;	
 	delete view;

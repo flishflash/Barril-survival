@@ -198,6 +198,13 @@ private:
 	DynArray<iPoint> path;
 
 	SDL_Texture* tileX = nullptr;
+
+	//Colliders 
+	PhysBody* s[16];
+	PhysBody* p[15];
+	PhysBody* pb[12];
+	PhysBody* w[4];
+	PhysBody* win;
 };
 
 #endif // __MAP_H__
