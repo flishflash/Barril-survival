@@ -47,7 +47,7 @@ bool Win::Update(float dt)
 {
 	app->render->DrawTexture(img, 0, 0);
 	
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		app->fade->FadeToblack(this, (Module*)app->inicio, 20);
 	}
 	

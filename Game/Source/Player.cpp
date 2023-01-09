@@ -230,9 +230,9 @@ bool Player::Update()
 			currentAnimation->Update();
 
 			app->render->DrawTexture(texture, position.x, position.y, &(currentAnimation->GetCurrentFrame()), 1.0f, NULL, NULL, NULL, flip);
-
 		}
 
+		//app->physics->EndContact();
 	return true;
 }
 
@@ -278,7 +278,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::ENEMY_VIEW:
 			LOG("Collision ENEMY_VIEW");
-			app->scene->enemy->chasing = !app->scene->enemy->chasing;
+			app->scene->enemy->chasing = true;
 			break;
 		case ColliderType::DIE_ENEMY:
 			LOG("Collision ENEMY_DIE");
@@ -286,7 +286,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::ENEMY_VIEW_FLY:
 			LOG("Collision ENEMY_VIEW_FLY");
-			app->scene->fly_enemy->chasing = !app->scene->fly_enemy->chasing;
+			app->scene->fly_enemy->chasing = true;
 			break;
 		case ColliderType::DIE_FLY_ENEMY:
 			LOG("Collision ENEMY_DIE_FLY");
