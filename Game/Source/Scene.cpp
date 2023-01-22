@@ -137,17 +137,19 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { app->LoadGameRequest(); app->pathfinding->ClearLastPath(); }
 
+	float speed = 0.2*dt;
+
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 5;
+		app->render->camera.y += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 5;
+		app->render->camera.y -= ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 5;
+		app->render->camera.x += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 5;
+		app->render->camera.x -= ceil(speed);
 
 	//Start from lv1
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

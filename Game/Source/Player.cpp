@@ -97,6 +97,9 @@ bool Player::Start() {
 
 bool Player::Update()
 {
+	float speed = 0.3 * app->dt;
+	float speedCam = 0.2 * app->dt;
+
 		if (!app->physics->debug)
 		{
 			if (dies == false)
@@ -114,29 +117,28 @@ bool Player::Update()
 					jump_count = position.y;
 					app->audio->PlayFx(jumpFx);
 					currentAnimation = &jumpAnim;
-
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 				{
-					velocity.x = -5;
+					velocity.x = -ceil(speed);
 					flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 					if (position.x + app->render->camera.x < 600 && position.x + app->render->camera.x > 350)
 					{
-						app->render->camera.x += PIXEL_TO_METERS(150);
+						app->render->camera.x += ceil(speedCam);
 					}
 					if (jump != true && dies != true)currentAnimation = &runAnim;
 				}
 
 				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 				{
-					velocity.x = 5;
+					velocity.x = ceil(speed);
 					flip = SDL_RendererFlip::SDL_FLIP_NONE;
 					if (position.x + app->render->camera.x < 650 && position.x + app->render->camera.x > 400)
 					{
-						app->render->camera.x -= PIXEL_TO_METERS(150);
+						app->render->camera.x -= ceil(speedCam);
 					}
-					if (jump != true && dies != true)currentAnimation = &runAnim;
+					if (jump != true && dies != true) currentAnimation = &runAnim;
 				}
 
 				if (position.y <= (jump_count - 120) && jump == true)
@@ -152,11 +154,11 @@ bool Player::Update()
 
 				if (position.y + app->render->camera.y > 625)
 				{
-					app->render->camera.y -= 5;
+					app->render->camera.y -= ceil(speedCam);
 				}
 				if (position.y + app->render->camera.y < 400)
 				{
-					app->render->camera.y += 5;
+					app->render->camera.y += ceil(speedCam);
 				}
 
 			}
@@ -184,32 +186,32 @@ bool Player::Update()
 
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
-				velocity.x = -5;
+				velocity.x = -ceil(speed);
 				flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 				if (position.x + app->render->camera.x < 800 && position.x + app->render->camera.x > 150)
 				{
-					app->render->camera.x += PIXEL_TO_METERS(200);
+					app->render->camera.x += ceil(speed);
 				}
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
-				velocity.x = 5;
+				velocity.x = ceil(speed);
 				flip = SDL_RendererFlip::SDL_FLIP_NONE;
 				if (position.x + app->render->camera.x < 850 && position.x + app->render->camera.x > 200)
 				{
-					app->render->camera.x -= PIXEL_TO_METERS(200);
+					app->render->camera.x -= ceil(speed);
 				}
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			{
-				velocity.y = -5;
+				velocity.y = -ceil(speed);
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 			{
-				velocity.y = 5;
+				velocity.y = ceil(speed);
 			}
 
 			pbody->body->SetLinearVelocity(velocity);

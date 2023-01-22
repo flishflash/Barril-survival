@@ -2,6 +2,8 @@
 #define __APP_H__
 
 #include "Module.h"
+#include "Timer.h"
+#include "PerfTimer.h"
 #include "List.h"
 
 #include "PugiXml/src/pugixml.hpp"
@@ -25,6 +27,8 @@ class PathFinding;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
+class GuiManager;
+
 
 class App
 {
@@ -101,6 +105,10 @@ public:
 	Map* map;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
+	GuiManager* guiManager;
+
+	uint frames;
+	float dt;
 
 private:
 
@@ -117,12 +125,27 @@ private:
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
 
-	uint frames;
-	float dt;
+
 
 	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame
     bool saveGameRequested;
 	bool loadGameRequested;
+
+	Timer timer;
+	PerfTimer ptimer;
+
+	Timer startupTime;
+	Timer frameTime;
+	Timer lastSecFrameTime;
+
+	uint64 frameCount = 0;
+	uint32 framesPerSecond = 0;
+	uint32 lastSecFrameCount = 0;
+
+	float averageFps = 0.0f;
+	float secondsSinceStartup = 0.0f;
+
+	uint32 maxFrameDuration = 0;
 };
 
 extern App* app;

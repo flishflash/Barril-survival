@@ -7,6 +7,7 @@
 
 class App;
 class PhysBody;
+class GuiControl;
 
 class Module
 {
@@ -71,6 +72,11 @@ public:
 	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 
+	}
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
 	}
 
 public:
