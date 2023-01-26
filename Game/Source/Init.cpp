@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Window.h"
 #include "Init.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,6 +37,13 @@ bool Init::Start()
 	img = app->tex->Load("Assets/Maps/Titulo_BS.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	newGame = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 100,(int)h / 2 + 100,200,40 }, this);
+	Continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 100,(int)h / 2 + 150,200,40 }, this);
+	credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 75,(int)h / 2 + 210,150,30 }, this);
+	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 75,(int)h / 2 + 250,150,30 }, this);
+	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 100,50,50,50 }, this);
 	return true;
 }
 
@@ -68,6 +76,7 @@ bool Init::Update(float dt)
 		app->scene->Start();
 	}
 
+	app->guiManager->Draw();
 	return true;
 }
 

@@ -2,6 +2,7 @@
 #define __INIT_H__
 
 #include "Module.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -33,7 +34,11 @@ public:
 	bool CleanUp();
 
 public:
-
+	GuiButton* newGame;
+	GuiButton* Continue;
+	GuiButton* credits;
+	GuiButton* settings;
+	GuiButton* exit;
 private:
 	SDL_Texture* img;
 

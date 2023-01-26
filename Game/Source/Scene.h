@@ -6,6 +6,8 @@
 #include "Item.h"
 #include "Enemy.h"
 #include "FlyEnemy.h"
+#include "GuiManager.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -44,6 +46,7 @@ public:
 	FlyEnemy* fly_enemy;
 	Enemy* enemy;
 	SDL_Texture* originTex = nullptr;
+	GuiButton* button;
 
 private:
 	SDL_Texture* img;
