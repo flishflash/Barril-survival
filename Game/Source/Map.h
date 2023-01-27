@@ -204,6 +204,7 @@ private:
 	PhysBody* p[15];
 	PhysBody* pb[12];
 	PhysBody* w[4];
+	PhysBody* ch[6];
 	PhysBody* win;
 };
 

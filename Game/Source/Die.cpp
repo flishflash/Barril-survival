@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Window.h"
 #include "Die.h"
+#include "Init.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -64,8 +65,8 @@ bool Die::Update(float dt)
 	app->render->DrawTexture(img, 0, 0);
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		app->fade->FadeToblack(this, (Module*)app->scene, 50);
-		app->scene->Start();
+		app->fade->FadeToblack(this, (Module*)app->inicio, 50);
+		app->inicio->Start();
 	}
 
 	return true;

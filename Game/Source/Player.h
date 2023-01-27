@@ -38,6 +38,8 @@ public:
 
 	bool dies;
 
+	int vidas;
+
 private:
 
 	//L02: DONE 1: Declare player parameters

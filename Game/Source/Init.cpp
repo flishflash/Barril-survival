@@ -83,6 +83,8 @@ bool Init::Update(float dt)
 		app->LoadGameRequest();
 	}
 
+
+
 	app->guiManager->Draw();
 	return true;
 }
@@ -92,7 +94,7 @@ bool Init::PostUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exit->state == GuiControlState::PRESSED)
 		ret = false;
 
 	return ret;

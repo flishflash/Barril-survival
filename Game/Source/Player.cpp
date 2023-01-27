@@ -90,6 +90,7 @@ bool Player::Start() {
 	dieFx = app->audio->LoadFx("Assets/Audio/Fx/Death_Sound.ogg");
 	pbody->body->SetFixedRotation(true);
 
+	vidas = 3;
 	dies = false;
 
 	return true;
@@ -268,15 +269,29 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::WATER:
 			LOG("Collision WATER");
-			dies = true;
-			currentAnimation = &dieAnim;
-			app->audio->PlayFx(dieFx);
+			if (vidas > 0)
+			{
+				vidas -= 1;
+				app->LoadGameRequest();
+			}
+			else {
+				dies = true;
+				currentAnimation = &dieAnim;
+				app->audio->PlayFx(dieFx);
+			}
 			break;		
 		case ColliderType::ENEMY:
 			LOG("Collision ENEMY");
-			dies = true;
-			currentAnimation = &dieAnim;
-			app->audio->PlayFx(dieFx);
+			if (vidas > 0)
+			{
+				vidas -= 1;
+				app->LoadGameRequest();
+			}
+			else {
+				dies = true;
+				currentAnimation = &dieAnim;
+				app->audio->PlayFx(dieFx);
+			}
 			break;
 		case ColliderType::ENEMY_VIEW:
 			LOG("Collision ENEMY_VIEW");
@@ -303,6 +318,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->scene->enemy->CleanUp();
 			app->scene->fly_enemy->CleanUp();
 			CleanUp();
+			break;
+		case ColliderType::CHECKPOINT:
+			app->SaveGameRequest();
+			app->audio->PlayFx(pickCoinFxId);
 			break;
 	}
 	

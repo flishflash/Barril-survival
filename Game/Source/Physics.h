@@ -34,6 +34,7 @@ enum class ColliderType {
 	PLATFORM,
 	WATER,
 	WIN,
+	CHECKPOINT,
 	UNKNOWN
 	// ..
 };

@@ -369,13 +369,25 @@ bool Map::Load()
     w[2] = app->physics->CreateRectangle(2247, 1336, 160, 144, bodyType::STATIC);
     w[3] = app->physics->CreateRectangle(1855, 2176, 160, 144, bodyType::STATIC);
 
-
     for (int i = 0; i < 4; i++) {
         w[i]->ctype = ColliderType::WATER;
     }
+
     //WIN
     win = app->physics->CreateRectangle(3024, 1168, 16, 160, bodyType::STATIC);
     win->ctype = ColliderType::WIN;
+
+    //CHECKPOINTS
+    ch[0] = app->physics->CreateRectangleSensor(1296, 2080, 32, 64, bodyType::STATIC);
+    ch[1] = app->physics->CreateRectangleSensor(1360, 1664, 32, 64, bodyType::STATIC);
+    ch[2] = app->physics->CreateRectangleSensor(1360, 1152, 32, 64, bodyType::STATIC);
+    ch[3] = app->physics->CreateRectangleSensor(2032, 1216, 32, 64, bodyType::STATIC);
+    ch[4] = app->physics->CreateRectangleSensor(2416, 1216, 32, 64, bodyType::STATIC);
+    ch[5] = app->physics->CreateRectangleSensor(2672, 1024, 32, 64, bodyType::STATIC);
+
+    for (int i = 0; i < 6; i++) {
+        ch[i]->ctype = ColliderType::CHECKPOINT;
+    }
 
     if (ret == true)
     {

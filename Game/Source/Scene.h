@@ -47,6 +47,7 @@ public:
 	Enemy* enemy;
 	SDL_Texture* originTex = nullptr;
 	GuiButton* button;
+	int vidas;
 
 private:
 	SDL_Texture* img;

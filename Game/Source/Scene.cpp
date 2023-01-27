@@ -120,6 +120,7 @@ bool Scene::Start()
 		// Texture to show path origin 
 		originTex = app->tex->Load("Assets/Maps/path_square.png");
 	}
+	vidas = 3;
 
 	return true;
 }
@@ -136,6 +137,30 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { app->SaveGameRequest(); app->pathfinding->ClearLastPath(); }
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { app->LoadGameRequest(); app->pathfinding->ClearLastPath(); }
+
+	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT) 
+	{ 
+		int check = 1;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) { check += 1; }
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) { check -= 1; }
+		switch (check)
+		{
+		case 1:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1312), PIXEL_TO_METERS(2000) }, 0);
+		case 2:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1360), PIXEL_TO_METERS(1664) }, 0);
+		case 3:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1360), PIXEL_TO_METERS(1152) }, 0);
+		case 4:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2032), PIXEL_TO_METERS(1216) }, 0);
+		case 5:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2416), PIXEL_TO_METERS(1216) }, 0);
+		case 6:
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2672), PIXEL_TO_METERS(1024) }, 0);
+		}
+
+
+	}
 
 	float speed = 0.2*dt;
 

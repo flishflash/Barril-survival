@@ -8,16 +8,17 @@
 	<:anonymous />
 	<scene />
 	<entitymanager>
-		<player x="1280" y="2045" />
-		<enemy x="56.174984" y="24.5672474" />
-		<fly_enemy x="23.4573154" y="24.2805386" />
+		<player x="1311" y="1629" />
+		<enemy x="48.964447" y="24.0443344" />
+		<fly_enemy x="22.0000668" y="24.1071148" />
 	</entitymanager>
 	<pathfinding />
 	<map />
 	<Die />
 	<Win />
 	<Init />
+	<guiManager />
 	<renderer>
-		<camera x="-800" y="-1455" />
+		<camera x="-805" y="-1028" />
 	</renderer>
 </save_state>
