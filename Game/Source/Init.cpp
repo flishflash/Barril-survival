@@ -71,9 +71,16 @@ bool Init::Update(float dt)
 	// Placeholder not needed any more
 	app->render->DrawTexture(img, 0, 0);
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || newGame->state == GuiControlState::PRESSED) {
 		app->fade->FadeToblack(this, (Module*)app->scene, 20);
 		app->scene->Start();
+	}
+
+	if (Continue->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadeToblack(this, (Module*)app->scene, 20);
+		app->scene->Start();
+		app->LoadGameRequest();
 	}
 
 	app->guiManager->Draw();
