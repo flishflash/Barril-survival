@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Corazon.h"
 #include "Enemy.h"
 #include "FlyEnemy.h"
 #include "GuiManager.h"
@@ -45,6 +46,8 @@ public:
 	iPoint player_initPos;
 	FlyEnemy* fly_enemy;
 	Enemy* enemy;
+	Item* moneda;
+	Corazon* corazon;
 	SDL_Texture* originTex = nullptr;
 	GuiButton* button;
 	int vidas;
@@ -56,7 +59,7 @@ public:
 	uint highscore = 000;
 	char HighscoreText[10] = { "\0" };
 
-	uint coins = 50;
+	uint coins = 000;
 	char coinsc[10] = { "\0" };
 
 private:

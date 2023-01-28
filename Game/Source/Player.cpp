@@ -256,7 +256,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
-			currentAnimation = &dieAnim;
+			app->scene->coins += 1;
 			app->audio->PlayFx(pickCoinFxId);
 			break;
 		case ColliderType::PLATFORM:
