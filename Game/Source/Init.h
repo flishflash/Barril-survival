@@ -41,6 +41,8 @@ public:
 	GuiButton* exit;
 private:
 	SDL_Texture* img;
+	SDL_Texture* img2;
+	SDL_Texture* img3;
 
 };
 

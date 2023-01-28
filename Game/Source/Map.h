@@ -206,6 +206,7 @@ private:
 	PhysBody* w[4];
 	PhysBody* ch[6];
 	PhysBody* win;
+	PhysBody* coin[14];
 };
 
 #endif // __MAP_H__

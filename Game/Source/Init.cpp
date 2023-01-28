@@ -35,15 +35,17 @@ bool Init::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 	img = app->tex->Load("Assets/Maps/Titulo_BS.png");
+	img2 = app->tex->Load("Assets/Maps/Titulos_B.png");
+	img3 = app->tex->Load("Assets/Maps/settings.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	newGame = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 100,(int)h / 2 + 100,200,40 }, this);
-	Continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 100,(int)h / 2 + 150,200,40 }, this);
-	credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 75,(int)h / 2 + 210,150,30 }, this);
-	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 75,(int)h / 2 + 250,150,30 }, this);
-	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 100,50,50,50 }, this);
+	newGame = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 110,(int)h / 2 + 90,210,40 }, this);
+	Continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 110,(int)h / 2 + 140,210,40 }, this);
+	credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 80,(int)h / 2 + 200,150,30 }, this);
+	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 45,(int)h / 2 + 240,75,30 }, this);
+	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,40,60,60 }, this);
 	return true;
 }
 
@@ -81,11 +83,19 @@ bool Init::Update(float dt)
 		app->fade->FadeToblack(this, (Module*)app->scene, 20);
 		app->scene->Start();
 		app->LoadGameRequest();
+		
+	}
+	if (settings->state == GuiControlState::PRESSED)
+	{
+		app->render->camera.y = 725;
 	}
 
-
+	app->render->DrawTexture(img3, 0, -725);
 
 	app->guiManager->Draw();
+	app->render->DrawTexture(img3, 0, -725);
+	app->render->DrawTexture(img2, 0, 0);
+
 	return true;
 }
 

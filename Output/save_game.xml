@@ -8,9 +8,9 @@
 	<:anonymous />
 	<scene />
 	<entitymanager>
-		<player x="1263" y="1990" />
-		<enemy x="56.2114258" y="24.6553326" />
-		<fly_enemy x="24.9573536" y="25.7260838" />
+		<player x="1247" y="1991" />
+		<enemy x="56.0322342" y="24.0285683" />
+		<fly_enemy x="25.0000458" y="25.9925461" />
 	</entitymanager>
 	<pathfinding />
 	<map />

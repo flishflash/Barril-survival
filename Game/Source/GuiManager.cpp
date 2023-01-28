@@ -29,7 +29,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		guiControl = new GuiButton(id, bounds, text);
 		break;
-	/*
+	
 	case GuiControlType::TOGGLE:
 		break;
 	case GuiControlType::CHECKBOX:
@@ -50,7 +50,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 		break;
 	default:
 		break;
-		*/
+		
 	}
 
 	//Set the observer
