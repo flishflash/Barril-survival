@@ -8,9 +8,9 @@
 	<:anonymous />
 	<scene />
 	<entitymanager>
-		<player x="1247" y="1991" />
-		<enemy x="56.0322342" y="24.0285683" />
-		<fly_enemy x="25.0000458" y="25.9925461" />
+		<player x="2623" y="1046" />
+		<enemy x="59.383831" y="24.8430119" />
+		<fly_enemy x="26.7542477" y="23.7780075" />
 	</entitymanager>
 	<pathfinding />
 	<map />
@@ -20,6 +20,6 @@
 	<guiManager />
 	<:anonymous />
 	<renderer>
-		<camera x="-800" y="-1455" />
+		<camera x="-2224" y="-555" />
 	</renderer>
 </save_state>

@@ -37,6 +37,7 @@ bool Init::Start()
 	img = app->tex->Load("Assets/Maps/Titulo_BS.png");
 	img2 = app->tex->Load("Assets/Maps/Titulos_B.png");
 	img3 = app->tex->Load("Assets/Maps/settings.png");
+	img4 = app->tex->Load("Assets/Maps/Credits.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Game_Over.ogg");
 
 	uint w, h;
@@ -46,6 +47,14 @@ bool Init::Start()
 	credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 80,(int)h / 2 + 200,150,30 }, this);
 	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 45,(int)h / 2 + 240,75,30 }, this);
 	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,40,60,60 }, this);
+	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,600,60,60 }, this);
+	settings->state = GuiControlState::NORMAL;
+	Continue->state = GuiControlState::NORMAL;
+	newGame->state = GuiControlState::NORMAL;
+	credits->state = GuiControlState::NORMAL;
+	exit->state = GuiControlState::NORMAL;
+	back->state = GuiControlState::DISABLED;
+
 	return true;
 }
 
@@ -76,6 +85,12 @@ bool Init::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || newGame->state == GuiControlState::PRESSED) {
 		app->fade->FadeToblack(this, (Module*)app->scene, 20);
 		app->scene->Start();
+		settings->state = GuiControlState::DISABLED;
+		Continue->state = GuiControlState::DISABLED;
+		newGame->state = GuiControlState::DISABLED;
+		credits->state = GuiControlState::DISABLED;
+		exit->state = GuiControlState::DISABLED;
+		back->state = GuiControlState::DISABLED;
 	}
 
 	if (Continue->state == GuiControlState::PRESSED)
@@ -83,17 +98,48 @@ bool Init::Update(float dt)
 		app->fade->FadeToblack(this, (Module*)app->scene, 20);
 		app->scene->Start();
 		app->LoadGameRequest();
+		settings->state = GuiControlState::DISABLED;
+		Continue->state = GuiControlState::DISABLED;
+		newGame->state = GuiControlState::DISABLED;
+		credits->state = GuiControlState::DISABLED;
+		exit->state = GuiControlState::DISABLED;
+		back->state = GuiControlState::NORMAL;
 		
 	}
 	if (settings->state == GuiControlState::PRESSED)
 	{
 		app->render->camera.y = 725;
+		settings->state = GuiControlState::DISABLED;
+		Continue->state = GuiControlState::DISABLED;
+		newGame->state = GuiControlState::DISABLED;
+		credits->state = GuiControlState::DISABLED;
+		exit->state = GuiControlState::DISABLED;
+		back->state = GuiControlState::NORMAL;
+	}
+	if (credits->state == GuiControlState::PRESSED)
+	{
+		app->render->camera.y = -725;
+		settings->state = GuiControlState::DISABLED;
+		Continue->state = GuiControlState::DISABLED;
+		newGame->state = GuiControlState::DISABLED;
+		credits->state = GuiControlState::DISABLED;
+		exit->state = GuiControlState::DISABLED;
+		back->state = GuiControlState::NORMAL;
+	}
+	if (back->state == GuiControlState::PRESSED)
+	{
+		app->render->camera.y = 0;
+		settings->state = GuiControlState::NORMAL;
+		Continue->state = GuiControlState::NORMAL;
+		newGame->state = GuiControlState::NORMAL;
+		credits->state = GuiControlState::NORMAL;
+		exit->state = GuiControlState::NORMAL;
+		back->state = GuiControlState::DISABLED;
 	}
 
 	app->render->DrawTexture(img3, 0, -725);
-
+	app->render->DrawTexture(img4, 0, 725);
 	app->guiManager->Draw();
-	app->render->DrawTexture(img3, 0, -725);
 	app->render->DrawTexture(img2, 0, 0);
 
 	return true;

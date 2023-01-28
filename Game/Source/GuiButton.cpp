@@ -66,7 +66,7 @@ bool GuiButton::Draw(Render* render)
 	switch (state)
 	{
 	case GuiControlState::DISABLED:
-		render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
+		render->DrawRectangle(bounds, 200, 200, 200, 0, false, false);
 		break;
 	case GuiControlState::NORMAL:
 		render->DrawRectangle(bounds, 146, 159, 77, 255, true, false);

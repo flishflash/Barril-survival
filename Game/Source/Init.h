@@ -39,10 +39,12 @@ public:
 	GuiButton* credits;
 	GuiButton* settings;
 	GuiButton* exit;
+	GuiButton* back;
 private:
 	SDL_Texture* img;
 	SDL_Texture* img2;
 	SDL_Texture* img3;
+	SDL_Texture* img4;
 
 };
 
