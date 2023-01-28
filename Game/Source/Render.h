@@ -42,7 +42,7 @@ public:
 	bool Render::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color);
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
-
+	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
 	// L03: DONE 6: Declare Load / Save methods
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);

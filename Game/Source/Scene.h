@@ -49,6 +49,16 @@ public:
 	GuiButton* button;
 	int vidas;
 
+	uint timer = 500;
+	int scoreFont = -1;
+	char scoreText[10] = { "\0" };
+
+	uint highscore = 000;
+	char HighscoreText[10] = { "\0" };
+
+	uint coins = 50;
+	char coinsc[10] = { "\0" };
+
 private:
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;

@@ -11,6 +11,7 @@
 #include "Physics.h"
 #include "Die.h"
 #include "Pathfinding.h"
+#include "ModuleFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -121,7 +122,8 @@ bool Scene::Start()
 		originTex = app->tex->Load("Assets/Maps/path_square.png");
 	}
 	vidas = 3;
-
+	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
+	scoreFont = app->fonts->Load("Assets/Textures/ABC.png", lookupTable, 1);
 	return true;
 }
 
@@ -268,6 +270,20 @@ bool Scene::Update(float dt)
 		iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 	}
+	
+	sprintf_s(scoreText, 10, "%7d", timer);
+	sprintf_s(HighscoreText, 10, "%7d", player->vidas);
+	sprintf_s(coinsc, 10, "%7d", coins);
+
+	app->fonts->BlitText(900, 35, scoreFont, scoreText);
+
+	app->fonts->BlitText(35, 35, scoreFont, "LIVES  X");
+	app->fonts->BlitText(885, 35, scoreFont, "TIME");
+
+	app->fonts->BlitText(50, 35, scoreFont, HighscoreText);
+	app->fonts->BlitText(35, 70, scoreFont, "COINS");
+	app->fonts->BlitText(50, 70, scoreFont, coinsc);
+
 	return true;
 }
 

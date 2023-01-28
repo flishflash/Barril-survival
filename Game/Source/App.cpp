@@ -14,6 +14,7 @@
 #include "Physics.h"
 #include "Init.h"
 #include "GuiManager.h"
+#include "ModuleFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -43,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	winw = new Win();
 	inicio = new Init();
 	guiManager = new GuiManager();
+	fonts = new ModuleFonts();
 
 
 	// Ordered for awake / Start / Update
@@ -62,8 +64,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(winw);
 	AddModule(inicio);
 	AddModule(guiManager);
+	AddModule(fonts);
 	// Render last to swap buffer
 	AddModule(render);
+	
 }
 
 // Destructor

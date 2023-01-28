@@ -28,6 +28,7 @@ class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
 class GuiManager;
+class ModuleFonts;
 
 
 class App
@@ -106,10 +107,11 @@ public:
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
 	GuiManager* guiManager;
+	ModuleFonts* fonts;
 
 	uint frames;
 	float dt;
-
+	float secondsSinceStartup = 0.0f;
 private:
 
 	int argc;
@@ -143,7 +145,6 @@ private:
 	uint32 lastSecFrameCount = 0;
 
 	float averageFps = 0.0f;
-	float secondsSinceStartup = 0.0f;
 
 	uint32 maxFrameDuration = 0;
 };

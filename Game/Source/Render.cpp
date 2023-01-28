@@ -1,3 +1,4 @@
+
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
@@ -35,7 +36,7 @@ bool Render::Awake(pugi::xml_node& config)
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
 	}
-
+	
 	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
 	if(renderer == NULL)
@@ -88,6 +89,46 @@ bool Render::CleanUp()
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
+}
+
+// Blit to screen
+bool Render::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y)
+{
+	bool ret = true;
+	SDL_Rect rect;
+	rect.x = (int)(camera.x * speed) + x * 1;
+	rect.y = (int)(camera.y * speed) + y * 1;
+
+	if (section != NULL)
+	{
+		rect.w = section->w;
+		rect.h = section->h;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	rect.w *= 1;
+	rect.h *= 1;
+
+	SDL_Point* p = NULL;
+	SDL_Point pivot;
+
+	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
+	{
+		pivot.x = pivot_x;
+		pivot.y = pivot_y;
+		p = &pivot;
+	}
+
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
 }
 
 void Render::SetBackgroundColor(SDL_Color color)
