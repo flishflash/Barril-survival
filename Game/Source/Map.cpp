@@ -387,27 +387,7 @@ bool Map::Load()
 
     for (int i = 0; i < 6; i++) {
         ch[i]->ctype = ColliderType::CHECKPOINT;
-    }
-
-    //COINS
-    coin[0] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[1] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[2] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[3] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[4] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[5] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[6] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[7] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[8] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
-    coin[9] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
-    coin[10] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
-    coin[11] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
-    coin[12] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
-    coin[13] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
-
-    for (int i = 0; i < 14; i++) {
-        coin[i]->ctype = ColliderType::ITEM;
-    }
+    } 
 
     if (ret == true)
     {
