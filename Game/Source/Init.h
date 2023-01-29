@@ -59,7 +59,7 @@ private:
 
 	pugi::xml_document config;
 	pugi::xml_parse_result configg;
-
+	Uint32 flags = SDL_WINDOW_SHOWN;
 };
 
 #endif // __INIT_H__

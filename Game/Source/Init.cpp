@@ -48,10 +48,10 @@ bool Init::Start()
 	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 45,(int)h / 2 + 240,75,30 }, this);
 	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,40,60,60 }, this);
 	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,600,60,60 }, this);
-	musv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,200,60,60 }, this);
-	fxv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,350,60,60 }, this);
-	full = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,500,60,60 }, this);
-	vsy = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,650,60,60 }, this);
+	musv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,210,60,60 }, this);
+	fxv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,300,60,60 }, this);
+	full = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,425,60,60 }, this);
+	vsy = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,520,60,60 }, this);
 	settings->state = GuiControlState::NORMAL;
 	Continue->state = GuiControlState::NORMAL;
 	newGame->state = GuiControlState::NORMAL;
@@ -64,7 +64,7 @@ bool Init::Start()
 	vsy->state = GuiControlState::DISABLED;
 
 	configg = config.load_file("config.xml");
-
+	app->secondsSinceStartup = 0;
 	return true;
 }
 
@@ -106,14 +106,16 @@ bool Init::Update(float dt)
 	if (Continue->state == GuiControlState::PRESSED)
 	{
 		app->fade->FadeToblack(this, (Module*)app->scene, 20);
-		app->scene->Start();
 		app->LoadGameRequest();
 		settings->state = GuiControlState::DISABLED;
 		Continue->state = GuiControlState::DISABLED;
 		newGame->state = GuiControlState::DISABLED;
 		credits->state = GuiControlState::DISABLED;
 		exit->state = GuiControlState::DISABLED;
-		back->state = GuiControlState::NORMAL;
+		back->state = GuiControlState::DISABLED;
+		app->scene->Start();
+		app->render->camera.x = app->scene->player->position.x;
+		app->render->camera.y = app->scene->player->position.y;
 		
 	}
 	if (settings->state == GuiControlState::PRESSED)
@@ -173,6 +175,24 @@ bool Init::Update(float dt)
 	if (fxv->state == GuiControlState::NORMAL)
 	{
 		config.child("audio").child("fx").attribute("volume") = 128;
+	}
+
+	if (vsy->state == GuiControlState::SELECTED)
+	{
+		config.child("audio").child("fx").attribute("value") = true;
+	}
+	if (vsy->state == GuiControlState::NORMAL)
+	{
+		config.child("audio").child("fx").attribute("value") = false;
+	}
+
+	if (full->state == GuiControlState::SELECTED)
+	{
+	
+	}
+	if (full->state == GuiControlState::NORMAL)
+	{
+
 	}
 
 
