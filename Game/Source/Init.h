@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "GuiButton.h"
+#include "GuiCheckBox.h"
 
 struct SDL_Texture;
 
@@ -40,11 +41,24 @@ public:
 	GuiButton* settings;
 	GuiButton* exit;
 	GuiButton* back;
+
+	GuiCheckBox* musv;
+	GuiCheckBox* fxv;
+	GuiCheckBox* full;
+	GuiCheckBox* vsy;
 private:
 	SDL_Texture* img;
 	SDL_Texture* img2;
 	SDL_Texture* img3;
 	SDL_Texture* img4;
+
+	pugi::xml_node fullscreen;
+	pugi::xml_node music;
+	pugi::xml_node fx;
+	pugi::xml_node vsync;
+
+	pugi::xml_document config;
+	pugi::xml_parse_result configg;
 
 };
 

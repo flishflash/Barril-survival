@@ -35,6 +35,7 @@
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\ModuleFonts.cpp" />
     <ClCompile Include="Source\Corazon.cpp" />
+    <ClCompile Include="Source\GuiCheckBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\ModuleFonts.h" />
     <ClInclude Include="Source\Corazon.h" />
+    <ClInclude Include="Source\GuiCheckBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
