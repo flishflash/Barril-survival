@@ -390,15 +390,15 @@ bool Map::Load()
     }
 
     //COINS
-    coin[0] = app->physics->CreateRectangle(1296, 2080, 32, 32, bodyType::STATIC);
-    coin[1] = app->physics->CreateRectangle(1360, 1664, 32, 32, bodyType::STATIC);
-    coin[2] = app->physics->CreateRectangle(1360, 1152, 32, 32, bodyType::STATIC);
-    coin[3] = app->physics->CreateRectangle(2032, 1216, 32, 32, bodyType::STATIC);
-    coin[4] = app->physics->CreateRectangle(2416, 1216, 32, 32, bodyType::STATIC);
-    coin[5] = app->physics->CreateRectangle(2672, 1024, 32, 32, bodyType::STATIC);
-    coin[6] = app->physics->CreateRectangle(2672, 1024, 32, 32, bodyType::STATIC);
-    coin[7] = app->physics->CreateRectangle(2672, 1024, 32, 32, bodyType::STATIC);
-    coin[8] = app->physics->CreateRectangle(2672, 1024, 32, 32, bodyType::STATIC);
+    coin[0] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[1] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[2] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[3] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[4] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[5] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[6] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[7] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
+    coin[8] = app->physics->CreateRectangle(0, 0, 32, 32, bodyType::STATIC);
     coin[9] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
     coin[10] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);
     coin[11] = app->physics->CreateRectangle(896, 1716, 32, 32, bodyType::STATIC);

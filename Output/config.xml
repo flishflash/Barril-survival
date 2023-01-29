@@ -31,22 +31,21 @@
 	<corazon x="1280" y="1664" texturepath="Assets/Textures/corazon.png"/>
 	<corazon x="2656" y="1120" texturepath="Assets/Textures/corazon.png"/>
 	<corazon x="2144" y="1216" texturepath="Assets/Textures/corazon.png"/>
-	<coin x="672" y="1252" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="864" y="836" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="960" y="772" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="2624" y="772" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="2688" y="772" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="416" y="1252" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="1216" y="1285" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="1280" y="1284" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="576" y="1540" texturepath="Assets/Textures/goldCoin.png"/>
-    <coin x="768" y="1716" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="800" y="1716" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="832" y="1716" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="864" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
-	<coin x="896" y="1700" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="672" y="1600" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="864" y="1184" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="960" y="1120" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="2624" y="1120" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="2688" y="1120" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="416" y="1600" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="1216" y="1632" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="1280" y="1632" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="576" y="1888" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="768" y="2080" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="800" y="2080" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="832" y="2080" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="864" y="2080" texturepath="Assets/Textures/goldCoin.png"/>
+	<item x="896" y="2080" texturepath="Assets/Textures/goldCoin.png"/>
   </scene>
-348
   <map>
     <mapfolder path="Assets/Maps/"/>
     <mapfile path="Assets/Maps/Prueva.tmx"/>
