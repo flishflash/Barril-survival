@@ -258,6 +258,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ITEM");
 			app->scene->coins += 1;
 			app->audio->PlayFx(pickCoinFxId);
+			for (int n = 0; n < 14; n++)
+			{
+				if (app->scene->moneda[n]->pbody == physB)
+				{
+					app->scene->moneda[n]->CleanUp();
+					app->scene->moneda[n]->pbody->ctype= ColliderType::UNKNOWN;
+				}
+			}
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");

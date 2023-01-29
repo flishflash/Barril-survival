@@ -50,16 +50,18 @@ bool Scene::Awake(pugi::xml_node& config)
 		n++;
 	}
 	n = 0;
-	/*for (pugi::xml_node itemNode = config.child("corazon"); itemNode; itemNode = itemNode.next_sibling("corazon"))
+	for (pugi::xml_node itemNode = config.child("corazon"); itemNode; itemNode = itemNode.next_sibling("corazon"))
 	{
 		corazon = (Corazon*)app->entityManager->CreateEntity(EntityType::CORAZON);
 		corazon->parameters = itemNode;
-	}*/
+	}
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
-		moneda = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		moneda->parameters = itemNode;
+		moneda[n] = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		moneda[n]->parameters = itemNode;
+		n++;
 	}
+	n = 0;
 	
 	LOG(" numro %d", n);
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
@@ -97,6 +99,11 @@ bool Scene::Start()
 	player->active = true;
 	player->Start();
 	player->position = player_initPos;
+
+	for (int n = 0; n < 14; n++)
+	{
+		moneda[n]->Start();
+	}
 
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load();
@@ -230,9 +237,6 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
-
-
-
 
 	if (app->physics->debug)
 	{

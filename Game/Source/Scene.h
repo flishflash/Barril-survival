@@ -46,7 +46,7 @@ public:
 	iPoint player_initPos;
 	FlyEnemy* fly_enemy;
 	Enemy* enemy;
-	Item* moneda;
+	Item* moneda[50];
 	Corazon* corazon;
 	SDL_Texture* originTex = nullptr;
 	GuiButton* button;

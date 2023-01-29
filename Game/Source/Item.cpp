@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Player.h"
 
 Item::Item() : Entity(EntityType::ITEM)
 {
@@ -27,14 +28,16 @@ bool Item::Awake() {
 
 bool Item::Start() {
 
-	//initilize textures
-	texture = app->tex->Load(texturePath);
-	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 8, bodyType::STATIC);
+	pbody = app->physics->CreateCircleSensor(position.x + 16, position.y + 16, 8, bodyType::STATIC);
+
+	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::ITEM;
+
+	//initilize textures
+	texture = app->tex->Load(texturePath);
 
 	return true;
 }
@@ -52,5 +55,6 @@ bool Item::Update()
 
 bool Item::CleanUp()
 {
+	texture = NULL;
 	return true;
 }

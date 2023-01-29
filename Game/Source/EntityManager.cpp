@@ -68,11 +68,11 @@ bool EntityManager::CleanUp()
 	ListItem<Entity*>* item;
 	item = entities.end;
 
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->CleanUp();
-		item = item->prev;
-	}
+	//while (item != NULL && ret == true)
+	//{
+	//	ret = item->data->CleanUp();
+	//	item = item->prev;
+	//}
 
 	entities.Clear();
 
@@ -101,6 +101,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::ITEM:
 		entity = new Item();
+		break;
+
+	case EntityType::CORAZON:
+		entity = new Corazon();
 		break;
 
 	default: break;
