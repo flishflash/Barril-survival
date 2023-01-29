@@ -50,11 +50,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		n++;
 	}
 	n = 0;
-	/*for (pugi::xml_node itemNode = config.child("corazon"); itemNode; itemNode = itemNode.next_sibling("corazon"))
+	for (pugi::xml_node itemNode = config.child("corazon"); itemNode; itemNode = itemNode.next_sibling("corazon"))
 	{
 		corazon = (Corazon*)app->entityManager->CreateEntity(EntityType::CORAZON);
 		corazon->parameters = itemNode;
-	}*/
+	}
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
 		moneda = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);

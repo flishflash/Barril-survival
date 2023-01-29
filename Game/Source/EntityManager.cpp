@@ -103,6 +103,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		entity = new Item();
 		break;
 
+	case EntityType::CORAZON:
+		entity = new Corazon();
+		break;
+
 	default: break;
 	}
 
