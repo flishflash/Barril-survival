@@ -12,6 +12,7 @@
 #include "Die.h"
 #include "Pathfinding.h"
 #include "ModuleFonts.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -52,9 +53,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	n = 0;
 	for (pugi::xml_node itemNode = config.child("corazon"); itemNode; itemNode = itemNode.next_sibling("corazon"))
 	{
-		corazon = (Corazon*)app->entityManager->CreateEntity(EntityType::CORAZON);
-		corazon->parameters = itemNode;
+		corazon[n] = (Corazon*)app->entityManager->CreateEntity(EntityType::CORAZON);
+		corazon[n]->parameters = itemNode;
+		n++;
 	}
+	n = 0;
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
 		moneda[n] = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
@@ -70,6 +73,20 @@ bool Scene::Awake(pugi::xml_node& config)
 	player_initPos.x = config.child("player").attribute("x").as_int();
 	player_initPos.y = config.child("player").attribute("y").as_int();
 
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,600,60,60 }, this);
+	musv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w / 2,200,60,60 }, this);
+	fxv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w / 2,350,60,60 }, this);
+	full = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w / 2,500,60,60 }, this);
+	vsy = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w / 2,650,60,60 }, this);
+
+	back->state = GuiControlState::DISABLED;
+	musv->state = GuiControlState::DISABLED;
+	fxv->state = GuiControlState::DISABLED;
+	full->state = GuiControlState::DISABLED;
+	vsy->state = GuiControlState::DISABLED;
+
 	return ret;
 }
 
@@ -78,6 +95,8 @@ bool Scene::Start()
 {
 	LOG("Loading Scene");
 	img = app->tex->Load("Assets/Maps/back.png");
+	imgs = app->tex->Load("Assets/Maps/settings.png");
+	imgr = app->tex->Load("Assets/Maps/Resume.png");
 	app->audio->PlayMusic("Assets/Audio/Music/Map_Music.ogg");
 	app->render->DrawTexture(img, 0, 0);
 
@@ -103,6 +122,10 @@ bool Scene::Start()
 	for (int n = 0; n < 14; n++)
 	{
 		moneda[n]->Start();
+	}
+	for (int n = 0; n < 3; n++)
+	{
+		corazon[n]->Start();
 	}
 
 	// L03: DONE: Load map
@@ -141,6 +164,7 @@ bool Scene::Start()
 		originTex = app->tex->Load("Assets/Maps/path_square.png");
 	}
 	vidas = 3;
+	coins = 0;
 	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
 	scoreFont = app->fonts->Load("Assets/Textures/ABC.png", lookupTable, 1);
 	return true;
@@ -308,6 +332,10 @@ bool Scene::Update(float dt)
 	app->fonts->BlitText(50, 35, scoreFont, HighscoreText);
 	app->fonts->BlitText(35, 70, scoreFont, "COINS");
 	app->fonts->BlitText(50, 70, scoreFont, coinsc);
+
+	app->render->DrawTexture(imgr, 0, -750);
+	app->render->DrawTexture(imgs, 1030, -750);
+	app->guiManager->Draw();
 
 	return true;
 }

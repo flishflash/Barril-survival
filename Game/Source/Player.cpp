@@ -267,6 +267,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				}
 			}
 			break;
+		case ColliderType::CORAZON:
+			LOG("Collision ITEM");
+			vidas += 1;
+			app->audio->PlayFx(pickCoinFxId);
+			for (int n = 0; n < 3; n++)
+			{
+				if (app->scene->corazon[n]->pbody == physB)
+				{
+					app->scene->corazon[n]->CleanUp();
+					app->scene->corazon[n]->pbody->ctype = ColliderType::UNKNOWN;
+				}
+			}
+			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 			if (up == true) up == false; jump_count += position.y + 2000;
@@ -308,6 +321,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::DIE_ENEMY:
 			LOG("Collision ENEMY_DIE");
 			app->scene->enemy->dies = true;
+			app->scene->enemy->pbody->ctype = ColliderType::UNKNOWN;
 			break;
 		case ColliderType::ENEMY_VIEW_FLY:
 			LOG("Collision ENEMY_VIEW_FLY");
@@ -315,7 +329,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::DIE_FLY_ENEMY:
 			LOG("Collision ENEMY_DIE_FLY");
-			app->scene->fly_enemy->CleanUp();
+			app->scene->fly_enemy->dies = CleanUp();
+			/*app->scene->fly_enemy->pbody->ctype = ColliderType::UNKNOWN;*/
 			break;
 		case ColliderType::WIN:
 			LOG("Collision WIN");

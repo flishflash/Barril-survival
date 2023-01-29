@@ -19,6 +19,7 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include "Optick/include/optick.h"
 #include <iostream>
 #include <sstream>
 
@@ -145,7 +146,7 @@ bool App::Start()
 		}
 		item = item->next;
 	}
-
+	OPTICK_EVENT();
 	return ret;
 }
 
@@ -166,7 +167,7 @@ bool App::Update()
 
 	if (ret == true)
 		ret = PostUpdate();
-
+	OPTICK_EVENT();
 	FinishUpdate();
 	return ret;
 }
@@ -194,6 +195,7 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	OPTICK_EVENT();
 }
 
 // ---------------------------------------------
@@ -238,6 +240,7 @@ void App::FinishUpdate()
 	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
 		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
 	win->SetTitle(title);
+	OPTICK_EVENT();
 }
 
 // Call modules before each loop iteration
@@ -260,7 +263,7 @@ bool App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
-
+	OPTICK_EVENT();
 	return ret;
 }
 
@@ -282,7 +285,7 @@ bool App::DoUpdate()
 
 		ret = item->data->Update(dt);
 	}
-
+	OPTICK_EVENT();
 	return ret;
 }
 
@@ -303,7 +306,7 @@ bool App::PostUpdate()
 
 		ret = item->data->PostUpdate();
 	}
-
+	OPTICK_EVENT();
 	return ret;
 }
 

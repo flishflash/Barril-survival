@@ -25,14 +25,12 @@ public:
 public:
 
 	bool isPicked = false;
+	PhysBody* pbody;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
-
-	//DONE 4: Add a physics to an item
-	PhysBody* pbody;
 };
 
 #endif // __CORAZON_H__

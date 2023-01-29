@@ -1,5 +1,5 @@
 #include "App.h"
-
+#include "Optick/include/optick.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -67,6 +67,7 @@ int main(int argc, char* args[])
 			LOG("START PHASE ===============================");
 			if(app->Start() == true)
 			{
+				OPTICK_FRAME("Main Loop");
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
 			}
@@ -79,6 +80,7 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
+
 			if(app->Update() == false)
 				state = CLEAN;
 			break;

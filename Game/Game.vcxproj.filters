@@ -100,6 +100,7 @@
     <ClInclude Include="Source\ModuleFonts.h" />
     <ClInclude Include="Source\Corazon.h" />
     <ClInclude Include="Source\GuiCheckBox.h" />
+    <ClInclude Include="Source\External\Optick\include\optick.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

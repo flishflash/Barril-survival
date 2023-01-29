@@ -32,6 +32,7 @@ bool Corazon::Start() {
 	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 8, bodyType::STATIC);
+	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::CORAZON;
@@ -52,5 +53,6 @@ bool Corazon::Update()
 
 bool Corazon::CleanUp()
 {
+	texture = NULL;
 	return true;
 }

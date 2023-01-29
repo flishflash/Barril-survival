@@ -30,6 +30,7 @@ public:
 	int ID;
 	PhysBody* pbody;
 	PhysBody* view;
+	bool dies = false;
 
 private:
 

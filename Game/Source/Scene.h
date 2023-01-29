@@ -9,6 +9,7 @@
 #include "FlyEnemy.h"
 #include "GuiManager.h"
 #include "GuiButton.h"
+#include "GuiCheckBox.h"
 
 struct SDL_Texture;
 
@@ -47,7 +48,7 @@ public:
 	FlyEnemy* fly_enemy;
 	Enemy* enemy;
 	Item* moneda[50];
-	Corazon* corazon;
+	Corazon* corazon[3];
 	SDL_Texture* originTex = nullptr;
 	GuiButton* button;
 	int vidas;
@@ -62,8 +63,19 @@ public:
 	uint coins = 000;
 	char coinsc[10] = { "\0" };
 
+	GuiButton* back;
+
+	GuiCheckBox* musv;
+	GuiCheckBox* fxv;
+	GuiCheckBox* full;
+	GuiCheckBox* vsy;
+
+	bool pause = false;
+
 private:
 	SDL_Texture* img;
+	SDL_Texture* imgr;
+	SDL_Texture* imgs;
 	SDL_Texture* mouseTileTex = nullptr;
 
 	bool originSelected;
