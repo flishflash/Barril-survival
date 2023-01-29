@@ -48,12 +48,22 @@ bool Init::Start()
 	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 45,(int)h / 2 + 240,75,30 }, this);
 	settings = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,40,60,60 }, this);
 	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w - 102,600,60,60 }, this);
+	musv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,200,60,60 }, this);
+	fxv = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,350,60,60 }, this);
+	full = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,500,60,60 }, this);
+	vsy = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 1, "Button 1", { (int)w /2,650,60,60 }, this);
 	settings->state = GuiControlState::NORMAL;
 	Continue->state = GuiControlState::NORMAL;
 	newGame->state = GuiControlState::NORMAL;
 	credits->state = GuiControlState::NORMAL;
 	exit->state = GuiControlState::NORMAL;
 	back->state = GuiControlState::DISABLED;
+	musv->state = GuiControlState::DISABLED;
+	fxv->state = GuiControlState::DISABLED;
+	full->state = GuiControlState::DISABLED;
+	vsy->state = GuiControlState::DISABLED;
+
+	configg = config.load_file("config.xml");
 
 	return true;
 }
@@ -115,6 +125,11 @@ bool Init::Update(float dt)
 		credits->state = GuiControlState::DISABLED;
 		exit->state = GuiControlState::DISABLED;
 		back->state = GuiControlState::NORMAL;
+
+		musv->state = GuiControlState::SELECTED;
+		fxv->state = GuiControlState::SELECTED;
+		full->state = GuiControlState::NORMAL;
+		vsy->state = GuiControlState::NORMAL;
 	}
 	if (credits->state == GuiControlState::PRESSED)
 	{
@@ -135,7 +150,31 @@ bool Init::Update(float dt)
 		credits->state = GuiControlState::NORMAL;
 		exit->state = GuiControlState::NORMAL;
 		back->state = GuiControlState::DISABLED;
+
+		musv->state = GuiControlState::DISABLED;
+		fxv->state = GuiControlState::DISABLED;
+		full->state = GuiControlState::DISABLED;
+		vsy->state = GuiControlState::DISABLED;
 	}
+
+	if (musv->state == GuiControlState::SELECTED)
+	{
+		config.child("audio").child("music").attribute("volume") = 0;
+	}
+	if (musv->state == GuiControlState::NORMAL)
+	{
+		config.child("audio").child("music").attribute("volume") = 128;
+	}
+
+	if (fxv->state == GuiControlState::SELECTED)
+	{
+		config.child("audio").child("fx").attribute("volume") = 0;
+	}
+	if (fxv->state == GuiControlState::NORMAL)
+	{
+		config.child("audio").child("fx").attribute("volume") = 128;
+	}
+
 
 	app->render->DrawTexture(img3, 0, -725);
 	app->render->DrawTexture(img4, 0, 725);

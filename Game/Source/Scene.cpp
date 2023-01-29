@@ -167,17 +167,17 @@ bool Scene::Update(float dt)
 		switch (check)
 		{
 		case 1:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1312), PIXEL_TO_METERS(2000) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-1312), PIXEL_TO_METERS(-2000) }, 0);
 		case 2:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1360), PIXEL_TO_METERS(1664) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-1360), PIXEL_TO_METERS(-1664) }, 0);
 		case 3:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(1360), PIXEL_TO_METERS(1152) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-1360), PIXEL_TO_METERS(-1152) }, 0);
 		case 4:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2032), PIXEL_TO_METERS(1216) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-2032), PIXEL_TO_METERS(-1216) }, 0);
 		case 5:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2416), PIXEL_TO_METERS(1216) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-2416), PIXEL_TO_METERS(-1216) }, 0);
 		case 6:
-			player->pbody->body->SetTransform({ PIXEL_TO_METERS(2672), PIXEL_TO_METERS(1024) }, 0);
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(-2672), PIXEL_TO_METERS(-1024) }, 0);
 		}
 
 
@@ -290,6 +290,15 @@ bool Scene::Update(float dt)
 	sprintf_s(scoreText, 10, "%7d", timer);
 	sprintf_s(HighscoreText, 10, "%7d", player->vidas);
 	sprintf_s(coinsc, 10, "%7d", coins);
+
+	if (timer > 0)
+	{
+		timer = 500 - app->secondsSinceStartup;
+	}
+	else
+	{
+		player->dies = true;
+	}
 
 	app->fonts->BlitText(900, 35, scoreFont, scoreText);
 

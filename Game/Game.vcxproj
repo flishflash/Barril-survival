@@ -102,6 +102,7 @@
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\FlyEnemy.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
+    <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\Init.cpp" />
     <ClCompile Include="Source\Item.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Source\FadeToBlack.h" />
     <ClInclude Include="Source\FlyEnemy.h" />
     <ClInclude Include="Source\GuiButton.h" />
+    <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Init.h" />
